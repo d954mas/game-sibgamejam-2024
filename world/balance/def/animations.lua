@@ -1,12 +1,8 @@
 local M = {}
 
 M.BY_ID = {
-	RUN_BASE = { file = "pistol_run.bin" },
-	PUNCH = { file = "punch.bin" },
-	DIE = { file = "die.bin" },
+	RUN_BASE = { file = "walk.bin" },
 	LOOK_AROUND = { file = "look_around.bin" },
-	UPPERCUT = { file = "uppercut.bin" },
-	STANDING_MELEE_HORIZONTAL = { file = "standing_melee_horizontal.bin" },
 }
 
 M.BONES = {

@@ -49,7 +49,7 @@ embedded_instances {
   "  type: \"mesh\"\n"
   "  data: \"material: \\\"/assets/materials/player.material\\\"\\n"
   "vertices: \\\"/def-mesh/buffers/dummy.buffer\\\"\\n"
-  "textures: \\\"/assets/textures/rgb_mip/chars/char_boxer.png\\\"\\n"
+  "textures: \\\"/assets/textures/rgb_mip/chars/kenguru1.png\\\"\\n"
   "textures: \\\"/assets/textures/rgb/data.png\\\"\\n"
   "textures: \\\"/assets/textures/rgb/shadow.png\\\"\\n"
   "textures: \\\"/assets/textures/rgba/empty.png\\\"\\n"
