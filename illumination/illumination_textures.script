@@ -1,0 +1,8 @@
+local WORLD = require("world.world")
+
+go.property("data_texture", resource.texture("/assets/textures/rgb/data.png"))
+
+function init(self)
+	WORLD.game.lights:init(go.get(msg.url(), "data_texture"))
+	WORLD.game.lights:set_enable_shadows(WORLD.storage.options:draw_shadows_get())
+end

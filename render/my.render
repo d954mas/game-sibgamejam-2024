@@ -1,0 +1,9 @@
+script: "/render/my.render_script"
+materials {
+  name: "shadow"
+  material: "/illumination/assets/materials/shadow/shadow.material"
+}
+materials {
+  name: "shadow_bones"
+  material: "/assets/materials/shadow/shadow_bones.material"
+}

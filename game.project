@@ -1,0 +1,164 @@
+[project]
+title = Sibgame Jam 2024
+version = 1.0.0
+custom_resources = assets/custom
+bundle_exclude_resources = 
+bundle_resources = assets/bundle
+publisher = 7Spot Games
+developer = 7Spot Games
+dependencies#0 = https://github.com/GameAnalytics/GA-SDK-DEFOLD/archive/ac9be0952962942fc319a10fcdeca1eb7c587373.zip
+dependencies#1 = https://github.com/GameAnalytics/defold-openssl/archive/refs/tags/1.0.0.zip
+
+[bootstrap]
+main_collection = /init.collectionc
+render = /render/my.renderc
+
+[input]
+game_binding = /game.input_bindingc
+use_accelerometer = 0
+gamepads = /game.gamepadsc
+
+[display]
+width = 960
+height = 540
+high_dpi = 1
+fullscreen = 0
+display_profiles = /builtins/render/default.display_profilesc
+dynamic_orientation = 1
+
+[physics]
+type = 3D
+debug = 0
+use_fixed_timestep = 1
+gravity_y = -10.0
+max_collision_object_count = 256
+max_fixed_timesteps = 1
+max_collisions = 128
+world_count = 8
+
+[script]
+shared_state = 1
+
+[library]
+include_dirs = 
+
+[native_extension]
+app_manifest = /app_manifest_debug.appmanifest
+
+[android]
+gcm_sender_id = 
+push_field_text = 
+manifest = /platform/android/AndroidManifest.xml
+package = com.d954mas.sibgame2024.dev
+proguard = 
+minimum_sdk_version = 19
+immersive_mode = 1
+version_code = 6
+
+[graphics]
+texture_profiles = /render/my.texture_profiles
+default_texture_min_filter = linear
+default_texture_mag_filter = linear
+verify_graphics_calls = 0
+max_draw_calls = 2048
+max_debug_vertices = 2048
+
+[resource]
+max_resources = 2048
+
+[profiler]
+track_cpu = 1
+
+[windows]
+iap_provider = 
+
+[html5]
+show_fullscreen_button = 1
+show_made_with_defold = 0
+scale_mode = no_scale
+heap_size = 64
+splash_image = 
+wasm_streaming = 1
+cssfile = /platform/web/dark_theme.css
+htmlfile = /platform/web/engine_template.html
+retry_count = 1000
+retry_time = 0.1
+
+[label]
+max_count = 32
+
+[tilemap]
+max_count = 0
+max_tile_count = 0
+
+[engine]
+run_while_iconified = 0
+
+[ios]
+bundle_identifier = com.d954mas.sibgame2024
+
+[game]
+version = dev
+target = editor
+
+[localization]
+default = en
+use_system = true
+
+[mesh]
+max_count = 512
+
+[collection]
+max_instances = 1024
+
+[sprite]
+max_count = 128
+
+[gui]
+max_particlefx_count = 8
+max_particle_count = 64
+max_count = 16
+
+[model]
+max_count = 128
+
+[particle_fx]
+max_count = 64
+max_emitter_count = 64
+max_particle_count = 512
+
+[factory]
+max_count = 16
+
+[liveupdate]
+settings = /world/proxy/liveupdate.settings
+
+[gameanalytics]
+game_key_ios = 1a111f573b6c48f3ab9ff18f2a84fef1
+secret_key_ios = e1635d2ab0c7fb86615e4938511234dcaa2cb64c
+game_key_android = 1a111f573b6c48f3ab9ff18f2a84fef1
+secret_key_android = e1635d2ab0c7fb86615e4938511234dcaa2cb64c
+game_key_html5 = 1a111f573b6c48f3ab9ff18f2a84fef1
+secret_key_html5 = e1635d2ab0c7fb86615e4938511234dcaa2cb64c
+game_key_osx = 1a111f573b6c48f3ab9ff18f2a84fef1
+secret_key_osx = e1635d2ab0c7fb86615e4938511234dcaa2cb64c
+game_key_windows = 1a111f573b6c48f3ab9ff18f2a84fef1
+secret_key_windows = e1635d2ab0c7fb86615e4938511234dcaa2cb64c
+game_key_linux = 1a111f573b6c48f3ab9ff18f2a84fef1
+secret_key_linux = e1635d2ab0c7fb86615e4938511234dcaa2cb64c
+build_ios = 1.0.6
+build_android = 1.0.6
+build_html5 = 1.0.6
+build_osx = 1.0.6
+build_windows = 1.0.6
+build_linux = 1.0.6
+custom_dimensions_01 = editor,play_market,poki,other
+
+[collection_proxy]
+max_count = 16
+
+[admob]
+app_id_ios = ca-app-pub-8047641499945529~6980780006
+app_id_android = ca-app-pub-8047641499945529~6980780006
+ios_tracking_usage_description = Your data will be used to provide you a better and personalized ad experience.
+

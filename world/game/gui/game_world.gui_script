@@ -1,0 +1,79 @@
+local COMMON = require "libs.common"
+local WORLD = require "world.world"
+local AddResourceLabel = require "libs_project.gui.add_resource_label"
+local InfoLabel = require "libs_project.gui.info_label"
+local BaseGuiScript = require "libs_project.scripts.base_gui_script"
+
+---@class GameWorldGuiScript:GuiScriptBase
+local Script = COMMON.class("GameSceneGuiScript", BaseGuiScript)
+
+function Script:init()
+	BaseGuiScript.init(self, { context_name = COMMON.CONTEXT.NAMES.GAME_WORLD_GUI })
+end
+
+function Script:bind_vh()
+	self.vh = {
+		hp_bar_order = gui.get_node("hp_bar_order"),
+		hp_bar_order_1 = gui.get_node("hp_bar_order/1"),
+		add_resource_root = gui.get_node("add_resource/root"),
+		info_lbl_root = gui.get_node("info_lbl/root"),
+	}
+	self.view = {
+		add_resource_lbls = {},
+	}
+end
+
+function Script:init_gui()
+	BaseGuiScript.init_gui(self)
+	gui.set_enabled(self.vh.add_resource_root, false)
+	gui.set_enabled(self.vh.info_lbl_root, false)
+end
+
+function Script:update(dt)
+	local player = WORLD.game.level_creator and WORLD.game.level_creator.player
+	if player then
+		local camera_rotation = player.camera.rotation_euler
+		for i = #self.view.add_resource_lbls, 1, -1 do
+			local view = self.view.add_resource_lbls[i]
+			view:update(dt)
+			if (not view.vh) then
+				table.remove(self.view.add_resource_lbls, i)
+			else
+				gui.set_euler(view.vh.root, camera_rotation)
+			end
+		end
+	end
+end
+
+function Script:create_add_resource_lbl()
+	local nodes = gui.clone_tree(self.vh.add_resource_root)
+	local vh = {
+		root = nodes[COMMON.HASHES.hash("add_resource/root")],
+		lbl = nodes[COMMON.HASHES.hash("add_resource/lbl")],
+		icon = nodes[COMMON.HASHES.hash("add_resource/icon")],
+		origin = nodes[COMMON.HASHES.hash("add_resource/origin")],
+	}
+	local lbl = AddResourceLabel(vh)
+	table.insert(self.view.add_resource_lbls, lbl)
+	return lbl
+end
+
+function Script:create_info_lbl()
+	local nodes = gui.clone_tree(self.vh.info_lbl_root)
+	local vh = {
+		root = nodes[COMMON.HASHES.hash("info_lbl/root")],
+		lbl = nodes[COMMON.HASHES.hash("info_lbl/lbl")],
+		origin = nodes[COMMON.HASHES.hash("info_lbl/origin")],
+	}
+	local lbl = InfoLabel(vh)
+	table.insert(self.view.add_resource_lbls, lbl)
+	return lbl
+end
+
+function Script:on_input(action_id, action)
+
+end
+
+
+
+COMMON.N28S.register_scripts({ Script() })

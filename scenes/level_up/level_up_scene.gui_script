@@ -1,0 +1,89 @@
+local COMMON = require "libs.common"
+local ACTIONS = require "libs.actions.actions"
+local WORLD = require "world.world"
+local GUI = require "libs_project.gui.gui"
+local DEFS = require "world.balance.def.defs"
+local BaseGuiScript = require "libs_project.scripts.base_gui_script"
+
+---@class LevelUpSceneGuiScript:GuiScriptBase
+local Script = COMMON.class("LevelUpSceneGuiScript", BaseGuiScript)
+
+function Script:init()
+	BaseGuiScript.init(self, { context_name = COMMON.CONTEXT.NAMES.LEVEL_UP_GUI })
+end
+
+function Script:bind_vh()
+	self.vh = {
+		root = gui.get_node("root"),
+		root_adjust = gui.get_node("root/adjust"),
+		fader = gui.get_node("fader"),
+		btn_free_lbl = gui.get_node("btn_free/lbl"),
+		btn_ads_lbl = gui.get_node("btn_ads/lbl"),
+		btn_ads_icon = gui.get_node("btn_ads/icon")
+	}
+	self.views = {
+		btn_free = GUI.ButtonScale("btn_free"),
+		btn_ads = GUI.ButtonScale("btn_ads"),
+	}
+end
+
+function Script:init_gui()
+	BaseGuiScript.init_gui(self)
+	gui.set_render_order(COMMON.CONSTANTS.GUI_ORDER.MODAL)
+	self.animation_action = ACTIONS.Sequence()
+	self.animation_action.drop_empty = false
+
+	self.fader_color = gui.get_color(self.vh.fader)
+	gui.set_color(self.vh.fader, vmath.vector4(self.fader_color.x, self.fader_color.y, self.fader_color.z, 0))
+
+	local next_level = DEFS.LEVELS[WORLD.storage.game:get_level() + 1]
+	gui.set_text(self.vh.btn_free_lbl, COMMON.LUME.formatIdleNumber(next_level.reward))
+	gui.set_text(self.vh.btn_ads_lbl, COMMON.LUME.formatIdleNumber(next_level.reward * 3))
+	GUI.set_nodes_to_center(self.vh.btn_ads_icon, false, self.vh.btn_ads_lbl, true, 6)
+
+	self.views.btn_ads:set_input_listener(function()
+		WORLD.sdk:ads_rewarded(function(success)
+			if success then
+				WORLD.storage.game:level_up(true)
+				self:close()
+			end
+		end)
+	end)
+
+	self.views.btn_free:set_input_listener(function()
+		WORLD.storage.game:level_up(false)
+		self:close()
+	end)
+end
+
+function Script:close()
+	if not WORLD.sm:is_working() then
+		WORLD.sdk:ads_commercial(function()
+			WORLD.sm:back()
+		end)
+	end
+end
+
+function Script:animate_hide()
+	GUI.window_hide_animation(self)
+end
+
+function Script:animate_show()
+	GUI.window_show_animation(self)
+end
+
+function Script:update(dt)
+	self.animation_action:update(dt)
+end
+
+function Script:on_input(action_id, action)
+	if (self.views.btn_free:on_input(action_id, action)) then return true end
+	if (self.views.btn_ads:on_input(action_id, action)) then return true end
+end
+
+function Script:on_resize()
+	gui.set_adjust_mode(self.vh.root_adjust, COMMON.RENDER.gui_scale.mode)
+	gui.set_scale(self.vh.root_adjust, COMMON.RENDER.gui_scale.scale2)
+end
+
+COMMON.N28S.register_scripts({ Script() })

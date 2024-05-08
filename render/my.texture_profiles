@@ -1,0 +1,172 @@
+path_settings {
+  path: "/assets/images/debug/**/.atlas"
+  profile: "DEBUG"
+}
+path_settings {
+  path: "/assets/textures/rgb/*"
+  profile: "RGB"
+}
+path_settings {
+  path: "/assets/images/game/blocks.atlas"
+  profile: "RGB"
+}
+path_settings {
+  path: "/assets/textures/rgb_mip/gloves/*"
+  profile: "TEXTURE MODELS RGB"
+}
+path_settings {
+  path: "/assets/textures/rgb_mip/chars/*"
+  profile: "TEXTURE MODELS RGB PIXELS"
+}
+
+path_settings {
+  path: "/assets/textures/rgb_mip/**/*"
+  profile: "TEXTURE MODELS RGB MIPS"
+}
+path_settings {
+  path: "/assets/textures/rgba_mip/*"
+  profile: "TEXTURE MODELS RGBA MIPS"
+}
+path_settings {
+  path: "/assets/models/**/*"
+  profile: "TEXTURE MODELS RGB"
+}
+path_settings {
+  path: "/assets/blender_export/**/*"
+  profile: "TEXTURE MODELS RGB"
+}
+path_settings {
+  path: "/assets/images/game/game.atlas"
+  profile: "GAME"
+}
+path_settings {
+  path: "**"
+  profile: "Default No MipMaps"
+}
+profiles {
+  name: "Default"
+  platforms {
+    os: OS_ID_GENERIC
+    formats {
+      format: TEXTURE_FORMAT_RGBA
+      compression_level: NORMAL
+      compression_type: COMPRESSION_TYPE_BASIS_UASTC
+    }
+    mipmaps: false
+    max_texture_size: 0
+    premultiply_alpha: true
+  }
+}
+profiles {
+  name: "Default No MipMaps"
+  platforms {
+    os: OS_ID_GENERIC
+    formats {
+      format: TEXTURE_FORMAT_RGBA
+      compression_level: NORMAL
+      compression_type: COMPRESSION_TYPE_BASIS_UASTC
+    }
+    mipmaps: false
+    max_texture_size: 2048
+    premultiply_alpha: true
+  }
+}
+profiles {
+  name: "DEBUG"
+  platforms {
+    os: OS_ID_GENERIC
+    formats {
+      format: TEXTURE_FORMAT_RGBA
+      compression_level: BEST
+      compression_type: COMPRESSION_TYPE_BASIS_UASTC
+    }
+    mipmaps: false
+    max_texture_size: 128
+    premultiply_alpha: true
+  }
+}
+profiles {
+  name: "RGB"
+  platforms {
+    os: OS_ID_GENERIC
+    formats {
+      format: TEXTURE_FORMAT_RGB
+      compression_level: NORMAL
+      compression_type: COMPRESSION_TYPE_BASIS_UASTC
+    }
+    mipmaps: false
+    max_texture_size: 0
+    premultiply_alpha: true
+  }
+}
+profiles {
+  name: "TEXTURE MODELS RGB"
+  platforms {
+    os: OS_ID_GENERIC
+    formats {
+      format: TEXTURE_FORMAT_RGB
+      compression_level: NORMAL
+      compression_type: COMPRESSION_TYPE_BASIS_UASTC
+    }
+    mipmaps: false
+    max_texture_size: 0
+    premultiply_alpha: true
+  }
+}
+profiles {
+  name: "TEXTURE MODELS RGB PIXELS"
+  platforms {
+    os: OS_ID_GENERIC
+    formats {
+      format: TEXTURE_FORMAT_RGB
+      compression_level: BEST
+      compression_type: COMPRESSION_TYPE_DEFAULT
+    }
+    mipmaps: false
+    max_texture_size: 0
+    premultiply_alpha: true
+  }
+}
+profiles {
+  name: "TEXTURE MODELS RGB MIPS"
+  platforms {
+    os: OS_ID_GENERIC
+    formats {
+      format: TEXTURE_FORMAT_RGB
+      compression_level: NORMAL
+      compression_type: COMPRESSION_TYPE_BASIS_UASTC
+    }
+    mipmaps: true
+    max_texture_size: 0
+    premultiply_alpha: true
+  }
+}
+
+profiles {
+  name: "TEXTURE MODELS RGBA MIPS"
+  platforms {
+    os: OS_ID_GENERIC
+    formats {
+      format: TEXTURE_FORMAT_RGBA
+      compression_level: NORMAL
+      compression_type: COMPRESSION_TYPE_BASIS_UASTC
+    }
+    mipmaps: true
+    max_texture_size: 0
+    premultiply_alpha: true
+  }
+}
+profiles {
+  name: "GAME"
+  platforms {
+    os: OS_ID_GENERIC
+    formats {
+      format: TEXTURE_FORMAT_RGBA
+      compression_level: NORMAL
+      compression_type: COMPRESSION_TYPE_BASIS_UASTC
+    }
+    mipmaps: false
+    max_texture_size: 0
+    premultiply_alpha: true
+  }
+}

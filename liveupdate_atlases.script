@@ -1,0 +1,58 @@
+local COMMON = require "libs.common"
+local WORLD = require "world.world"
+
+--go.property("atlas_empty", resource.atlas("/assets/images/icons/skins/skins_empty.atlas"))
+--go.property("atlas", resource.atlas("/assets/images/icons/skins/skins.atlas"))
+go.property("font_all", resource.font("/assets/fonts/game_font_world_all.font"))
+go.property("font_base", resource.font("/assets/fonts/game_font_world.font"))
+
+function init(self)
+	self.coroutine = coroutine.create(function()
+		coroutine.yield()
+		coroutine.yield()
+		coroutine.yield()
+		while (WORLD.sm:is_working()) do coroutine.yield() end
+		coroutine.yield()
+		coroutine.yield()
+		coroutine.yield()
+
+		--[[COMMON.skins_atlas = {
+			animations = {}
+		}
+		local atlas = resource.get_atlas(self.atlas)
+		for idx, geometry in ipairs(atlas.geometries) do
+			local anim = atlas.animations[idx]
+			local data = {
+				id = anim.id,
+			}
+			COMMON.skins_atlas.animations[anim.id] = data
+			COMMON.skins_atlas.animations[hash(anim.id)] = data
+			if geometry.uvs[1] ~= geometry.uvs[3] then
+				data.need_rotate = true
+				local tc = geometry.vertices
+				--add rotation to geometry
+				local new_vertices = {
+					tc[3], tc[4],
+					tc[5], tc[6],
+					tc[7], tc[8],
+					tc[1], tc[2],
+				}
+
+				geometry.vertices = new_vertices
+				--now rotate uv and vertices to by 90
+			end
+		end
+		resource.set_atlas(self.atlas_empty, atlas)
+		COMMON.i("replace skin atlas", "liveupdate_atlases.script")--]]
+	end)
+	--timer.delay(4,false,function()
+		COMMON.LOCALIZATION:on_font_loaded(self.font_all)
+	--end)
+
+end
+
+function update(self, dt)
+	if self.coroutine then
+		self.coroutine = COMMON.coroutine_resume(self.coroutine, dt)
+	end
+end

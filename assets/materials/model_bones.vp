@@ -1,0 +1,128 @@
+attribute highp vec4 position;
+attribute mediump vec2 texcoord0;
+attribute mediump vec3 normal;
+attribute highp vec4 weight;
+attribute highp vec4 bone;
+
+uniform highp mat4 mtx_world;
+uniform highp mat4 mtx_view;
+uniform highp mat4 mtx_proj;
+
+varying mediump vec2 var_texcoord0;
+
+varying highp vec3 var_world_position;
+varying mediump vec3 var_world_normal;
+varying highp vec3 var_camera_position;
+varying highp vec3 var_view_position;
+
+#include "/illumination/assets/materials/shadow/shadow_vp.glsl"
+#include "/assets/materials/includes/matrix_utils.glsl"
+
+uniform highp vec4 animation;
+uniform highp sampler2D tex_anim;
+
+#define ENCODE_MIN -8.0
+#define ENCODE_MAX 12.0
+highp float DecodeFloatRGBA(highp vec4 rgba ) {
+    highp float f = dot( rgba, vec4(1.0, 1.0/255.0, 1.0/65025.0, 1.0/16581375.0) );
+    return  f * (ENCODE_MAX - ENCODE_MIN) + ENCODE_MIN;
+}
+
+highp mat4 get_bone_matrix(int idx) {
+    highp mat4 mtx_bone;
+    float offset = float(idx) * 3.0*4.0;
+
+    highp float x = DecodeFloatRGBA(texture2D(tex_anim,vec2(offset * animation.x, animation.y)));
+    offset = offset + 1.0;
+    highp float y = DecodeFloatRGBA(texture2D(tex_anim,vec2(offset * animation.x, animation.y)));
+    offset = offset + 1.0;
+    highp float z = DecodeFloatRGBA(texture2D(tex_anim,vec2(offset * animation.x, animation.y)));
+    offset = offset + 1.0;
+    highp float w = DecodeFloatRGBA(texture2D(tex_anim,vec2(offset * animation.x, animation.y)));
+    offset = offset + 1.0;
+    mtx_bone[0] = vec4(x,y,z,w);
+
+    x = DecodeFloatRGBA(texture2D(tex_anim,vec2(offset * animation.x, animation.y)));
+    offset = offset + 1.0;
+    y = DecodeFloatRGBA(texture2D(tex_anim,vec2(offset * animation.x, animation.y)));
+    offset = offset + 1.0;
+    z = DecodeFloatRGBA(texture2D(tex_anim,vec2(offset * animation.x, animation.y)));
+    offset = offset + 1.0;
+    w = DecodeFloatRGBA(texture2D(tex_anim,vec2(offset * animation.x, animation.y)));
+    offset = offset + 1.0;
+    mtx_bone[1] = vec4(x,y,z,w);
+
+
+    x = DecodeFloatRGBA(texture2D(tex_anim,vec2(offset * animation.x, animation.y)));
+    offset = offset + 1.0;
+    y = DecodeFloatRGBA(texture2D(tex_anim,vec2(offset * animation.x, animation.y)));
+    offset = offset + 1.0;
+    z = DecodeFloatRGBA(texture2D(tex_anim,vec2(offset * animation.x, animation.y)));
+    offset = offset + 1.0;
+    w = DecodeFloatRGBA(texture2D(tex_anim,vec2(offset * animation.x, animation.y)));
+    offset = offset + 1.0;
+    mtx_bone[2] = vec4(x,y,z,w);
+
+
+    mtx_bone = mat44_transpose(mtx_bone);
+
+    //transposed matrix simplifies reading 4x3 matrix,
+    //using 4x3 lets us to use more bones per mesh
+    //and increase performance while sending data to shader
+    return mtx_bone;
+}
+
+highp vec4 apply_bones(vec3 pos) {
+    highp  vec4 result = vec4(0.0);
+    for (int i = 0; i < 3; i++) {
+        if (weight[i] == 0.0) {break;}
+        mat4 m = get_bone_matrix(int(bone[i]));
+        vec4 v =  m * vec4(pos.x, pos.y, pos.z, 1.0);
+        result = result + v * weight[i];
+    }
+    return vec4(result.x, result.y, result.z, 1.0);
+}
+
+vec3 apply_bones_no_trans(vec3 pos) {
+    vec3 result = vec3(0.0);
+    for (int i = 0; i < 4; i++) {
+        if (weight[i] == 0.0) {break;}
+        mat3 m = mat3(get_bone_matrix(int(bone[i])));
+        vec3 v =  m * pos;
+        result = result + v * weight[i];
+    }
+    return vec3(result.x, result.y, result.z); //to fix blender
+}
+
+
+
+void main() {
+    vec4 p = vec4(position.x, position.y, position.z, 1.0);
+    vec3 n = vec3(normal.x, normal.y, normal.z);
+
+
+    if (weight.x > 0.0) {
+        p = apply_bones(position.xyz);
+        n = apply_bones_no_trans(n);
+    }
+
+
+
+    highp vec4 world_position = mtx_world * vec4(p.xyz, 1.0);
+    var_world_position = world_position.xyz;
+
+    highp vec4 view_position = mtx_view * world_position;
+    var_view_position = view_position.xyz;
+
+    var_world_normal = normalize(mat33_transpose(mat43_inverse(mtx_world)) * n);
+
+    var_texcoord0_shadow = mtx_light * vec4(world_position.xyz, 1);
+
+    mat4 mtx_inv_view = mat4_inverse(mtx_view);
+    var_camera_position = (mtx_inv_view * vec4(0.0, 0.0, 0.0, 1.0)).xyz;
+
+    var_texcoord0 = texcoord0;
+    gl_Position = mtx_proj * view_position;
+
+
+}

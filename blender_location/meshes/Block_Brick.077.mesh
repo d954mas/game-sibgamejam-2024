@@ -1,0 +1,9 @@
+material: "/assets/materials/model.material"
+vertices: "/blender_location/meshes/Block_Brick.077.buffer"
+textures: "/blender_location/images/Atlas.png"
+textures: "/assets/textures/rgb/data.png"
+textures: "/assets/textures/rgb/shadow.png"
+
+primitive_type: PRIMITIVE_TRIANGLES
+position_stream: "position"
+normal_stream: "normal"

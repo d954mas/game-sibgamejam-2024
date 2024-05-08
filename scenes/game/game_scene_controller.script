@@ -1,0 +1,38 @@
+local COMMON = require "libs.common"
+local WORLD = require "world.world"
+local SCENE_ENUMS = require "libs.sm.enums"
+
+---@class ScriptGame
+local Script = COMMON.new_n28s()
+
+function Script:init()
+	COMMON.INPUT.acquire(self)
+	COMMON.CONTEXT:register(COMMON.CONTEXT.NAMES.GAME, self, WORLD.sm:get_scene_by_name(WORLD.sm.SCENES.GAME))
+
+	local time = COMMON.get_time()
+	WORLD.game:game_loaded()
+	local delay = (COMMON.get_time() - time)
+	COMMON.i("total level load:" .. delay, "GameSceneController")
+end
+
+function Script:fixed_update(dt)
+	WORLD.game:update(dt)
+end
+
+function Script:final()
+	COMMON.INPUT.release(self)
+	COMMON.CONTEXT:unregister(COMMON.CONTEXT.NAMES.GAME)
+	WORLD.game:final()
+end
+
+function Script:on_input(action_id, action)
+	if (WORLD.sm:get_scene_by_name(WORLD.sm.SCENES.GAME)._state == SCENE_ENUMS.STATES.RUNNING) then
+		if action_id == COMMON.HASHES.INPUT.TOUCH and action.pressed then
+			WORLD.game.state.first_move = true
+		end
+		return WORLD.game:on_input(action_id, action)
+	end
+
+end
+
+COMMON.N28S.register(Script())

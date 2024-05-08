@@ -1,0 +1,337 @@
+name: "COLLECTION_NAME"
+instances {
+  id: "Block_Snow"
+  prototype: "/blender_location/gameobjects/Block_Snow.go"
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: -1.545431E-8
+    y: 1.5454313E-8
+    z: -0.7071068
+    w: 0.7071067
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_GreyBricks"
+  prototype: "/blender_location/gameobjects/Block_GreyBricks.go"
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: -8.1460335E-8
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_WoodPlanks"
+  prototype: "/blender_location/gameobjects/Block_WoodPlanks.go"
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: 1.0
+    y: 2.2204463E-16
+    z: 1.5158243E-23
+    w: 1.9470718E-7
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Diamond"
+  prototype: "/blender_location/gameobjects/Block_Diamond.go"
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: -8.146035E-8
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.1081618
+    y: 1.1081618
+    z: 1.1081618
+  }
+}
+instances {
+  id: "Stone"
+  prototype: "/blender_location/gameobjects/Stone.go"
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: -8.146035E-8
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.1081618
+    y: 1.1081618
+    z: 1.1081618
+  }
+}
+instances {
+  id: "Block_Metal"
+  prototype: "/blender_location/gameobjects/Block_Metal.go"
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: -8.146035E-8
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.1081618
+    y: 1.1081618
+    z: 1.1081618
+  }
+}
+instances {
+  id: "Block_Ice"
+  prototype: "/blender_location/gameobjects/Block_Ice.go"
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: -1.545431E-8
+    y: 1.5454313E-8
+    z: -0.7071068
+    w: 0.7071067
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Coal"
+  prototype: "/blender_location/gameobjects/Block_Coal.go"
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: -8.146035E-8
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.1081618
+    y: 1.1081618
+    z: 1.1081618
+  }
+}
+instances {
+  id: "Block_Grass"
+  prototype: "/blender_location/gameobjects/Block_Grass.go"
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: -1.545431E-8
+    y: 1.5454313E-8
+    z: -0.7071068
+    w: 0.7071067
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Crystal"
+  prototype: "/blender_location/gameobjects/Block_Crystal.go"
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: -8.146035E-8
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.1081618
+    y: 1.1081618
+    z: 1.1081618
+  }
+}
+instances {
+  id: "Block_Brick"
+  prototype: "/blender_location/gameobjects/Block_Brick.go"
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Crate"
+  prototype: "/blender_location/gameobjects/Block_Crate.go"
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: 7.349992E-15
+    y: 3.774895E-8
+    z: 1.0
+    w: 1.9470718E-7
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Cheese"
+  prototype: "/blender_location/gameobjects/Block_Cheese.go"
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: -8.1460335E-8
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Blank"
+  prototype: "/blender_location/gameobjects/Block_Blank.go"
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: -8.146035E-8
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.1081618
+    y: 1.1081618
+    z: 1.1081618
+  }
+}
+instances {
+  id: "Block_Dirt"
+  prototype: "/blender_location/gameobjects/Block_Dirt.go"
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: -1.545431E-8
+    y: 1.5454313E-8
+    z: -0.7071068
+    w: 0.7071067
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+scale_along_z: 0
+embedded_instances {
+  id: "__root"
+  children: "Block_Blank"
+  children: "Block_Brick"
+  children: "Block_Cheese"
+  children: "Block_Coal"
+  children: "Block_Crate"
+  children: "Block_Crystal"
+  children: "Block_Diamond"
+  children: "Block_Dirt"
+  children: "Block_Grass"
+  children: "Block_GreyBricks"
+  children: "Block_Ice"
+  children: "Block_Metal"
+  children: "Block_Snow"
+  children: "Block_WoodPlanks"
+  children: "Stone"
+  data: ""
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: -0.70710677
+    y: 0.0
+    z: 0.0
+    w: 0.70710677
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}

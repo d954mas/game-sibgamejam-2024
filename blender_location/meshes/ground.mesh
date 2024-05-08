@@ -1,0 +1,9 @@
+material: "/assets/materials/model.material"
+vertices: "/blender_location/meshes/ground.buffer"
+textures: "/blender_location/images/ground_base_color_1a0d06ff.png"
+textures: "/assets/textures/rgb/data.png"
+textures: "/assets/textures/rgb/shadow.png"
+
+primitive_type: PRIMITIVE_TRIANGLES
+position_stream: "position"
+normal_stream: "normal"

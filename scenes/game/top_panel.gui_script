@@ -1,0 +1,166 @@
+local COMMON = require "libs.common"
+local DEFS = require "world.balance.def.defs"
+local ResourcePanel = require "libs_project.gui.resource_panel"
+local FlyObject = require "libs_project.gui.fly_object"
+local BaseGuiScript = require "libs_project.scripts.base_gui_script"
+
+
+---@class TopPanelGuiScript:GuiScriptBase
+local Script = COMMON.class("TopPanelGuiScript", BaseGuiScript)
+
+function Script:init()
+	BaseGuiScript.init(self, { context_name = COMMON.CONTEXT.NAMES.TOP_PANEL, input = false })
+end
+
+function Script:bind_vh()
+		self.vh = {
+		fly_object = gui.get_node("fly_object/root"),
+		top = gui.get_node("top"),
+		top_right = gui.get_node("top_right"),
+		fly_object_icon = gui.get_node("fly_object/icon"),
+		left = gui.get_node("left"),
+		offer_fly_point = gui.get_node("offer_fly_point"),
+	}
+	self.views = {
+		gold_panel = ResourcePanel("panel_gold", DEFS.RESOURCES.GOLD.id),
+	}
+end
+
+function Script:init_gui()
+	BaseGuiScript.init_gui(self)
+	gui.set_render_order(COMMON.CONSTANTS.GUI_ORDER.TOP_PANEL)
+	gui.set_enabled(self.vh.fly_object, false)
+	self.fly_objects = {}
+	self.fly_objects_pool = {}
+	self.fly_objects_pool_max = 128
+	for i = 1, self.fly_objects_pool_max do
+		local nodes = gui.clone_tree(self.vh.fly_object)
+		local fly_object = FlyObject({ root = nodes["fly_object/root"], icon = nodes["fly_object/icon"] })
+		table.insert(self.fly_objects_pool, fly_object)
+	end
+
+	COMMON.EVENTS.RESOURCE_ADD:subscribe(true, function(event, ...)
+		self.views.gold_panel:event_add_resource(...)
+	end)
+
+	COMMON.EVENTS.RESOURCE_SPEND:subscribe(true, function(event, ...)
+		self.views.gold_panel:event_spend_resource(...)
+	end)
+
+end
+
+function Script:update(dt)
+	for i = #self.fly_objects, 1, -1 do
+		local fly_object = self.fly_objects[i]
+		fly_object:update(dt)
+		if (not fly_object:is_animated()) then
+			table.remove(self.fly_objects, i)
+
+			fly_object:reset()
+			table.insert(self.fly_objects_pool, fly_object)
+		end
+	end
+
+	self.views.gold_panel:update(dt)
+end
+
+function Script:create_fly_object()
+	local fly_object = table.remove(self.fly_objects_pool)
+	if not fly_object then return end
+
+	gui.set_adjust_mode(fly_object.vh.icon, COMMON.RENDER.gui_scale.mode)
+	gui.set_scale(fly_object.vh.icon, COMMON.RENDER.gui_scale.scale2 * 0.4)
+	table.insert(self.fly_objects, fly_object)
+
+	return fly_object
+end
+
+function Script:fly_resource(resource, value, from, to, delay, speed_scale, play_sound)
+	local money = value
+	local split = 1
+	speed_scale = speed_scale or 1
+	--[[if (money < 10) then
+	elseif (money < 100) then
+		split = 2 + math.random(1, 2)
+	elseif (money < 300) then
+		split = 5 + math.random(1, 5)
+	elseif (money < 1000) then
+		split = 10 + math.random(1, 5)
+	end--]]
+	local pool_a = #self.fly_objects_pool / self.fly_objects_pool_max
+	local max_count = 8
+	if pool_a < 0.25 then
+		max_count = 1
+	elseif pool_a < 0.5 then
+		max_count = 4
+	end
+	split = math.min(money, max_count)
+	local values = {}
+	local split_value = math.floor(money / split)
+
+	for i = 1, split - 1 do
+		table.insert(values, split_value)
+	end
+	table.insert(values, money - split_value * (split - 1))
+
+	delay = delay or 0
+
+	local screen_scale_x = COMMON.RENDER.screen_size.w / 960
+	local screen_scale_y = COMMON.RENDER.screen_size.h / 540
+
+	local is_gift = resource == "GIFT"
+
+	for _, value in ipairs(values) do
+		local fly_object = self:create_fly_object()
+		if fly_object then
+			gui.play_flipbook(fly_object.vh.icon, is_gift and "icon_gift" or DEFS.RESOURCES[resource].icon)
+			local from_v
+			if from then
+				from_v = vmath.vector3(from)
+				local dx = 10
+				from_v.x = from_v.x + (-dx / 2 + math.random() * dx)
+				from_v.y = from_v.y + (-dx / 2 + math.random() * dx)
+				from_v.z = 0
+			end
+			fly_object:fly({
+				from = from_v, to = to, delay = delay, appear = true,
+				speed_x = (450 + math.random() * 60) * screen_scale_x * speed_scale,
+				speed_y = (500 + math.random() * 50) * screen_scale_y * speed_scale,
+				cb = function()
+					local panel = resource == DEFS.RESOURCES.GOLD.id and self.views.gold_panel or self.views.power_panel
+					panel:add_value(value)
+				end
+			})
+		else
+			if not is_gift then
+				local panel = resource == DEFS.RESOURCES.GOLD.id and self.views.gold_panel or self.views.power_panel
+				panel:add_value(value)
+			end
+		end
+		delay = delay + math.random() * 0.1
+	end
+end
+
+
+function Script:on_resize()
+	gui.set_adjust_mode(self.vh.top, COMMON.RENDER.gui_scale.mode)
+	gui.set_adjust_mode(self.vh.top_right, COMMON.RENDER.gui_scale.mode)
+	gui.set_adjust_mode(self.vh.left, COMMON.RENDER.gui_scale.mode)
+
+
+	gui.set_scale(self.vh.top_right, COMMON.RENDER.gui_scale.scale2)
+	gui.set_scale(self.vh.top, COMMON.RENDER.gui_scale.scale)
+	gui.set_scale(self.vh.left, COMMON.RENDER.gui_scale.scale)
+
+
+	for _, fly_object in ipairs(self.fly_objects) do
+		gui.set_adjust_mode(fly_object.vh.icon, COMMON.RENDER.gui_scale.mode)
+		gui.set_scale(fly_object.vh.icon, COMMON.RENDER.gui_scale.scale2 * 0.4)
+	end
+	for _, fly_object in ipairs(self.fly_objects_pool) do
+		gui.set_adjust_mode(fly_object.vh.icon, COMMON.RENDER.gui_scale.mode)
+		gui.set_scale(fly_object.vh.icon, COMMON.RENDER.gui_scale.scale2 * 0.4)
+	end
+end
+
+COMMON.N28S.register(Script())

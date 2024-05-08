@@ -1,0 +1,9 @@
+shape_type: TYPE_HULL
+data: -20.0 data: -10.0 data: -19.0
+data: -20.0 data: 10.0 data: -19.0
+data: -20.0 data: -10.0 data: -21.0
+data: -20.0 data: 10.0 data: -21.0
+data: 20.0 data: -10.0 data: -19.0
+data: 20.0 data: 10.0 data: -19.0
+data: 20.0 data: -10.0 data: -21.0
+data: 20.0 data: 10.0 data: -21.0

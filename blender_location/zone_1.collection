@@ -1,0 +1,1723 @@
+name: "COLLECTION_NAME"
+instances {
+  id: "Block_Brick.005"
+  prototype: "/blender_location/gameobjects/Block_Brick.005.go"
+  position {
+    x: 10.0
+    y: 20.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.056"
+  prototype: "/blender_location/gameobjects/Block_Brick.056.go"
+  position {
+    x: 20.0
+    y: 8.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.009"
+  prototype: "/blender_location/gameobjects/Block_Brick.009.go"
+  position {
+    x: 18.0
+    y: 20.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.037"
+  prototype: "/blender_location/gameobjects/Block_Brick.037.go"
+  position {
+    x: 12.0
+    y: -20.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.032"
+  prototype: "/blender_location/gameobjects/Block_Brick.032.go"
+  position {
+    x: 2.0
+    y: -20.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.064"
+  prototype: "/blender_location/gameobjects/Block_Brick.064.go"
+  position {
+    x: -20.0
+    y: 14.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.043"
+  prototype: "/blender_location/gameobjects/Block_Brick.043.go"
+  position {
+    x: 20.0
+    y: -18.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.035"
+  prototype: "/blender_location/gameobjects/Block_Brick.035.go"
+  position {
+    x: 16.0
+    y: -20.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.041"
+  prototype: "/blender_location/gameobjects/Block_Brick.041.go"
+  position {
+    x: 4.0
+    y: -20.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.027"
+  prototype: "/blender_location/gameobjects/Block_Brick.027.go"
+  position {
+    x: -14.0
+    y: -20.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.022"
+  prototype: "/blender_location/gameobjects/Block_Brick.022.go"
+  position {
+    x: -4.0
+    y: -20.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.039"
+  prototype: "/blender_location/gameobjects/Block_Brick.039.go"
+  position {
+    x: 8.0
+    y: -20.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.054"
+  prototype: "/blender_location/gameobjects/Block_Brick.054.go"
+  position {
+    x: 20.0
+    y: 4.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.025"
+  prototype: "/blender_location/gameobjects/Block_Brick.025.go"
+  position {
+    x: -10.0
+    y: -20.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.006"
+  prototype: "/blender_location/gameobjects/Block_Brick.006.go"
+  position {
+    x: 12.0
+    y: 20.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.073"
+  prototype: "/blender_location/gameobjects/Block_Brick.073.go"
+  position {
+    x: -20.0
+    y: -4.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.058"
+  prototype: "/blender_location/gameobjects/Block_Brick.058.go"
+  position {
+    x: 20.0
+    y: 12.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.029"
+  prototype: "/blender_location/gameobjects/Block_Brick.029.go"
+  position {
+    x: -18.0
+    y: -20.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.018"
+  prototype: "/blender_location/gameobjects/Block_Brick.018.go"
+  position {
+    x: -10.0
+    y: 20.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.020"
+  prototype: "/blender_location/gameobjects/Block_Brick.020.go"
+  position {
+    x: -6.0
+    y: 20.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.063"
+  prototype: "/blender_location/gameobjects/Block_Brick.063.go"
+  position {
+    x: -20.0
+    y: 16.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.036"
+  prototype: "/blender_location/gameobjects/Block_Brick.036.go"
+  position {
+    x: 14.0
+    y: -20.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.061"
+  prototype: "/blender_location/gameobjects/Block_Brick.061.go"
+  position {
+    x: 20.0
+    y: 18.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.004"
+  prototype: "/blender_location/gameobjects/Block_Brick.004.go"
+  position {
+    x: 8.0
+    y: 20.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.047"
+  prototype: "/blender_location/gameobjects/Block_Brick.047.go"
+  position {
+    x: 20.0
+    y: -10.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.042"
+  prototype: "/blender_location/gameobjects/Block_Brick.042.go"
+  position {
+    x: 0.0
+    y: -20.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.053"
+  prototype: "/blender_location/gameobjects/Block_Brick.053.go"
+  position {
+    x: 20.0
+    y: 2.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.045"
+  prototype: "/blender_location/gameobjects/Block_Brick.045.go"
+  position {
+    x: 20.0
+    y: -14.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.026"
+  prototype: "/blender_location/gameobjects/Block_Brick.026.go"
+  position {
+    x: -12.0
+    y: -20.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.008"
+  prototype: "/blender_location/gameobjects/Block_Brick.008.go"
+  position {
+    x: 16.0
+    y: 20.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.013"
+  prototype: "/blender_location/gameobjects/Block_Brick.013.go"
+  position {
+    x: -20.0
+    y: 20.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.011"
+  prototype: "/blender_location/gameobjects/Block_Brick.011.go"
+  position {
+    x: 2.0
+    y: 20.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.034"
+  prototype: "/blender_location/gameobjects/Block_Brick.034.go"
+  position {
+    x: 18.0
+    y: -20.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.077"
+  prototype: "/blender_location/gameobjects/Block_Brick.077.go"
+  position {
+    x: -20.0
+    y: -12.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.072"
+  prototype: "/blender_location/gameobjects/Block_Brick.072.go"
+  position {
+    x: -20.0
+    y: -2.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.040"
+  prototype: "/blender_location/gameobjects/Block_Brick.040.go"
+  position {
+    x: 6.0
+    y: -20.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "ground"
+  prototype: "/blender_location/gameobjects/ground.go"
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 20.0
+    y: 20.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.038"
+  prototype: "/blender_location/gameobjects/Block_Brick.038.go"
+  position {
+    x: 10.0
+    y: -20.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.024"
+  prototype: "/blender_location/gameobjects/Block_Brick.024.go"
+  position {
+    x: -8.0
+    y: -20.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.067"
+  prototype: "/blender_location/gameobjects/Block_Brick.067.go"
+  position {
+    x: -20.0
+    y: 8.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.062"
+  prototype: "/blender_location/gameobjects/Block_Brick.062.go"
+  position {
+    x: -20.0
+    y: 18.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.079"
+  prototype: "/blender_location/gameobjects/Block_Brick.079.go"
+  position {
+    x: -20.0
+    y: -16.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.080"
+  prototype: "/blender_location/gameobjects/Block_Brick.080.go"
+  position {
+    x: -20.0
+    y: -18.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.001"
+  prototype: "/blender_location/gameobjects/Block_Brick.001.go"
+  position {
+    x: 0.0
+    y: 20.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.078"
+  prototype: "/blender_location/gameobjects/Block_Brick.078.go"
+  position {
+    x: -20.0
+    y: -14.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.065"
+  prototype: "/blender_location/gameobjects/Block_Brick.065.go"
+  position {
+    x: -20.0
+    y: 12.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.046"
+  prototype: "/blender_location/gameobjects/Block_Brick.046.go"
+  position {
+    x: 20.0
+    y: -12.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.028"
+  prototype: "/blender_location/gameobjects/Block_Brick.028.go"
+  position {
+    x: -16.0
+    y: -20.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.066"
+  prototype: "/blender_location/gameobjects/Block_Brick.066.go"
+  position {
+    x: -20.0
+    y: 10.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.075"
+  prototype: "/blender_location/gameobjects/Block_Brick.075.go"
+  position {
+    x: -20.0
+    y: -8.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.074"
+  prototype: "/blender_location/gameobjects/Block_Brick.074.go"
+  position {
+    x: -20.0
+    y: -6.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.057"
+  prototype: "/blender_location/gameobjects/Block_Brick.057.go"
+  position {
+    x: 20.0
+    y: 10.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.052"
+  prototype: "/blender_location/gameobjects/Block_Brick.052.go"
+  position {
+    x: 20.0
+    y: 0.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.069"
+  prototype: "/blender_location/gameobjects/Block_Brick.069.go"
+  position {
+    x: -20.0
+    y: 4.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.071"
+  prototype: "/blender_location/gameobjects/Block_Brick.071.go"
+  position {
+    x: -20.0
+    y: 0.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.017"
+  prototype: "/blender_location/gameobjects/Block_Brick.017.go"
+  position {
+    x: -12.0
+    y: 20.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.012"
+  prototype: "/blender_location/gameobjects/Block_Brick.012.go"
+  position {
+    x: -2.0
+    y: 20.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.070"
+  prototype: "/blender_location/gameobjects/Block_Brick.070.go"
+  position {
+    x: -20.0
+    y: 2.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.055"
+  prototype: "/blender_location/gameobjects/Block_Brick.055.go"
+  position {
+    x: 20.0
+    y: 6.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.060"
+  prototype: "/blender_location/gameobjects/Block_Brick.060.go"
+  position {
+    x: 20.0
+    y: 16.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.031"
+  prototype: "/blender_location/gameobjects/Block_Brick.031.go"
+  position {
+    x: -2.0
+    y: -20.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.068"
+  prototype: "/blender_location/gameobjects/Block_Brick.068.go"
+  position {
+    x: -20.0
+    y: 6.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.015"
+  prototype: "/blender_location/gameobjects/Block_Brick.015.go"
+  position {
+    x: -16.0
+    y: 20.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.076"
+  prototype: "/blender_location/gameobjects/Block_Brick.076.go"
+  position {
+    x: -20.0
+    y: -10.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.002"
+  prototype: "/blender_location/gameobjects/Block_Brick.002.go"
+  position {
+    x: 4.0
+    y: 20.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.010"
+  prototype: "/blender_location/gameobjects/Block_Brick.010.go"
+  position {
+    x: 20.0
+    y: 20.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.059"
+  prototype: "/blender_location/gameobjects/Block_Brick.059.go"
+  position {
+    x: 20.0
+    y: 14.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.044"
+  prototype: "/blender_location/gameobjects/Block_Brick.044.go"
+  position {
+    x: 20.0
+    y: -16.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.030"
+  prototype: "/blender_location/gameobjects/Block_Brick.030.go"
+  position {
+    x: -20.0
+    y: -20.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.023"
+  prototype: "/blender_location/gameobjects/Block_Brick.023.go"
+  position {
+    x: -6.0
+    y: -20.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.019"
+  prototype: "/blender_location/gameobjects/Block_Brick.019.go"
+  position {
+    x: -8.0
+    y: 20.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.033"
+  prototype: "/blender_location/gameobjects/Block_Brick.033.go"
+  position {
+    x: 20.0
+    y: -20.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.050"
+  prototype: "/blender_location/gameobjects/Block_Brick.050.go"
+  position {
+    x: 20.0
+    y: -4.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.021"
+  prototype: "/blender_location/gameobjects/Block_Brick.021.go"
+  position {
+    x: -4.0
+    y: 20.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.003"
+  prototype: "/blender_location/gameobjects/Block_Brick.003.go"
+  position {
+    x: 6.0
+    y: 20.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.014"
+  prototype: "/blender_location/gameobjects/Block_Brick.014.go"
+  position {
+    x: -18.0
+    y: 20.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.007"
+  prototype: "/blender_location/gameobjects/Block_Brick.007.go"
+  position {
+    x: 14.0
+    y: 20.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.048"
+  prototype: "/blender_location/gameobjects/Block_Brick.048.go"
+  position {
+    x: 20.0
+    y: -8.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.051"
+  prototype: "/blender_location/gameobjects/Block_Brick.051.go"
+  position {
+    x: 20.0
+    y: -2.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.049"
+  prototype: "/blender_location/gameobjects/Block_Brick.049.go"
+  position {
+    x: 20.0
+    y: -6.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "Block_Brick.016"
+  prototype: "/blender_location/gameobjects/Block_Brick.016.go"
+  position {
+    x: -14.0
+    y: 20.0
+    z: 2.0
+  }
+  rotation {
+    x: 0.70710695
+    y: -0.7071066
+    z: -5.338506E-8
+    w: 5.338509E-8
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+scale_along_z: 0
+embedded_instances {
+  id: "__root"
+  children: "Block_Brick.001"
+  children: "Block_Brick.002"
+  children: "Block_Brick.003"
+  children: "Block_Brick.004"
+  children: "Block_Brick.005"
+  children: "Block_Brick.006"
+  children: "Block_Brick.007"
+  children: "Block_Brick.008"
+  children: "Block_Brick.009"
+  children: "Block_Brick.010"
+  children: "Block_Brick.011"
+  children: "Block_Brick.012"
+  children: "Block_Brick.013"
+  children: "Block_Brick.014"
+  children: "Block_Brick.015"
+  children: "Block_Brick.016"
+  children: "Block_Brick.017"
+  children: "Block_Brick.018"
+  children: "Block_Brick.019"
+  children: "Block_Brick.020"
+  children: "Block_Brick.021"
+  children: "Block_Brick.022"
+  children: "Block_Brick.023"
+  children: "Block_Brick.024"
+  children: "Block_Brick.025"
+  children: "Block_Brick.026"
+  children: "Block_Brick.027"
+  children: "Block_Brick.028"
+  children: "Block_Brick.029"
+  children: "Block_Brick.030"
+  children: "Block_Brick.031"
+  children: "Block_Brick.032"
+  children: "Block_Brick.033"
+  children: "Block_Brick.034"
+  children: "Block_Brick.035"
+  children: "Block_Brick.036"
+  children: "Block_Brick.037"
+  children: "Block_Brick.038"
+  children: "Block_Brick.039"
+  children: "Block_Brick.040"
+  children: "Block_Brick.041"
+  children: "Block_Brick.042"
+  children: "Block_Brick.043"
+  children: "Block_Brick.044"
+  children: "Block_Brick.045"
+  children: "Block_Brick.046"
+  children: "Block_Brick.047"
+  children: "Block_Brick.048"
+  children: "Block_Brick.049"
+  children: "Block_Brick.050"
+  children: "Block_Brick.051"
+  children: "Block_Brick.052"
+  children: "Block_Brick.053"
+  children: "Block_Brick.054"
+  children: "Block_Brick.055"
+  children: "Block_Brick.056"
+  children: "Block_Brick.057"
+  children: "Block_Brick.058"
+  children: "Block_Brick.059"
+  children: "Block_Brick.060"
+  children: "Block_Brick.061"
+  children: "Block_Brick.062"
+  children: "Block_Brick.063"
+  children: "Block_Brick.064"
+  children: "Block_Brick.065"
+  children: "Block_Brick.066"
+  children: "Block_Brick.067"
+  children: "Block_Brick.068"
+  children: "Block_Brick.069"
+  children: "Block_Brick.070"
+  children: "Block_Brick.071"
+  children: "Block_Brick.072"
+  children: "Block_Brick.073"
+  children: "Block_Brick.074"
+  children: "Block_Brick.075"
+  children: "Block_Brick.076"
+  children: "Block_Brick.077"
+  children: "Block_Brick.078"
+  children: "Block_Brick.079"
+  children: "Block_Brick.080"
+  children: "ground"
+  data: ""
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: -0.70710677
+    y: 0.0
+    z: 0.0
+    w: 0.70710677
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}

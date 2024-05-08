@@ -1,0 +1,12 @@
+[project]
+title = Sibgame Jam 2024
+
+[android]
+package = com.d954mas.sibgame2024
+
+[game]
+version = release
+target = other
+
+[native_extension]
+app_manifest = /app_manifest_release.appmanifest

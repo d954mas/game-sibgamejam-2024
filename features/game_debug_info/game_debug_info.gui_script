@@ -1,0 +1,35 @@
+local COMMON = require "libs.common"
+local WORLD = require "world.world"
+
+local Script = COMMON.new_n28s()
+
+function Script:init()
+	gui.set_render_order(COMMON.CONSTANTS.GUI_ORDER.DEBUG)
+	self.vh = {
+		root = gui.get_node("root"),
+		lbl_entities = gui.get_node("lbl_entities"),
+		lbl_player_pos = gui.get_node("lbl_player_pos"),
+	}
+	self.enabled = WORLD.storage.debug:draw_debug_info_is()
+	gui.set_enabled(self.vh.root, self.enabled)
+end
+
+function Script:update(dt)
+	local draw_debug =  WORLD.storage.debug:draw_debug_info_is() and COMMON.CONSTANTS.TARGET_IS_EDITOR
+	if (self.enabled ~= draw_debug) then
+		self.enabled = draw_debug
+		gui.set_enabled(self.vh.root, self.enabled)
+	end
+	if (self.enabled) then
+		gui.set_text(self.vh.lbl_entities, #WORLD.game.ecs_game.ecs.entities)
+
+		if (WORLD.game.level_creator and WORLD.game.level_creator.player) then
+			local pos = WORLD.game.level_creator.player.position
+			gui.set_text(self.vh.lbl_player_pos, string.format("(%.2f %.2f %.2f", pos.x, pos.y, pos.z))
+		end
+
+	end
+
+end
+
+COMMON.N28S.register(Script())

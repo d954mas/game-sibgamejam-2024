@@ -1,0 +1,352 @@
+local COMMON = require "libs.common"
+local WORLD = require "world.world"
+
+local HASH_WINDOW_RESIZED = hash("window_resized")
+local TAG = "Render"
+
+local function create_3d_gui_buffer(w, h)
+	local color_params = {
+		format = render.FORMAT_RGBA,
+		width = w,
+		height = h,
+		min_filter = render.FILTER_NEAREST,
+		mag_filter = render.FILTER_NEAREST,
+		u_wrap = render.WRAP_CLAMP_TO_EDGE,
+		v_wrap = render.WRAP_CLAMP_TO_EDGE }
+
+	local depth_params = {
+		format = render.FORMAT_DEPTH,
+		width = w,
+		height = h,
+		min_filter = render.FILTER_NEAREST,
+		mag_filter = render.FILTER_NEAREST,
+		u_wrap = render.WRAP_CLAMP_TO_EDGE,
+		v_wrap = render.WRAP_CLAMP_TO_EDGE }
+
+	return render.render_target("shadow_buffer", { [render.BUFFER_COLOR_BIT] = color_params, [render.BUFFER_DEPTH_BIT] = depth_params })
+end
+
+---@class Render
+local Render = COMMON.new_n28s()
+
+function Render:init()
+	COMMON.RENDER = self
+	self.screen_size = {
+		w = nil, h = nil, aspect = nil
+	}
+	self.config_size = {
+		w = render.get_width(),
+		h = render.get_height()
+	}
+
+	self.gui_scale = {
+		mode = gui.ADJUST_FIT,
+		scale = vmath.vector3(1),
+		scale2 = vmath.vector3(1),
+		scale3 = vmath.vector3(1)
+	}
+
+	self.camera_view = vmath.matrix4()
+	self.camera_perspective = vmath.matrix4()
+	self.camera_frustum = vmath.matrix4()
+	self.camera_frustum_objects = vmath.matrix4()
+	self.camera_frustum_shadow = vmath.matrix4()
+
+	self.rt_camera = {
+		view = vmath.matrix4(),
+		projection = vmath.matrix4(),
+	}
+
+	self.constants = {
+		time = vmath.vector4()
+	}
+
+	self:init_predicates()
+	self:init_draw_opts()
+	self.clear = { [render.BUFFER_COLOR_BIT] = WORLD.game.lights.fog_color, [render.BUFFER_DEPTH_BIT] = 1, [render.BUFFER_STENCIL_BIT] = 0 }
+	self.clear_rt = { [render.BUFFER_COLOR_BIT] = vmath.vector4(0, 0, 0, 0), [render.BUFFER_DEPTH_BIT] = 1, [render.BUFFER_STENCIL_BIT] = 0 }
+	self:calculate_screen_size()
+	self:window_size_changed()
+
+	--[[timer.delay(5/60,true,function()
+		local lights = WORLD.game.lights
+		resource.set_texture(lights.data_texture_resource, lights.data_texture_empty_params, lights.data_texture_empty_buffer)
+	end)--]]
+end
+
+function Render:init_draw_opts()
+	self.draw_opts = {
+		constants = render.constant_buffer(),
+		frustum = nil,
+		frustum_planes = render.FRUSTUM_PLANES_ALL
+	}
+	self.draw_opts_no_frustum = {
+		constants = self.draw_opts.constants
+	}
+
+	WORLD.game.lights:add_constants(self.draw_opts.constants)
+	WORLD.game.lights:set_render(self)
+end
+
+function Render:init_predicates()
+	self.predicates = {
+		player = render.predicate({ "player" }),
+		player_3drt = render.predicate({ "player_rt" }),
+		model = render.predicate({ "model" }),
+		model_flipped = render.predicate({ "model_flipped" }),
+		model_3drt = render.predicate({ "model_rt" }),
+		model_3drt_flipped = render.predicate({ "model_rt_flipped" }),
+		model_no_shadow = render.predicate({ "model_no_shadow" }),
+		water = render.predicate({ "water" }),
+		gui = render.predicate({ "gui" }),
+		gui_world = render.predicate({ "gui_world" }),
+		gui_world_top = render.predicate({ "gui_world_top" }),
+		zone = render.predicate({ "zone" }),
+		zone_red = render.predicate({ "zone_red" }),
+		zone_ads = render.predicate({ "zone_ads" }),
+		zone_green = render.predicate({ "zone_green" }),
+		zone_portal = render.predicate({ "zone_portal" }),
+		model_transparent = render.predicate({ "model_transparent" }),
+		particles_world = render.predicate({ "particles_world" }),
+		particles_world_top = render.predicate({ "particles_world_top" }),
+	}
+end
+
+function Render:window_size_changed()
+	self.gui_proj = vmath.matrix4_orthographic(0, self.screen_size.w, 0, self.screen_size.h, -1000, 1000)
+	self.empty_view = vmath.matrix4()
+	game.set_screen_size(self.screen_size.w, self.screen_size.h)
+
+	local gui_scale = 1
+	local gui_scale_2 = 1
+	local gui_scale_3 = 1
+
+	if COMMON.RENDER.screen_size.aspect < 0.65625 then
+		local scale_target = (16 / 9) / (0.65625)
+		local scale_current = (16 / 9) / (COMMON.RENDER.screen_size.aspect)
+		gui_scale = scale_target / scale_current
+	end
+	if COMMON.RENDER.screen_size.aspect < 3 / 4 then
+		local scale_target = (16 / 9) / (3 / 4)
+		local scale_current = (16 / 9) / (COMMON.RENDER.screen_size.aspect)
+		gui_scale_2 = scale_target / scale_current
+	end
+
+	if COMMON.RENDER.screen_size.aspect < 3.5 / 4 then
+		local scale_target = (16 / 9) / (3.5 / 4)
+		local scale_current = (16 / 9) / (COMMON.RENDER.screen_size.aspect)
+		gui_scale_3 = scale_target / scale_current
+	end
+
+	self.gui_scale.mode = COMMON.RENDER.screen_size.aspect >= 16 / 9 and gui.ADJUST_FIT or gui.ADJUST_ZOOM
+	self.gui_scale.scale.x, self.gui_scale.scale.y, self.gui_scale.scale.z = gui_scale, gui_scale, gui_scale
+	self.gui_scale.scale2.x, self.gui_scale.scale2.y, self.gui_scale.scale2.z = gui_scale_2, gui_scale_2, gui_scale_2
+	self.gui_scale.scale3.x, self.gui_scale.scale3.y, self.gui_scale.scale3.z = gui_scale_3, gui_scale_3, gui_scale_3
+
+	WORLD.game.lights:on_resize(self.screen_size.w, self.screen_size.h)
+end
+
+function Render:calculate_screen_size()
+	self.screen_size.w = render.get_window_width()
+	self.screen_size.h = render.get_window_height()
+	if (self.screen_size.w == 0) then self.screen_size.w = 1 end
+	if (self.screen_size.h == 0) then self.screen_size.h = 1 end
+	self.screen_size.aspect = self.screen_size.w / self.screen_size.h
+end
+
+function Render:on_message(message_id)
+	if message_id == HASH_WINDOW_RESIZED then
+		local prev_w = self.screen_size.w
+		local prev_h = self.screen_size.h
+		self:calculate_screen_size()
+
+		if (prev_w ~= self.screen_size.w or prev_h ~= self.screen_size.h) then
+			COMMON.i("screen size changed. from " .. "w:" .. prev_w .. " h:" .. prev_h
+					.. " to w:" .. self.screen_size.w .. " h:" .. self.screen_size.h, TAG)
+			self:window_size_changed()
+			COMMON.EVENTS.WINDOW_RESIZED:trigger()
+			WORLD.game.lights:reset_shadows()
+		end
+	end
+end
+
+function Render:update(dt)
+	self.constants.time.x = WORLD.time
+	self.draw_opts.constants.time = self.constants.time
+
+	game.camera_set_z_far(WORLD.balance.config.far_z_small)
+	game.camera_get_view(self.camera_view)
+	game.camera_get_perspective(self.camera_perspective)
+	xmath.matrix_mul(self.camera_frustum_objects, self.camera_perspective, self.camera_view)
+
+	game.camera_set_z_far(WORLD.balance.config.far_z_shadow)
+	game.camera_get_perspective(self.camera_perspective)
+	xmath.matrix_mul(self.camera_frustum_shadow, self.camera_perspective, self.camera_view)
+
+	game.camera_set_z_far(WORLD.balance.config.far_z_base)
+	game.camera_get_perspective(self.camera_perspective)
+	xmath.matrix_mul(self.camera_frustum, self.camera_perspective, self.camera_view)
+
+	WORLD.game.lights:set_view(self.camera_view)
+	--frustum for shadow
+	WORLD.game.lights:set_frustum(self.camera_frustum_shadow)
+
+	WORLD.game.lights:set_lights_camera_aspect(self.screen_size.aspect)
+	WORLD.game.lights:set_lights_camera_fov(game.camera_get_fov())
+	WORLD.game.lights:set_lights_camera_far(game.camera_get_far())
+	WORLD.game.lights:set_lights_camera_near(game.camera_get_near())
+
+	if (WORLD.game.level_creator) then
+		local camera = WORLD.game.level_creator.player.camera
+		WORLD.game.lights:set_camera(camera.position.x, camera.position.y, camera.position.z)
+	end
+
+	illumination.lights_set_view(self.camera_view)
+	illumination.lights_set_frustum(self.camera_frustum)
+
+	local time = chronos.nanotime()
+	WORLD.game.lights:update_lights()
+	--hotfix use global for gui debug info
+	local update_clusters_time = chronos.nanotime() - time
+
+	WORLD.game.lights:render_shadows()
+
+	render.set_viewport(0, 0, self.screen_size.w, self.screen_size.h)
+	render.set_depth_mask(true)
+	render.set_stencil_mask(0xff)
+	render.clear(self.clear)
+
+	render.set_view(self.camera_view)
+	render.set_projection(self.camera_perspective)
+
+	--render.set_depth_mask(true)
+	render.enable_state(render.STATE_DEPTH_TEST)
+	render.enable_state(render.STATE_CULL_FACE)
+	render.disable_state(render.STATE_STENCIL_TEST)
+	render.disable_state(render.STATE_BLEND)
+	render.set_blend_func(render.BLEND_ONE, render.BLEND_ONE_MINUS_SRC_ALPHA)
+
+	self.draw_opts.frustum = self.camera_frustum_objects
+
+	render.draw(self.predicates.model_no_shadow, self.draw_opts)
+	WORLD.game.lights:draw_begin()
+	render.draw(self.predicates.model, self.draw_opts)
+	render.set_cull_face(render.FACE_FRONT)
+	render.draw(self.predicates.model_flipped, self.draw_opts)
+	render.set_cull_face(render.FACE_BACK)
+	render.draw(self.predicates.player, self.draw_opts_no_frustum)
+	--	render.draw(self.predicates.player_3drt, self.draw_opts_no_frustum)
+	render.draw(self.predicates.water, self.draw_opts_no_frustum)
+
+	render.enable_state(render.STATE_BLEND)
+	render.disable_state(render.STATE_CULL_FACE)
+	render.set_depth_mask(false)
+
+	render.draw(self.predicates.zone_green, self.draw_opts_no_frustum)
+	render.draw(self.predicates.zone_red, self.draw_opts_no_frustum)
+	render.draw(self.predicates.zone_portal, self.draw_opts_no_frustum)
+	render.draw(self.predicates.zone_ads, self.draw_opts_no_frustum)
+
+	render.draw(self.predicates.particles_world, self.draw_opts)
+	render.disable_state(render.STATE_DEPTH_TEST)
+	render.draw(self.predicates.particles_world_top, self.draw_opts)
+	render.enable_state(render.STATE_DEPTH_TEST)
+	render.draw(self.predicates.gui_world, self.draw_opts)
+
+	render.disable_state(render.STATE_DEPTH_TEST)
+	render.draw(self.predicates.gui_world_top, self.draw_opts_no_frustum)
+	WORLD.game.lights:draw_finish()
+
+	render.enable_state(render.STATE_DEPTH_TEST)
+	render.draw(self.predicates.model_transparent, self.draw_opts)
+	if (not COMMON.CONSTANTS.PLATFORM_IS_WEB) then render.draw_debug3d() end
+
+	render.enable_state(render.STATE_DEPTH_TEST)
+	render.enable_state(render.STATE_CULL_FACE)
+	render.set_depth_mask(true)
+	self:draw_3d_for_gui()
+
+
+	-- Render GUI. It takes the whole screen at this moment.
+	--render.set_viewport(0, 0, self.screen_size.w, self.screen_size.h)
+
+	render.set_depth_mask(false)
+	render.disable_state(render.STATE_DEPTH_TEST)
+	render.enable_state(render.STATE_BLEND)
+	render.disable_state(render.STATE_CULL_FACE)
+	render.set_view(self.empty_view)
+	render.set_projection(self.gui_proj)
+
+	render.enable_state(render.STATE_STENCIL_TEST)
+	if self.gui_3d_rt then
+		render.enable_texture(1, self.gui_3d_rt)
+	end
+	render.draw(self.predicates.gui)
+	if self.gui_3d_rt then
+		render.disable_texture(1)
+	end
+	render.disable_state(render.STATE_STENCIL_TEST)
+
+	--WORLD.game.lights:draw_shadow_debug()
+	--WORLD.game.lights:draw_data_lights_debug()
+	--WORLD.game.lights:draw_debug_planes()
+end
+
+function Render:draw_3d_for_gui()
+	local top_scene = WORLD.sm:get_top()
+	if self.gui_3d_rt_atlas and WORLD.sm:is_working() or (top_scene and top_scene._name == WORLD.sm.MODALS.SHOP) then
+		local image = self.gui_3d_rt_atlas.data_by_id["player_model"]
+		if not self.gui_3d_rt then
+			self.gui_3d_rt = create_3d_gui_buffer(self.gui_3d_rt_atlas.w, self.gui_3d_rt_atlas.h)
+
+			self.rt_camera.view = vmath.matrix4_look_at(vmath.vector3(0, 1, 3), vmath.vector3(0, 1, 0), vmath.vector3(0, 1, 0))
+			self.rt_camera.projection = vmath.matrix4_perspective(math.rad(60), image.w / image.h, 0.01, 100)
+		end
+
+		render.set_view(self.rt_camera.view)
+		render.set_projection(self.rt_camera.projection)
+
+		render.set_render_target(self.gui_3d_rt)
+		render.set_viewport(image.x, image.y, image.w, image.h)
+
+		render.enable_state(render.STATE_BLEND)
+		render.clear(self.clear_rt)
+		render.draw(self.predicates.player_3drt, self.draw_opts_no_frustum)
+		render.draw(self.predicates.model_3drt, self.draw_opts_no_frustum)
+		render.set_cull_face(render.FACE_FRONT)
+		render.draw(self.predicates.model_3drt_flipped, self.draw_opts_no_frustum)
+		render.set_cull_face(render.FACE_BACK)
+		render.disable_state(render.STATE_BLEND)
+
+		render.set_viewport(0, 0, self.screen_size.w, self.screen_size.h)
+		render.set_view(self.camera_view)
+		render.set_view(self.camera_perspective)
+		render.set_render_target(render.RENDER_TARGET_DEFAULT)
+	end
+
+end
+
+function Render:set_3d_rt_atlas(atlas)
+	local texture = hash(atlas.texture)
+	local texture_info = resource.get_texture_info(texture)
+	local w, h = texture_info.width, texture_info.height
+
+	local data_by_id = {}
+
+	for i = 1, #atlas.animations do
+		local anim = atlas.animations[i]
+		local gem = atlas.geometries[i]
+		data_by_id[anim.id] = { animation = anim, geometry = atlas.geometries[i],
+								x = gem.uvs[1], y = h - gem.uvs[2], w = anim.width, h = anim.height
+		}
+	end
+	self.gui_3d_rt_atlas = {
+		atlas = atlas,
+		texture = texture,
+		w = w, h = h,
+		data_by_id = data_by_id
+	}
+
+end
+
+COMMON.N28S.register(Render())

@@ -1,0 +1,106 @@
+local COMMON = require "libs.common"
+local ACTIONS = require "libs.actions.actions"
+local WORLD = require "world.world"
+local GUI = require "libs_project.gui.gui"
+local BaseGuiScript = require "libs_project.scripts.base_gui_script"
+
+---@class PrivacyPolicySceneGuiScript:GuiScriptBase
+local Script = COMMON.class("SettingsSceneGuiScript", BaseGuiScript)
+
+function Script:init()
+	BaseGuiScript.init(self, { context_name = COMMON.CONTEXT.NAMES.PRIVACY_POLICY_GUI })
+end
+
+function Script:bind_vh()
+	self.vh = {
+		root = gui.get_node("root"),
+		root_adjust = gui.get_node("root/adjust"),
+		fader = gui.get_node("fader"),
+		click_zone = gui.get_node("click_zone")
+	}
+	self.views = {
+		btn_close = GUI.ButtonScale("btn_close"),
+		btn_prev = GUI.ButtonScale("btn_prev"),
+		btn_next = GUI.ButtonScale("btn_next"),
+	}
+end
+
+function Script:init_gui()
+	BaseGuiScript.init_gui(self)
+	gui.set_render_order(COMMON.CONSTANTS.GUI_ORDER.SETTINGS)
+	self.animation_action = ACTIONS.Sequence()
+	self.animation_action.drop_empty = false
+
+	self.fader_color = gui.get_color(self.vh.fader)
+	gui.set_color(self.vh.fader, vmath.vector4(self.fader_color.x, self.fader_color.y, self.fader_color.z, 0))
+
+	self.views.btn_close:set_input_listener(function()
+		WORLD.sounds:play_sound(WORLD.sounds.sounds.btn_1)
+		self:close()
+	end)
+
+	self.views.btn_next:set_input_listener(function()
+		WORLD.sounds:play_sound(WORLD.sounds.sounds.btn_1)
+		self:set_page(self.page + 1)
+	end)
+
+	self.views.btn_prev:set_input_listener(function()
+		WORLD.sounds:play_sound(WORLD.sounds.sounds.btn_1)
+		self:set_page(self.page - 1)
+	end)
+
+	self.page = 1
+	self.page_max = 8
+	self:set_page(self.page)
+end
+
+function Script:set_page(page)
+	gui.set_enabled(gui.get_node("page_" .. self.page), false)
+	self.page = page
+	gui.set_enabled(gui.get_node("page_" .. self.page), true)
+	self.views.btn_prev:set_enabled(self.page > 1)
+	self.views.btn_next:set_enabled(self.page < self.page_max)
+end
+
+function Script:close()
+	if not WORLD.sm:is_working() then
+		WORLD.sm:replace(WORLD.sm.MODALS.SETTINGS)
+	end
+end
+
+function Script:animate_hide()
+	GUI.window_hide_animation(self)
+end
+
+function Script:animate_show()
+	GUI.window_show_animation(self)
+end
+
+function Script:update(dt)
+	self.animation_action:update(dt)
+end
+
+function Script:on_input(action_id, action)
+	if (action_id == COMMON.HASHES.INPUT.ESCAPE and action.pressed) then
+		self:close()
+		return true
+	end
+	if (self.views.btn_close:on_input(action_id, action)) then return true end
+	if (self.views.btn_next:on_input(action_id, action)) then return true end
+	if (self.views.btn_prev:on_input(action_id, action)) then return true end
+	if (action_id == COMMON.HASHES.INPUT.TOUCH and action.pressed and not gui.pick_node(self.vh.click_zone, action.x, action.y)) then
+		self:close()
+		return
+	end
+end
+
+function Script:on_resize()
+	gui.set_adjust_mode(self.vh.root_adjust, COMMON.RENDER.gui_scale.mode)
+	gui.set_scale(self.vh.root_adjust, COMMON.RENDER.gui_scale.scale3)
+end
+
+function Script:on_storage_changed()
+
+end
+
+COMMON.N28S.register_scripts({ Script() })

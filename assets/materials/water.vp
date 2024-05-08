@@ -1,0 +1,43 @@
+attribute highp vec4 position;
+attribute highp vec2 texcoord0;
+attribute mediump vec3 normal;
+
+uniform highp mat4 mtx_world;
+uniform highp mat4 mtx_view;
+uniform highp mat4 mtx_proj;
+uniform highp vec4 time;
+
+varying highp vec2 var_texcoord0;
+
+varying highp vec3 var_world_position;
+varying mediump vec3 var_world_normal;
+varying highp vec3 var_camera_position;
+varying highp vec3 var_view_position;
+
+
+
+#include "/illumination/assets/materials/shadow/shadow_vp.glsl"
+#include "/assets/materials/includes/matrix_utils.glsl"
+
+
+void main() {
+    highp vec3 localPosition = position.xyz;
+    float fTime = time.x * 1.0;
+    localPosition.y +=  cos(localPosition.z * 5.0 + fTime) * 0.3 * sin(localPosition.x * 5.0 + fTime);
+
+    highp vec4 world_position = mtx_world * vec4(localPosition, 1.0);
+    var_world_position = world_position.xyz;
+
+    highp vec4 view_position = mtx_view * world_position;
+    var_view_position = view_position.xyz;
+
+    var_world_normal = normalize(mat33_transpose(mat43_inverse(mtx_world)) * normal.xyz);
+
+    var_texcoord0_shadow = mtx_light * vec4(world_position.xyz, 1);
+
+    mat4 mtx_inv_view = mat4_inverse(mtx_view);
+    var_camera_position = (mtx_inv_view * vec4(0.0, 0.0, 0.0, 1.0)).xyz;
+
+    var_texcoord0 = texcoord0;
+    gl_Position = mtx_proj * view_position;
+}

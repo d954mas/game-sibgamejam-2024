@@ -1,0 +1,11 @@
+local COMMON = require "libs.common"
+
+
+go.property("target_gui", msg.url())
+
+function update(self, dt)
+	if COMMON.LOCALIZATION.font_all then
+		go.set(msg.url(self.target_gui), "fonts", COMMON.LOCALIZATION.font_all, { key = "game_font" })
+		msg.post(msg.url(), "disable")
+	end
+end

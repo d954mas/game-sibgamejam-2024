@@ -1,0 +1,28 @@
+# Created by .ignore support plugin (hsz.mobi)
+/.internal
+/build
+/bob/releases/*
+#save keystore in git.
+#/bob/keystore/release.jks
+#/bob/keystore/release_password.txt
+/bob/bob.jar
+/bob/bob_beta.jar
+/bob/liveupdate/content/*
+/storage.json
+/lua_lint_result.txt
+/bob/bob_old.jar
+/.idea
+*.blend
+*.blend1
+/assets/levels/**/*.obj
+/assets/levels/**/*.go
+/assets/levels/**/*.collection
+/assets/configs/load_gdocs/node_modules
+/assets/configs/load_gdocs/package-lock.json
+/assets/configs/load_gdocs/token.json
+/assets/configs/load_gdocs/credentials.json
+/assets/configs/load_gdocs/configs/**
+/assets/sounds/wav/**
+/assets/music/wav/**
+mem.json
+lprof_stat.csv

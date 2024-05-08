@@ -1,0 +1,23 @@
+[project]
+title = Sibgame Jam 2024 Dev
+
+[android]
+package = com.d954mas.sibgame2024.dev
+
+[gameanalytics]
+game_key_ios = f56dae8524334d1a377fbcc72fb768af
+secret_key_ios = 38d63197d186d3a7512d4f4bbc271f56120ab5d3
+game_key_android = f56dae8524334d1a377fbcc72fb768af
+secret_key_android = 38d63197d186d3a7512d4f4bbc271f56120ab5d3
+game_key_html5 = f56dae8524334d1a377fbcc72fb768af
+secret_key_html5 = 38d63197d186d3a7512d4f4bbc271f56120ab5d3
+game_key_osx = f56dae8524334d1a377fbcc72fb768af
+secret_key_osx = 38d63197d186d3a7512d4f4bbc271f56120ab5d3
+game_key_windows = f56dae8524334d1a377fbcc72fb768af
+secret_key_windows = 38d63197d186d3a7512d4f4bbc271f56120ab5d3
+game_key_linux = f56dae8524334d1a377fbcc72fb768af
+secret_key_linux = 38d63197d186d3a7512d4f4bbc271f56120ab5d3
+
+[game]
+version = dev
+target = other

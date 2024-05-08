@@ -1,0 +1,13 @@
+local CONTEXT = require "libs_project.contexts_manager"
+local FEATURES = require "libs.features"
+local WORLD = require "world.world"
+
+function init(self)
+	CONTEXT:register(CONTEXT.NAMES.LIVEUPDATE_COLLECTION, self)
+	FEATURES:load_liveupdate()
+	WORLD.game:liveupdate_ready()
+end
+
+function final(self)
+	CONTEXT:unregister(CONTEXT.NAMES.LIVEUPDATE_COLLECTION)
+end

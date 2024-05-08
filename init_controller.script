@@ -1,0 +1,174 @@
+local COMMON = require "libs.common"
+local SM = require "libs.sm.scene_manager"
+local SCENE_LOADER = require "libs.sm.scene_loader"
+local LIVEUPDATE = require "libs_project.liveupdate"
+local WORLD = require "world.world"
+local GAME_MESH_READER = require "def-mesh.game_mesh_reader"
+local ANALYTICS_HELPER = require "libs_project.analytics_helper"
+local PERLIN = require "libs.perlin"
+
+local SCENES = {
+	require "scenes.game.game_scene",
+	require "scenes.settings.settings_scene",
+	require "scenes.privacy_policy.privacy_policy_scene",
+	require "scenes.quest.quest_scene",
+	require "scenes.offline_income.offline_income_scene"
+}
+
+local LIVEUPDATE_PROXY_URL = msg.url("main:/liveupdate#proxy")
+
+---@class ScriptMain
+local Script = COMMON.new_n28s()
+
+function Script:scenes_register()
+	local sm = SM()
+
+	sm.SCENES = {
+		GAME = "GameScene",
+	}
+
+	sm.MODALS = {
+		SETTINGS = "SettingsScene",
+		PRIVACY = "PrivacyPolicyScene",
+		QUEST = "QuestScene",
+		OFFLINE_INCOME = "OfflineIncomeScene",
+	}
+
+	local reg_scenes = {}
+	for i, v in ipairs(SCENES) do reg_scenes[i] = v() end --create instances
+	sm:register(reg_scenes)
+	WORLD.sm = sm
+end
+
+function Script:init_random()
+	math.randomseed(os.time())
+	math.random()
+	math.random()
+	math.random()
+end
+
+function Script:init()
+	PERLIN.init()
+	local error_table = {}
+	sys.set_error_handler(function(source, message, traceback)
+		-- Concatenate all args to make the error string like that:
+		-- lua: example/poki-sdk.gui_script:86: attempt to index global 'dsf' (a nil value)
+		-- stack traceback:
+		-- [C]:-1: in function set_position
+		--     example/poki-sdk.gui_script:31: in function <example/poki-sdk.gui_script:18>
+		local new_error_string = tostring(source) .. ": " .. tostring(message) .. "\n" .. tostring(traceback)
+		if (not error_table[new_error_string]) then
+			error_table[new_error_string] = true
+			COMMON.e(new_error_string)
+		end
+	end)
+
+	self.url = msg.url()
+
+	COMMON.CONTEXT:register(COMMON.CONTEXT.NAMES.MAIN, self)
+
+	self:scenes_register()
+	self:init_random()
+
+	--fixed set group gain
+	timer.delay(0, false, function()
+		WORLD.sounds:on_storage_changed()
+	end)
+
+	WORLD.sdk:init(function()
+		WORLD.sm:show(WORLD.sm.SCENES.GAME)
+	end)
+
+	--load crash
+	local handle = crash.load_previous()
+	if handle then
+		COMMON.e(crash.get_extra_data(handle))
+		crash.release(handle)
+	end
+
+	window.set_listener(function(_, event, data)
+		COMMON.EVENTS.WINDOW_EVENT:trigger(event, data)
+	end)
+
+	LIVEUPDATE.remove_old()
+	self:liveupdate_load()
+
+	GAME_MESH_READER.load()
+
+	ANALYTICS_HELPER.game_loaded()
+
+	WORLD.sdk:preload_ads()
+
+	COMMON.i("init time:" .. COMMON.get_time() - COMMON.GLOBAL.time_init_start)
+
+	COMMON.LOCALIZATION:set_locale(assert(WORLD.storage.options:language_get()))
+
+	msg.post(".", COMMON.HASHES.INPUT.ACQUIRE_FOCUS)
+end
+
+function Script:liveupdate_load()
+	--load music
+	local cb
+	cb = function(success)
+		print("load proxy success:" .. tostring(success))
+		if (success) then
+			--load liveupdate collection
+			msg.post(LIVEUPDATE_PROXY_URL, COMMON.HASHES.MSG.LOADING.ASYNC_LOAD)
+		else
+			COMMON.e("can't load liveupdate:" .. tostring(LIVEUPDATE_PROXY_URL))
+			timer.delay(0.2, false, function()
+				LIVEUPDATE.load_proxy(LIVEUPDATE_PROXY_URL, cb)
+			end)
+		end
+	end
+	LIVEUPDATE.load_proxy(LIVEUPDATE_PROXY_URL, cb)
+end
+
+function Script:update(dt)
+	--init input always on top
+	msg.post(self.url, COMMON.HASHES.INPUT.ACQUIRE_FOCUS)
+	WORLD:update(dt)
+
+	if (WORLD.sm.scene) then
+		local scene_name = WORLD.sm.scene._name
+		if (scene_name ~= WORLD.sm.SCENES.GAME) then
+			WORLD.sdk:gameplay_stop()
+			if COMMON.CONTEXT:exist(COMMON.CONTEXT.NAMES.GAME) then
+				local ctx = COMMON.CONTEXT:set_context_top_game()
+				WORLD.game.ecs_game:update_not_top(dt)
+				ctx:remove()
+			end
+		elseif (WORLD.game.state.first_move) then
+			WORLD.sdk:gameplay_start()
+		end
+	end
+	if WORLD.game and WORLD.game.level_creator then
+		WORLD.game:check_offline_income()
+	end
+end
+
+
+function Script:final()
+	COMMON.INPUT.clear()
+	COMMON.CONTEXT:unregister(COMMON.CONTEXT.NAMES.MAIN)
+end
+
+function Script:on_input(action_id, action)
+	COMMON.INPUT.handle_pressed_keys(action_id, action)
+	COMMON.INPUT.global_on_input(action_id, action)
+end
+
+function Script:on_message(message_id, message, sender)
+	if (message_id == COMMON.HASHES.MSG.LOADING.PROXY_LOADED) then
+		if (sender.path == LIVEUPDATE_PROXY_URL.path) then
+			msg.post(sender, COMMON.HASHES.MSG.ENABLE)
+			--msg.post(sender, COMMON.HASHES.INPUT.ACQUIRE_FOCUS)
+			WORLD.sounds:liveupdate_ready()
+			WORLD.sounds:play_music(WORLD.sounds.music.main)
+		else
+			SCENE_LOADER.load_done(sender)
+		end
+	end
+end
+
+COMMON.N28S.register(Script())
