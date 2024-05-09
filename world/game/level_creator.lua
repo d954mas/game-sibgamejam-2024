@@ -56,32 +56,10 @@ function Creator:level_set_cell(level, x, y, type)
 	level.map[y][x].type = type
 end
 
-function Creator:create_level()
+function Creator:create_level(id)
 	self.player_spawn_position = nil
-	local level_cells = {
-		"000000000000000000000",
-		"000000000000000000000",
-		"000000000000000000000",
-		"000000000000000000000",
-		"000000000000000000000",--5
-		"000000000000000000000",
-		"000000000000000000000",
-		"000000000000000000000",
-		"0000000000B0000000000",
-		"0000000000B0000000000",--10
-		"00000000BBPFB00000000",--center
-		"0000000000B0000000000",--12
-		"0000000000B0000000000",
-		"000000000000000000000",
-		"000000000000000000000",--15
-		"000000000000000000000",
-		"000000000000000000000",
-		"000000000000000000000",
-		"000000000000000000000",
-		"000000000000000000000",--20
-		"000000000000000000000",
-	}
-
+	local level_def = DEFS.LEVELS.BY_ID[id]
+	local level_cells = level_def.cells
 	local level = {
 		size = { w = 0, h = 0 },
 		cell_size = {w =4, h = 4},
@@ -115,6 +93,10 @@ function Creator:create_level()
 				level.map[y][x] = { type = ENUMS.CELL_TYPE.BLOCK_FAKE }
 			elseif cell == "S" then
 				level.map[y][x] = { type = ENUMS.CELL_TYPE.BLOCK_STATIC }
+			elseif cell == "E" then
+				level.map[y][x] = { type = ENUMS.CELL_TYPE.EXIT }
+			else
+				error("Unknown cell type:" .. cell)
 			end
 		end
 	end
@@ -122,7 +104,7 @@ function Creator:create_level()
 	return level
 end
 
-function Creator:create_location(location_id)
+function Creator:create_location(location_id,level_id)
 	self:unload_location()
 	self.location.id = location_id
 	self.location.def = assert(DEFS.LOCATIONS.BY_ID[location_id])
@@ -132,7 +114,7 @@ function Creator:create_location(location_id)
 	self.location.physics_url = assert(self.location.urls[hash("/collisions")])
 	self.location.other_url = assert(self.location.urls[hash("/other")])
 
-	self.location.level = self:create_level()
+	self.location.level = self:create_level(level_id)
 	self:load_level()
 
 	for _, object in ipairs(self.location.def.objects) do

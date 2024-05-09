@@ -34,8 +34,9 @@ function GameWorld:reset_state()
 	self.lights:reset()
 end
 
-function GameWorld:load_location(location_id)
+function GameWorld:load_location(location_id, level_id)
 	print("LOAD LOCATION:" .. location_id)
+	print("LOAD LEVEL:" .. level_id)
 	local time = chronos.nanotime()
 	local location_def = DEFS.LOCATIONS.BY_ID[location_id]
 	if location_def.liveupdate and not LIVEUPDATE.is_ready() then
@@ -51,7 +52,7 @@ function GameWorld:load_location(location_id)
 	end
 
 	self.level_creator = LevelCreator(self.world)
-	self.level_creator:create_location(location_id)
+	self.level_creator:create_location(location_id, level_id)
 
 	self.level_creator:create_player(self.level_creator.player_spawn_position)
 
@@ -79,13 +80,14 @@ end
 function GameWorld:game_loaded()
 	self:liveupdate_ready()
 	local def = DEFS.LOCATIONS.BY_ID[DEFS.LOCATIONS.BY_ID.ZONE_1.id]
+	local level_def = DEFS.LEVELS.BY_ID.TUTORIAL_1
 	if def.liveupdate and not LIVEUPDATE.is_ready() then
 		self.actions:add_action(function()
 			while (not LIVEUPDATE.is_ready()) do coroutine.yield() end
-			self:load_location(def.id)
+			self:load_location(def.id, level_def.id)
 		end)
 	else
-		self:load_location(def.id)
+		self:load_location(def.id, level_def.id)
 	end
 	--call gc while loading bg is still on screen
 	collectgarbage("collect")
@@ -235,7 +237,6 @@ function GameWorld:player_jump()
 	if (player.die) then return end
 	player.movement.pressed_jump = true
 end
-
 
 return GameWorld
 
