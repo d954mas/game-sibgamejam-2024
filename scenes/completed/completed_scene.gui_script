@@ -1,0 +1,93 @@
+local COMMON = require "libs.common"
+local ACTIONS = require "libs.actions.actions"
+local WORLD = require "world.world"
+local GUI = require "libs_project.gui.gui"
+local DEFS = require "world.balance.def.defs"
+local ButtonScale = require "libs_project.gui.button_scale"
+local AutosizeLabel = require "libs_project.gui.autosize_label"
+local BaseGuiScript = require "libs_project.scripts.base_gui_script"
+
+---@class CompletedSceneGuiScript:GuiScriptBase
+local Script = COMMON.class("CompletedSceneGuiScript", BaseGuiScript)
+
+function Script:init()
+	BaseGuiScript.init(self, { context_name = COMMON.CONTEXT.NAMES.COMPLETED_GUI })
+end
+
+function Script:bind_vh()
+	self.vh = {
+		root = gui.get_node("root"),
+		root_adjust = gui.get_node("root/adjust"),
+		fader = gui.get_node("fader"),
+	}
+	self.views = {
+		title_lbl = AutosizeLabel("title"),
+		btn_restart = ButtonScale("btn_restart"),
+		btn_restart_lbl = AutosizeLabel("btn_restart/lbl"),
+		btn_next = ButtonScale("btn_next"),
+		btn_next_lbl = AutosizeLabel("btn_next/lbl"),
+	}
+end
+
+function Script:init_gui()
+	BaseGuiScript.init_gui(self)
+	gui.set_render_order(COMMON.CONSTANTS.GUI_ORDER.SETTINGS)
+	self.animation_action = ACTIONS.Sequence()
+	self.animation_action.drop_empty = false
+
+	self.fader_color = gui.get_color(self.vh.fader)
+	gui.set_color(self.vh.fader, vmath.vector4(self.fader_color.x, self.fader_color.y, self.fader_color.z, 0))
+
+	self.views.btn_restart:set_input_listener(function()
+		WORLD.game:load_location(DEFS.LOCATIONS.BY_ID.ZONE_1.id, WORLD.game.level_creator.location.level.id)
+		self:close()
+	end)
+	local level_idx = COMMON.LUME.findi(DEFS.LEVELS.LEVELS_LIST, WORLD.game.level_creator.location.level.id)
+	level_idx = level_idx + 1
+	self.views.btn_next:set_enabled(level_idx <= #DEFS.LEVELS.LEVELS_LIST)
+	self.views.btn_next:set_input_listener(function()
+		WORLD.game:load_location(DEFS.LOCATIONS.BY_ID.ZONE_1.id, DEFS.LEVELS.LEVELS_LIST[level_idx])
+		self:close()
+	end)
+end
+
+function Script:close()
+	if not WORLD.sm:is_working() then
+		WORLD.sdk:ads_commercial(function()
+			WORLD.sm:back()
+		end)
+	end
+end
+
+function Script:animate_hide()
+	GUI.window_hide_animation(self)
+end
+
+function Script:animate_show()
+	GUI.window_show_animation(self)
+end
+
+function Script:update(dt)
+	self.animation_action:update(dt)
+end
+
+function Script:on_input(action_id, action)
+	if self.views.btn_next:on_input(action_id, action) then return true end
+	if self.views.btn_restart:on_input(action_id, action) then return true end
+
+end
+
+function Script:on_resize()
+	gui.set_adjust_mode(self.vh.root_adjust, COMMON.RENDER.gui_scale.mode)
+	gui.set_scale(self.vh.root_adjust, COMMON.RENDER.gui_scale.scale3)
+end
+
+function Script:on_storage_changed()
+
+end
+
+function Script:on_language_changed()
+	self.views.title_lbl:set_text(COMMON.LOCALIZATION:translate("completed_title"))
+end
+
+COMMON.N28S.register_scripts({ Script() })

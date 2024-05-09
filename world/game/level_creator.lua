@@ -19,7 +19,8 @@ function Creator:initialize(world)
 		def = nil,
 		level_url = nil,
 		physics_url = nil,
-		urls = nil
+		urls = nil,
+		level = nil
 	}
 end
 
@@ -65,6 +66,7 @@ function Creator:create_level(id)
 	local level_def = DEFS.LEVELS.BY_ID[id]
 	local level_cells = level_def.cells
 	local level = {
+		id = id,
 		size = { w = 0, h = 0 },
 		cell_size = { w = 4, h = 4 },
 		map = {
@@ -100,7 +102,7 @@ function Creator:create_level(id)
 			elseif cell == "E" then
 				level.map[y][x] = { type = ENUMS.CELL_TYPE.EXIT }
 			elseif COMMON.LUME.findi(LEVELS_LIST, cell) then
-				level.map[y][x] = { type = ENUMS.CELL_TYPE.BLOCK_LEVEL, level = COMMON.LUME.findi(LEVELS_LIST,cell) }
+				level.map[y][x] = { type = ENUMS.CELL_TYPE.BLOCK_LEVEL, level = COMMON.LUME.findi(LEVELS_LIST, cell) }
 			else
 				error("Unknown cell type:" .. cell)
 			end

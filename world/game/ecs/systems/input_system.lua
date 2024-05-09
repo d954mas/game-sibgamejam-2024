@@ -6,8 +6,6 @@ local ENUMS = require "world.enums.enums"
 local HASHES_INPUT = COMMON.HASHES.INPUT
 local PRESSED = COMMON.INPUT.PRESSED_KEYS
 
-local VMATH_LENGTH = vmath.length
-
 ---@class InputSystem:ECSSystem
 local System = ECS.system()
 System.name = "InputSystem"
@@ -19,7 +17,7 @@ end
 
 function System:movement_f(dt)
 	--check movement input
-	if COMMON.INPUT.IGNORE then
+	if COMMON.INPUT.IGNORE or self.world.game_world.game.state.completed then
 		self.movement.x = 0
 		self.movement.y = 0
 		self.movement.w = 0
@@ -53,7 +51,7 @@ function System:movement_f(dt)
 				movement.input.y = 0
 
 				local min = 0.2
-				local a = math.max(math.abs(movement.input.z),math.abs(movement.input.x))
+				local a = math.max(math.abs(movement.input.z), math.abs(movement.input.x))
 				movement.max_speed_limit = min + (1 - min) * TWEEN.easing.outQuad(a, 0, 1, 1)
 			end
 		end
@@ -82,27 +80,8 @@ function System:movement_f(dt)
 	end
 end
 
-function System:punch()
-	local player = self.world.game_world.game.level_creator.player
-	local punch = player.punch
-	if (PRESSED[HASHES_INPUT.F] or PRESSED[HASHES_INPUT.LEFT_MOUSE]) then
-		if (punch.state == ENUMS.PUNCH_STATE.READY or punch.state == ENUMS.PUNCH_STATE.PUNCH) then
-			punch.pressed_attack = self.world.game_world.game.state.time
-		end
-	end
-end
-
-function System:super_attack()
-	if (PRESSED[HASHES_INPUT.ENTER]) then
-		self.world.game_world.game:super_attack()
-	end
-end
-
 function System:update(dt)
 	self:movement_f(dt)
-	--self:punch()
-	self:super_attack()
-
 end
 
 return System

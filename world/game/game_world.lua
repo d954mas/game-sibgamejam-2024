@@ -26,6 +26,7 @@ function GameWorld:reset_state()
 		time = 0,
 		time_location = 0,
 		first_move = false,
+		completed = false,
 	}
 	self.offer = {
 		idx = 1, resource = nil, value = nil, prev_offer_time = 0
@@ -47,6 +48,7 @@ function GameWorld:load_location(location_id, level_id)
 	local ctx = COMMON.CONTEXT:set_context_top_game()
 	self.ecs_game.ecs:clear()
 	self.state.time_location = 0
+	self.state.completed = false
 	if self.level_creator then
 		self.level_creator:unload_location()
 	end

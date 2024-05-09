@@ -27,11 +27,10 @@ function System:update(dt)
 		if cell then
 			local dx = e.position.x - (cell_x * level.cell_size.w - level.cell_size.w / 2)
 			local dy = e.position.z - (cell_y * level.cell_size.h - level.cell_size.h / 2)
-			if math.abs(dx)>0.95*level.cell_size.w or math.abs(dy)>0.95*level.cell_size.h then
+			if math.abs(dx) > 0.95 * level.cell_size.w or math.abs(dy) > 0.95 * level.cell_size.h then
 				cell, cell_x, cell_y = nil, nil, nil
 			end
 		end
-
 
 		if cell and not e.on_ground and cell.type ~= ENUMS.CELL_TYPE.BLOCK_FAKE then
 			cell, cell_x, cell_y = nil, nil, nil
@@ -49,7 +48,20 @@ function System:update(dt)
 					end
 				elseif self.cell.type == ENUMS.CELL_TYPE.BLOCK_LEVEL then
 					self.world.game_world.game:load_location(DEFS.LOCATIONS.BY_ID.ZONE_1.id, DEFS.LEVELS.LEVELS_LIST[cell_e.cell.level])
+				elseif self.cell.type == ENUMS.CELL_TYPE.EXIT and not self.world.game_world.game.state.completed then
+					self.world.game_world.game.state.completed = true
+					self.world.game_world.game.actions:add_action(function()
+						COMMON.INPUT.IGNORE = true
+						COMMON.coroutine_wait(0.5)
+						while (self.world.game_world.sm:is_working() or
+								self.world.game_world.sm:get_top()._name ~= self.world.game_world.sm.SCENES.GAME) do
+							coroutine.yield()
+						end
+						COMMON.INPUT.IGNORE = false
+						self.world.game_world.sm:show(self.world.game_world.sm.MODALS.COMPLETED)
+					end)
 				end
+
 			else
 				print("no cell")
 			end

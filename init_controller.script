@@ -9,7 +9,9 @@ local PERLIN = require "libs.perlin"
 
 local SCENES = {
 	require "scenes.game.game_scene",
-	require "scenes.settings.settings_scene",}
+	require "scenes.settings.settings_scene",
+	require "scenes.completed.completed_scene",
+}
 
 local LIVEUPDATE_PROXY_URL = msg.url("main:/liveupdate#proxy")
 
@@ -28,6 +30,7 @@ function Script:scenes_register()
 		PRIVACY = "PrivacyPolicyScene",
 		QUEST = "QuestScene",
 		OFFLINE_INCOME = "OfflineIncomeScene",
+		COMPLETED = "CompletedScene",
 	}
 
 	local reg_scenes = {}
@@ -139,7 +142,6 @@ function Script:update(dt)
 		end
 	end
 end
-
 
 function Script:final()
 	COMMON.INPUT.clear()
