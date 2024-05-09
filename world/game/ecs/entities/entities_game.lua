@@ -9,6 +9,13 @@ local TABLE_INSERT = table.insert
 local FACTORY_URL_PLAYER = msg.url("game_scene:/factory#player")
 local FACTORY_URL_ENEMY = msg.url("game_scene:/factory#enemy")
 
+local CELL_FACTORIES = {
+	[ENUMS.CELL_TYPE.BLOCK_STATIC] = msg.url("game_scene:/factory#cell_block_static"),
+	[ENUMS.CELL_TYPE.BLOCK] = msg.url("game_scene:/factory#cell_block"),
+	[ENUMS.CELL_TYPE.BLOCK_FAKE] = msg.url("game_scene:/factory#block_fake"),
+	[ENUMS.CELL_TYPE.EMPTY] = nil,
+}
+
 local PARTS = {
 	ROOT = COMMON.HASHES.hash("/root"),
 }
@@ -180,6 +187,11 @@ function Entities:create_level_cells(level)
 		map[y] = {}
 		for x = 1, level.size.w do
 			map[y][x] = { cell = e.level_cells.level.map[y][x], x = x, y = y }
+			if (map[y][x].cell.type ~= ENUMS.CELL_TYPE.EMPTY) then
+				local urls = collectionfactory.create(CELL_FACTORIES[map[y][x].cell.type], vmath.vector3(x*level.cell_size.w-level.cell_size.w/2, 0, -y*level.cell_size.h-level.cell_size.h/2))
+				map[y][x].root = msg.url(assert(urls[PARTS.ROOT]))
+				--map[y][x].collision = COMMON.LUME.url_component_from_url(map[y][x].root, "collision")
+			end
 		end
 	end
 

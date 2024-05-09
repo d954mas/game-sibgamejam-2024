@@ -59,6 +59,7 @@ end
 function Creator:create_level()
 	local level = {
 		size = { w = 21, h = 21 },
+		cell_size = {w =4, h = 4},
 		map = {
 
 		}
@@ -71,6 +72,11 @@ function Creator:create_level()
 	end
 
 	self:level_set_cell(level, 11, 11, ENUMS.CELL_TYPE.BLOCK_STATIC)
+
+	self:level_set_cell(level, 11, 10, ENUMS.CELL_TYPE.BLOCK)
+	self:level_set_cell(level, 11, 12, ENUMS.CELL_TYPE.BLOCK)
+	self:level_set_cell(level, 12, 11, ENUMS.CELL_TYPE.BLOCK)
+	self:level_set_cell(level, 10, 11, ENUMS.CELL_TYPE.BLOCK)
 
 	return level
 end
