@@ -10,19 +10,34 @@ M.BY_ID = {
 			"B0",
 			"P0",
 		},
+	},
+	CHOOSE_LEVEL = {
+		cells = {
+			"12345",
+			"BBBBB",
+			"0BBB0",
+			"0BPB0",
+			"0BBB0",
+		},
 	}
-
 }
 
 for k, v in pairs(M.BY_ID) do
 	v.id = k
-
-	-- y_down
-	local cells = {}
-	for i = #v.cells, 1, -1 do
-		table.insert(cells, v.cells[i])
-	end
-	v.cells = cells
 end
+
+M.LEVELS_LIST = {
+	M.BY_ID.TUTORIAL_1.id,
+	M.BY_ID.TUTORIAL_1.id,
+	M.BY_ID.TUTORIAL_1.id,
+	M.BY_ID.TUTORIAL_1.id,
+	M.BY_ID.TUTORIAL_1.id,
+	M.BY_ID.TUTORIAL_1.id,
+	M.BY_ID.TUTORIAL_1.id,
+	M.BY_ID.TUTORIAL_1.id,
+	M.BY_ID.TUTORIAL_1.id,
+	M.BY_ID.TUTORIAL_1.id,
+	M.BY_ID.TUTORIAL_1.id,
+}
 
 return M

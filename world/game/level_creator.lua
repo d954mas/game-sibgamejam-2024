@@ -2,6 +2,10 @@ local COMMON = require "libs.common"
 local DEFS = require "world.balance.def.defs"
 local ENUMS = require "world.enums.enums"
 
+local LEVELS_LIST = {
+	"1", "2", "3", "4", "5", "6", "7", "8", "9"
+}
+
 ---@class LevelCreator
 local Creator = COMMON.class("LevelCreator")
 
@@ -62,14 +66,14 @@ function Creator:create_level(id)
 	local level_cells = level_def.cells
 	local level = {
 		size = { w = 0, h = 0 },
-		cell_size = {w =4, h = 4},
+		cell_size = { w = 4, h = 4 },
 		map = {
 
 		}
 	}
 
-	level.size.h =  #level_cells
-	level.size.w =  string.len(level_cells[1])
+	level.size.h = #level_cells
+	level.size.w = string.len(level_cells[1])
 	for y = 1, level.size.h do
 		level.map[y] = {}
 		for x = 1, level.size.w do
@@ -80,12 +84,12 @@ function Creator:create_level(id)
 	for y = 1, #level_cells do
 		local row = level_cells[y]
 		assert(string.len(row) == level.size.w, "Row " .. y .. " size is not equal to first row size")
-		for x=1, level.size.w do
+		for x = 1, level.size.w do
 			local cell = string.sub(row, x, x)
 			if cell == "0" then
 				--pass
 			elseif cell == "P" then
-				self.player_spawn_position = vmath.vector3(x*level.cell_size.w-level.cell_size.w/2, 0.1, -y*level.cell_size.h-level.cell_size.h/2)
+				self.player_spawn_position = vmath.vector3(x * level.cell_size.w - level.cell_size.w / 2, 0.1, y * level.cell_size.h - level.cell_size.h / 2)
 				level.map[y][x] = { type = ENUMS.CELL_TYPE.BLOCK_STATIC }
 			elseif cell == "B" then
 				level.map[y][x] = { type = ENUMS.CELL_TYPE.BLOCK }
@@ -95,6 +99,8 @@ function Creator:create_level(id)
 				level.map[y][x] = { type = ENUMS.CELL_TYPE.BLOCK_STATIC }
 			elseif cell == "E" then
 				level.map[y][x] = { type = ENUMS.CELL_TYPE.EXIT }
+			elseif COMMON.LUME.findi(LEVELS_LIST, cell) then
+				level.map[y][x] = { type = ENUMS.CELL_TYPE.BLOCK_LEVEL, level = COMMON.LUME.findi(LEVELS_LIST,cell) }
 			else
 				error("Unknown cell type:" .. cell)
 			end
@@ -104,7 +110,7 @@ function Creator:create_level(id)
 	return level
 end
 
-function Creator:create_location(location_id,level_id)
+function Creator:create_location(location_id, level_id)
 	self:unload_location()
 	self.location.id = location_id
 	self.location.def = assert(DEFS.LOCATIONS.BY_ID[location_id])
@@ -129,15 +135,14 @@ function Creator:load_level()
 	self.ecs:add_entity(self.level_cells)
 end
 
-function Creator:get_cell(world_x,world_z)
+function Creator:get_cell(world_x, world_z)
 	local level = self.location.level
-	world_z = -world_z -level.cell_size.h
-	local x = math.ceil((world_x+level.cell_size.w/2)/level.cell_size.w)
-	local y = math.ceil((world_z+level.cell_size.h/2)/level.cell_size.h)
+	local x = math.ceil((world_x) / level.cell_size.w)
+	local y = math.ceil((world_z) / level.cell_size.h)
 
-	if x<1 or x>level.size.w then return nil end
-	if y<1 or y>level.size.h then return nil end
-	return level.map[y][x],x,y
+	if x < 1 or x > level.size.w then return nil end
+	if y < 1 or y > level.size.h then return nil end
+	return level.map[y][x], x, y
 
 end
 

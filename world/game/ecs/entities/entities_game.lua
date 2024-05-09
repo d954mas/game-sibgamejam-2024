@@ -13,6 +13,7 @@ local DIR_UP = vmath.vector3(0, 1, 0)
 
 local CELL_FACTORIES = {
 	[ENUMS.CELL_TYPE.BLOCK_STATIC] = msg.url("game_scene:/factory#cell_block_static"),
+	[ENUMS.CELL_TYPE.BLOCK_LEVEL] = msg.url("game_scene:/factory#cell_block_level"),
 	[ENUMS.CELL_TYPE.BLOCK] = msg.url("game_scene:/factory#cell_block"),
 	[ENUMS.CELL_TYPE.BLOCK_FAKE] = msg.url("game_scene:/factory#cell_block_fake"),
 	[ENUMS.CELL_TYPE.EMPTY] = nil,
@@ -65,6 +66,24 @@ function Entities:on_entity_removed(e)
 		e.distance_to_player_object = nil
 	end
 
+	if e.player_go then
+		go.delete(e.player_go.root, true)
+		if e.player_go.model.mesh then e.player_go.model.mesh:dispose() end
+		e.player_go = nil
+	end
+	if e.level_cells then
+		local map = e.level_cells.map
+		local w = #map[1]
+		for y = 1, #map do
+			for x = 1, w do
+				local cell = map[y][x]
+				if cell.cell_go then
+					go.delete(cell.cell_go.root, true)
+				end
+			end
+		end
+		e.level_cells = nil
+	end
 	if e.light then
 		self.world.game.lights:remove_light(e.light)
 		e.light = nil
@@ -212,7 +231,7 @@ function Entities:create_level_cells(level)
 		for x = 1, level.size.w do
 			map[y][x] = { cell = e.level_cells.level.map[y][x], x = x, y = y }
 			if (map[y][x].cell.type ~= ENUMS.CELL_TYPE.EMPTY) then
-				local urls = collectionfactory.create(CELL_FACTORIES[map[y][x].cell.type], vmath.vector3(x * level.cell_size.w - level.cell_size.w / 2, 0, -y * level.cell_size.h - level.cell_size.h / 2))
+				local urls = collectionfactory.create(CELL_FACTORIES[map[y][x].cell.type], vmath.vector3(x * level.cell_size.w - level.cell_size.w / 2, 0, y * level.cell_size.h - level.cell_size.h / 2))
 				map[y][x].cell_go = {
 					root = msg.url(assert(urls[PARTS.ROOT])),
 					block = msg.url(urls[PARTS.BLOCK]),
