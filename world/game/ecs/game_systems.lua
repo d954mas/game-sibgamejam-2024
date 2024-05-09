@@ -40,7 +40,6 @@ M.PhysicsUpdateLinearVelocitySystem = require "world.game.ecs.systems.physics_up
 M.UpdateDistanceToPlayerSystem = require "world.game.ecs.systems.update_distance_to_player_system"
 M.UpdateFrustumBoxSystem = require "world.game.ecs.systems.update_frustum_box"
 M.TutorialSystem = require "world.game.ecs.systems.tutorial_system"
-M.OfferSystem = require "world.game.ecs.systems.offer_system"
 
 M.PlayerCameraSystem = require "world.game.ecs.systems.player_camera_system"
 M.PlayerMoveSystem = require "world.game.ecs.systems.player_move_system"

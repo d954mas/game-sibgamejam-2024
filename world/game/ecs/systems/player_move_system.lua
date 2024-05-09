@@ -273,7 +273,6 @@ function System:update(dt)
 			e.movement.pressed_jump = false
 
 			local delta_ground_time = (time - e.on_ground_time)
-			print(delta_ground_time)
 			--2 frames min stay on ground before next jump or player can have strange jumps
 			local on_ground = (e.on_ground and delta_ground_time > (0.167 * 2))
 					or delta_ground_time < 0.1 --coyot time

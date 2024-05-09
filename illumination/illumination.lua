@@ -280,7 +280,7 @@ function Lights:initialize()
 		light_matrix = vmath.matrix4(),
 		light_matrix_projection_bounds = vmath.matrix4(),
 		constants = render.constant_buffer(),
-		sun_position = vmath.vector3(-10, 0, 0), --delta to root position
+		sun_position = vmath.vector3(-10, 5, 0), --delta to root position
 		root_position = vmath.vector3(0), --player position
 		light_position = vmath.vector3(0), --root_position + sun_position
 		light_transform = vmath.matrix4(),
@@ -462,17 +462,17 @@ end
 function Lights:reset()
 	if (not self.render) then return end
 	self:set_sunlight_color(1, 1, 1)
-	self:set_sunlight_color_intensity(0.45)
+	self:set_sunlight_color_intensity(0.6)
 	self:set_shadow_color(0.1, 0.1, 0.1)
 	self:set_shadow_color_intensity(1)
 
 	self:set_ambient_color(1, 1, 1)
 	self:set_ambient_color_intensity(0.75)
 
-	self:set_fog(100, 200, 0.9)
+	self:set_fog(200, 500, 0.1)
 	self:set_fog_color(0.85, 0.8, 0.9)
 
-	self:set_sun_position(-4, 10, 0)
+	self:set_sun_position(-4, 8, -4)
 end
 
 function Lights:set_ambient_color(r, g, b)

@@ -57,13 +57,41 @@ function Creator:level_set_cell(level, x, y, type)
 end
 
 function Creator:create_level()
+	self.player_spawn_position = nil
+	local level_cells = {
+		"000000000000000000000",
+		"000000000000000000000",
+		"000000000000000000000",
+		"000000000000000000000",
+		"000000000000000000000",--5
+		"000000000000000000000",
+		"000000000000000000000",
+		"000000000000000000000",
+		"0000000000B0000000000",
+		"0000000000B0000000000",--10
+		"00000000BBPFB00000000",--center
+		"0000000000B0000000000",--12
+		"0000000000B0000000000",
+		"000000000000000000000",
+		"000000000000000000000",--15
+		"000000000000000000000",
+		"000000000000000000000",
+		"000000000000000000000",
+		"000000000000000000000",
+		"000000000000000000000",--20
+		"000000000000000000000",
+	}
+
 	local level = {
-		size = { w = 21, h = 21 },
+		size = { w = 0, h = 0 },
 		cell_size = {w =4, h = 4},
 		map = {
 
 		}
 	}
+
+	level.size.h =  #level_cells
+	level.size.w =  string.len(level_cells[1])
 	for y = 1, level.size.h do
 		level.map[y] = {}
 		for x = 1, level.size.w do
@@ -71,13 +99,26 @@ function Creator:create_level()
 		end
 	end
 
-	self:level_set_cell(level, 11, 11, ENUMS.CELL_TYPE.BLOCK_STATIC)
-
-	self:level_set_cell(level, 11, 10, ENUMS.CELL_TYPE.BLOCK)
-	self:level_set_cell(level, 11, 12, ENUMS.CELL_TYPE.BLOCK)
-	self:level_set_cell(level, 12, 11, ENUMS.CELL_TYPE.BLOCK)
-	self:level_set_cell(level, 10, 11, ENUMS.CELL_TYPE.BLOCK)
-
+	for y = 1, #level_cells do
+		local row = level_cells[y]
+		assert(string.len(row) == level.size.w, "Row " .. y .. " size is not equal to first row size")
+		for x=1, level.size.w do
+			local cell = string.sub(row, x, x)
+			if cell == "0" then
+				--pass
+			elseif cell == "P" then
+				self.player_spawn_position = vmath.vector3(x*level.cell_size.w-level.cell_size.w/2, 0.1, -y*level.cell_size.h-level.cell_size.h/2)
+				level.map[y][x] = { type = ENUMS.CELL_TYPE.BLOCK_STATIC }
+			elseif cell == "B" then
+				level.map[y][x] = { type = ENUMS.CELL_TYPE.BLOCK }
+			elseif cell == "F" then
+				level.map[y][x] = { type = ENUMS.CELL_TYPE.BLOCK_FAKE }
+			elseif cell == "S" then
+				level.map[y][x] = { type = ENUMS.CELL_TYPE.BLOCK_STATIC }
+			end
+		end
+	end
+	assert(self.player_spawn_position)
 	return level
 end
 

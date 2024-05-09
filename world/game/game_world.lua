@@ -53,7 +53,7 @@ function GameWorld:load_location(location_id)
 	self.level_creator = LevelCreator(self.world)
 	self.level_creator:create_location(location_id)
 
-	self.level_creator:create_player(self.level_creator.location.def.player_spawn_position)
+	self.level_creator:create_player(self.level_creator.player_spawn_position)
 
 	self.ecs_game:add_systems()
 	self.ecs_game:refresh()
@@ -195,51 +195,6 @@ function GameWorld:generate_daily_tasks()
 	return result
 end
 
-function GameWorld:count_offline_income(duration)
-	local rewards = self.world.balance.config.offline_income.rewards
-	if duration < rewards[1].time then
-		return 0
-	end
-	if duration >= rewards[#rewards].time then
-		return rewards[#rewards].reward
-	end
-
-	for i = 2, #rewards do
-		if duration <= rewards[i].time then
-			-- Interpolate between the last and the current reward
-			local time1 = rewards[i - 1].time
-			local reward1 = rewards[i - 1].reward
-			local time2 = rewards[i].time
-			local reward2 = rewards[i].reward
-			local interpolated_reward = reward1 + (reward2 - reward1) * (duration - time1) / (time2 - time1)
-			return interpolated_reward
-		end
-	end
-end
-
-function GameWorld:check_offline_income()
-	if false then
-		self.world.storage.data.game.offline_income_time = socket.gettime()
-	end
-	if self.world.sm:get_top() and self.world.sm:get_top()._name == self.world.sm.MODALS.OFFLINE_INCOME then
-		self.world.storage.data.game.offline_income_time = socket.gettime()
-	end
-
-	local duration = socket.gettime() - self.world.storage.data.game.offline_income_time
-	local reward = self:count_offline_income(duration)
-
-	if reward > 0 then
-		if self.world.sm:is_working() or self.world.sm:get_top()._name ~= self.world.sm.SCENES.GAME then
-			--skip we can't show income scene
-			return
-		end
-		ANALYTICS_HELPER.offline_income_show(duration)
-		self.world.sm:show(self.world.sm.MODALS.OFFLINE_INCOME, { reward = reward })
-	end
-
-	self.world.storage.data.game.offline_income_time = socket.gettime()
-end
-
 ---@param e EntityGame
 function GameWorld:teleport(e, position, cb)
 	local obj = e.player and e.player_go or e.enemy_go
@@ -266,7 +221,7 @@ function GameWorld:die(e)
 			while (self.world.sm:is_working() or self.world.sm:get_top()._name ~= self.world.sm.SCENES.GAME) do
 				coroutine.yield()
 			end
-			self:teleport(e, self.level_creator.location.def.player_spawn_position, function()
+			self:teleport(e, self.level_creator.player_spawn_position, function()
 				e.die = false
 				e.moving = false
 				COMMON.INPUT.IGNORE = false

@@ -135,8 +135,8 @@ void main() {
     float specularStrength = 0.75; // Example specular strength
 
     // Update your sunlight calculation to include the Phong specular component
-    resultColor += color.rgb * max(direct_light_phong(sunlight_color, sun_position.xyz, var_world_position.xyz, var_world_normal, shadow_color, viewPos, shininess, specularStrength), 0.0);
-    // resultColor += color.rgb * max(direct_light(sunlight_color.rgb, sun_position.xyz, var_world_position.xyz, var_world_normal, shadow_color)*sunlight_color.w, 0.0);
+    //resultColor += color.rgb * max(direct_light_phong(sunlight_color, sun_position.xyz, var_world_position.xyz, var_world_normal, shadow_color, viewPos, shininess, specularStrength), 0.0);
+     resultColor += color.rgb * max(direct_light(sunlight_color.rgb, sun_position.xyz, var_world_position.xyz, var_world_normal, shadow_color)*sunlight_color.w, 0.0);
     //diff_light = (min(diff_light, 1.0));
     resultColor += vec3(lights_color.xyz);
     // gl_FragColor = vec4(diff_light.rgb, 1.0);

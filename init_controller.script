@@ -142,9 +142,6 @@ function Script:update(dt)
 			WORLD.sdk:gameplay_start()
 		end
 	end
-	if WORLD.game and WORLD.game.level_creator then
-		WORLD.game:check_offline_income()
-	end
 end
 
 
