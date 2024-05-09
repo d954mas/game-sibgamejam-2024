@@ -76,7 +76,7 @@ embedded_instances {
   data: "embedded_components {\n"
   "  id: \"model\"\n"
   "  type: \"model\"\n"
-  "  data: \"mesh: \\\"/builtins/assets/meshes/cube.dae\\\"\\n"
+  "  data: \"mesh: \\\"/assets/models/cube.glb\\\"\\n"
   "skeleton: \\\"\\\"\\n"
   "animations: \\\"\\\"\\n"
   "default_animation: \\\"\\\"\\n"
@@ -123,8 +123,8 @@ embedded_instances {
     w: 1.0
   }
   scale3 {
-    x: 2.0
+    x: 1.0
     y: 1.0
-    z: 2.0
+    z: 1.0
   }
 }

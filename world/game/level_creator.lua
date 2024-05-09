@@ -92,7 +92,7 @@ function Creator:create_level(id)
 				--pass
 			elseif cell == "P" then
 				self.player_spawn_position = vmath.vector3(x * level.cell_size.w - level.cell_size.w / 2, 0.1, y * level.cell_size.h - level.cell_size.h / 2)
-				level.map[y][x] = { type = ENUMS.CELL_TYPE.BLOCK_STATIC }
+				level.map[y][x] = { type = ENUMS.CELL_TYPE.BLOCK_SPAWN }
 			elseif cell == "B" then
 				level.map[y][x] = { type = ENUMS.CELL_TYPE.BLOCK }
 			elseif cell == "F" then

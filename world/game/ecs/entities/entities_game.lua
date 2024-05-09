@@ -15,6 +15,7 @@ local CELL_FACTORIES = {
 	[ENUMS.CELL_TYPE.BLOCK_STATIC] = msg.url("game_scene:/factory#cell_block_static"),
 	[ENUMS.CELL_TYPE.BLOCK_LEVEL] = msg.url("game_scene:/factory#cell_block_level"),
 	[ENUMS.CELL_TYPE.BLOCK] = msg.url("game_scene:/factory#cell_block"),
+	[ENUMS.CELL_TYPE.BLOCK_SPAWN] = msg.url("game_scene:/factory#cell_block_spawn"),
 	[ENUMS.CELL_TYPE.BLOCK_FAKE] = msg.url("game_scene:/factory#cell_block_fake"),
 	[ENUMS.CELL_TYPE.EMPTY] = nil,
 	[ENUMS.CELL_TYPE.EXIT] = msg.url("game_scene:/factory#cell_block_exit"),
