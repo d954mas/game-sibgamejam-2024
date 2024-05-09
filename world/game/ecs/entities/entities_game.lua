@@ -20,6 +20,7 @@ local CELL_FACTORIES = {
 
 local PARTS = {
 	ROOT = COMMON.HASHES.hash("/root"),
+	BLOCK = COMMON.HASHES.hash("/block"),
 }
 
 ---@class InputInfo
@@ -155,9 +156,9 @@ function Entities:create_player(position)
 	}
 
 	e.on_ground = false
-	e.in_jump  = true
+	e.in_jump = true
 	e.ground_normal = vmath.vector3(DIR_UP)
-	e.on_ground_time = self.world.game.state.time-0.15
+	e.on_ground_time = self.world.game.state.time - 0.15
 	e.jump_last_time = -1
 	e.physics_reset_y_velocity = 0
 	e.jump = {
@@ -203,14 +204,18 @@ function Entities:create_level_cells(level)
 	}
 
 	local map = e.level_cells.map
-
+	print("level.size.w", level.size.w)
+	print("level.size.h", level.size.h)
 	for y = 1, level.size.h do
 		map[y] = {}
 		for x = 1, level.size.w do
 			map[y][x] = { cell = e.level_cells.level.map[y][x], x = x, y = y }
 			if (map[y][x].cell.type ~= ENUMS.CELL_TYPE.EMPTY) then
-				local urls = collectionfactory.create(CELL_FACTORIES[map[y][x].cell.type], vmath.vector3(x*level.cell_size.w-level.cell_size.w/2, 0, -y*level.cell_size.h-level.cell_size.h/2))
-				map[y][x].root = msg.url(assert(urls[PARTS.ROOT]))
+				local urls = collectionfactory.create(CELL_FACTORIES[map[y][x].cell.type], vmath.vector3(x * level.cell_size.w - level.cell_size.w / 2, 0, -y * level.cell_size.h - level.cell_size.h / 2))
+				map[y][x].cell_go = {
+					root = msg.url(assert(urls[PARTS.ROOT])),
+					block = msg.url(urls[PARTS.BLOCK]),
+				}
 				--map[y][x].collision = COMMON.LUME.url_component_from_url(map[y][x].root, "collision")
 			end
 		end

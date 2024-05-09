@@ -147,6 +147,18 @@ function Creator:load_level()
 	self.ecs:add_entity(self.level_cells)
 end
 
+function Creator:get_cell(world_x,world_z)
+	local level = self.location.level
+	world_z = -world_z -level.cell_size.h
+	local x = math.ceil((world_x+level.cell_size.w/2)/level.cell_size.w)
+	local y = math.ceil((world_z+level.cell_size.h/2)/level.cell_size.h)
+
+	if x<1 or x>level.size.w then return nil end
+	if y<1 or y>level.size.h then return nil end
+	return level.map[y][x],x,y
+
+end
+
 function Creator:create_player(position)
 	self.player = self.entities:create_player(position)
 	self.ecs:add_entity(self.player)
