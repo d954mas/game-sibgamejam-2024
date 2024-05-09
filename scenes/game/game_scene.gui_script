@@ -37,7 +37,6 @@ local POINTER_POSITIONS = {
 	vmath.vector3(-120, 0, 0),
 }
 
-
 ---@class GameSceneGuiScript:GuiScriptBase
 local Script = COMMON.class("GameSceneGuiScript", BaseGuiScript)
 
@@ -71,7 +70,9 @@ function Script:bind_vh()
 		virtual_pad = VirtualPad("virtual_pad"),
 		btn_settings = GUI.ButtonScale("btn_settings"),
 		btn_settings_lbl = AutosizeLbl("btn_settings/lbl"),
-		
+		btn_back = GUI.ButtonScale("btn_back"),
+		btn_back_lbl = AutosizeLbl("btn_back/lbl"),
+
 		mobile_input_title = AutosizeLbl("mobile_input/title"),
 		pc_input_title = AutosizeLbl("pc_input/title"),
 	}
@@ -108,6 +109,13 @@ function Script:init_gui()
 		end
 	end)
 
+	self.views.btn_back.input_on_pressed = true
+	self.views.btn_back:set_input_listener(function()
+		if not WORLD.sm:is_working() then
+			WORLD.game:load_location(DEFS.LOCATIONS.BY_ID.ZONE_1.id, DEFS.LEVELS.BY_ID.CHOOSE_LEVEL.id)
+		end
+	end)
+
 	self.views.virtual_pad:set_enabled(true)
 end
 
@@ -132,6 +140,7 @@ end
 function Script:on_input(action_id, action)
 	if (self.views.virtual_pad:on_input(action_id, action)) then return true end
 	if (self.views.btn_settings:on_input(action_id, action)) then return true end
+	if (self.views.btn_back:on_input(action_id, action)) then return true end
 end
 
 function Script:on_resize()
@@ -151,7 +160,6 @@ function Script:on_resize()
 	gui.set_scale(self.vh.bottom_left, COMMON.RENDER.gui_scale.scale2)
 	gui.set_adjust_mode(self.vh.bottom_right, COMMON.RENDER.gui_scale.mode)
 	gui.set_scale(self.vh.bottom_right, COMMON.RENDER.gui_scale.scale2)
-
 
 	gui.set_adjust_mode(self.vh.left_buttons, COMMON.RENDER.gui_scale.mode)
 	gui.set_scale(self.vh.left_buttons, COMMON.RENDER.gui_scale.scale2)
@@ -187,13 +195,12 @@ function Script:hide_input_tooltip()
 end
 
 function Script:on_storage_changed()
-	
+
 end
-
-
 
 function Script:on_language_changed()
 	self.views.btn_settings_lbl:set_text(COMMON.LOCALIZATION:translate("btn_settings"))
+	self.views.btn_back_lbl:set_text(COMMON.LOCALIZATION:translate("btn_choose_level"))
 	self.views.pc_input_title:set_text(COMMON.LOCALIZATION:translate("tutorial_move_arrows"))
 	self.views.mobile_input_title:set_text(COMMON.LOCALIZATION:translate("tutorial_move_drag"))
 end

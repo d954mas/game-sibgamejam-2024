@@ -11,9 +11,9 @@ local CAMERA_HUB = {
 		}
 	},
 	config_portrait = {
-		position = vmath.rotate(vmath.quat_rotation_x(math.rad(-66)), vmath.vector3(0, 0, 1)) * 10,
+		position = vmath.rotate(vmath.quat_rotation_x(math.rad(-60)), vmath.vector3(0, 0, 1)) * 25,
 		pitch = { value = math.rad(-50) },
-		fov = math.rad(95),
+		fov = math.rad(60),
 		yaw = { value = math.rad(0) }
 	},
 }
