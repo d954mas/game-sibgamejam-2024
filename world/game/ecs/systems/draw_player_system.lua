@@ -112,7 +112,7 @@ function System:update(dt)
 			elseif (anim == ENUMS.ANIMATIONS.RUN) then
 				e.player_go.model.mesh_animator:play(animations.RUN[1].id, prev == ENUMS.ANIMATIONS.DIE and LONG_BLEND_LOOP or BASE_BLEND_LOOP)
 			elseif (anim == ENUMS.ANIMATIONS.DIE) then
-				e.player_go.model.mesh_animator:play(animations.DIE[1].id, BASE_BLEND_DIE)
+				--e.player_go.model.mesh_animator:play(animations.DIE[1].id, BASE_BLEND_DIE)
 			end
 		end
 

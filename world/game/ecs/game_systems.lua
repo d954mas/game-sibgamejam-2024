@@ -44,6 +44,7 @@ M.OfferSystem = require "world.game.ecs.systems.offer_system"
 
 M.PlayerCameraSystem = require "world.game.ecs.systems.player_camera_system"
 M.PlayerMoveSystem = require "world.game.ecs.systems.player_move_system"
+M.FallSystem = require "world.game.ecs.systems.fall_system"
 
 
 M.DrawPlayerSystem = require "world.game.ecs.systems.draw_player_system"

@@ -113,9 +113,6 @@ function GameWorld:on_input(action_id, action)
 	end
 end
 
-
-
-
 function GameWorld:offer_get_value(resource)
 	local max_value = 100
 	return max_value
@@ -198,7 +195,6 @@ function GameWorld:generate_daily_tasks()
 	return result
 end
 
-
 function GameWorld:count_offline_income(duration)
 	local rewards = self.world.balance.config.offline_income.rewards
 	if duration < rewards[1].time then
@@ -242,6 +238,41 @@ function GameWorld:check_offline_income()
 	end
 
 	self.world.storage.data.game.offline_income_time = socket.gettime()
+end
+
+---@param e EntityGame
+function GameWorld:teleport(e, position, cb)
+	local obj = e.player and e.player_go or e.enemy_go
+
+	msg.post(assert(obj.collision), COMMON.HASHES.MSG.DISABLE)
+	coroutine.yield()
+
+	go.set(assert(obj.collision), COMMON.HASHES.hash("linear_velocity"), vmath.vector3(0, 0, 0))
+	go.set_position(position, assert(obj.root))
+	msg.post(obj.collision, COMMON.HASHES.MSG.ENABLE)
+	coroutine.yield()
+	if cb then cb() end
+
+end
+
+---@param e EntityGame
+function GameWorld:die(e)
+	assert(e.player or e.enemy)
+	if not e.die then
+		e.die = true
+		COMMON.INPUT.IGNORE = true
+		self.actions:add_action(function()
+			COMMON.coroutine_wait(e.position.y < -6 and 0.5 or 2.5)
+			while (self.world.sm:is_working() or self.world.sm:get_top()._name ~= self.world.sm.SCENES.GAME) do
+				coroutine.yield()
+			end
+			self:teleport(e, self.level_creator.location.def.player_spawn_position, function()
+				e.die = false
+				e.moving = false
+				COMMON.INPUT.IGNORE = false
+			end)
+		end)
+	end
 end
 
 return GameWorld

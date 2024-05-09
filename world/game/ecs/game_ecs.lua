@@ -32,6 +32,7 @@ function EcsWorld:add_systems()
 	self.ecs:addSystem(SYSTEMS.PlayerMoveSystem())
 	self.ecs:addSystem(SYSTEMS.UpdateDistanceToPlayerSystem())
 	self.ecs:addSystem(SYSTEMS.PhysicsUpdateLinearVelocitySystem())
+	self.ecs:addSystem(SYSTEMS.FallSystem())
 	self.ecs:addSystem(SYSTEMS.UpdateFrustumBoxSystem())
 	self.ecs:addSystem(SYSTEMS.OfferSystem())
 
