@@ -275,6 +275,13 @@ function GameWorld:die(e)
 	end
 end
 
+function GameWorld:player_jump()
+	local player = self.level_creator.player
+	if (player.die) then return end
+	player.movement.pressed_jump = true
+end
+
+
 return GameWorld
 
 

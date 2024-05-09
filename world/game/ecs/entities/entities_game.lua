@@ -9,6 +9,8 @@ local TABLE_INSERT = table.insert
 local FACTORY_URL_PLAYER = msg.url("game_scene:/factory#player")
 local FACTORY_URL_ENEMY = msg.url("game_scene:/factory#enemy")
 
+local DIR_UP = vmath.vector3(0, 1, 0)
+
 local CELL_FACTORIES = {
 	[ENUMS.CELL_TYPE.BLOCK_STATIC] = msg.url("game_scene:/factory#cell_block_static"),
 	[ENUMS.CELL_TYPE.BLOCK] = msg.url("game_scene:/factory#cell_block"),
@@ -137,12 +139,31 @@ function Entities:create_player(position)
 		velocity = vmath.vector3(0, 0, 0),
 		direction = vmath.vector3(0, 0, 0),
 		max_speed = 10,
-		max_speed_limit = 1, --[0,1] for virtual pad to make movement more easy
+		max_speed_air_limit = 0.7,
 		accel = 8 * 0.016,
 		deaccel = 15 * 0.016,
+		accel_air = 1.5 * 0.016,
+		deaccel_air = 3 * 0.016,
 		deaccel_stop = 0.5,
 		strafe_power = 1,
+		strafe_power_air = 0.8,
+
+		pressed_jump = false,
+
+		air_control_power = 0,
+		air_control_power_a = 0
 	}
+
+	e.on_ground = false
+	e.in_jump  = true
+	e.ground_normal = vmath.vector3(DIR_UP)
+	e.on_ground_time = self.world.game.state.time-0.15
+	e.jump_last_time = -1
+	e.physics_reset_y_velocity = 0
+	e.jump = {
+		power = 350
+	}
+
 	local urls = collectionfactory.create(FACTORY_URL_PLAYER, e.position)
 	e.player_go = {
 		root = msg.url(assert(urls[PARTS.ROOT])),
@@ -168,7 +189,7 @@ function Entities:create_player(position)
 	e.player_go.collision = COMMON.LUME.url_component_from_url(e.player_go.root, "collision")
 	e.physics_linear_velocity = vmath.vector3()
 	e.physics_object = game.physics_object_create(e.player_go.root, e.player_go.collision, e.position, e.physics_linear_velocity)
-
+	e.mass = go.get(e.player_go.collision, COMMON.HASHES.MASS)
 	return e
 end
 
