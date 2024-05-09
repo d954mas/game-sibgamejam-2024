@@ -162,6 +162,26 @@ function Entities:create_player(position)
 	e.physics_linear_velocity = vmath.vector3()
 	e.physics_object = game.physics_object_create(e.player_go.root, e.player_go.collision, e.position, e.physics_linear_velocity)
 
+	return e
+end
+
+function Entities:create_level_cells(level)
+	---@type EntityGame
+	local e = {}
+
+	e.level_cells = {
+		level = level,
+		map = {},
+	}
+
+	local map = e.level_cells.map
+
+	for y = 1, level.size.h do
+		map[y] = {}
+		for x = 1, level.size.w do
+			map[y][x] = { cell = e.level_cells.level.map[y][x], x = x, y = y }
+		end
+	end
 
 	return e
 end

@@ -1,5 +1,6 @@
 local COMMON = require "libs.common"
 local DEFS = require "world.balance.def.defs"
+local ENUMS = require "world.enums.enums"
 
 ---@class LevelCreator
 local Creator = COMMON.class("LevelCreator")
@@ -33,10 +34,46 @@ function Creator:unload_location()
 
 		self.location.physics_url = nil
 		self.location.other_url = nil
+		self.location.level = nil
 	end
 end
 
+function Creator:level_fill_row(level, row, type)
+	for i = 1, level.size.w do
+		level.map[row][i].type = type
+	end
+end
 
+function Creator:level_fill_column(level, column, type)
+	for i = 1, level.size.h do
+		level.map[i][column].type = type
+	end
+end
+
+function Creator:level_set_cell(level, x, y, type)
+	assert(x >= 1 and x <= level.size.w)
+	assert(y >= 1 and y <= level.size.h)
+	level.map[y][x].type = type
+end
+
+function Creator:create_level()
+	local level = {
+		size = { w = 21, h = 21 },
+		map = {
+
+		}
+	}
+	for y = 1, level.size.h do
+		level.map[y] = {}
+		for x = 1, level.size.w do
+			level.map[y][x] = { type = ENUMS.CELL_TYPE.EMPTY }
+		end
+	end
+
+	self:level_set_cell(level, 11, 11, ENUMS.CELL_TYPE.BLOCK_STATIC)
+
+	return level
+end
 
 function Creator:create_location(location_id)
 	self:unload_location()
@@ -48,10 +85,19 @@ function Creator:create_location(location_id)
 	self.location.physics_url = assert(self.location.urls[hash("/collisions")])
 	self.location.other_url = assert(self.location.urls[hash("/other")])
 
+	self.location.level = self:create_level()
+	self:load_level()
 
 	for _, object in ipairs(self.location.def.objects) do
 
 	end
+
+
+end
+
+function Creator:load_level()
+	self.level_cells = self.entities:create_level_cells(assert(self.location.level))
+	self.ecs:add_entity(self.level_cells)
 end
 
 function Creator:create_player(position)
@@ -62,6 +108,5 @@ function Creator:create_player(position)
 	self.player.camera.config = self.location.def.camera.config
 	self.player.movement.type = self.location.def.player_movement
 end
-
 
 return Creator
