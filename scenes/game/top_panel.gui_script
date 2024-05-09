@@ -1,6 +1,5 @@
 local COMMON = require "libs.common"
 local DEFS = require "world.balance.def.defs"
-local ResourcePanel = require "libs_project.gui.resource_panel"
 local FlyObject = require "libs_project.gui.fly_object"
 local BaseGuiScript = require "libs_project.scripts.base_gui_script"
 
@@ -22,7 +21,7 @@ function Script:bind_vh()
 		offer_fly_point = gui.get_node("offer_fly_point"),
 	}
 	self.views = {
-		gold_panel = ResourcePanel("panel_gold", DEFS.RESOURCES.GOLD.id),
+
 	}
 end
 
@@ -40,11 +39,11 @@ function Script:init_gui()
 	end
 
 	COMMON.EVENTS.RESOURCE_ADD:subscribe(true, function(event, ...)
-		self.views.gold_panel:event_add_resource(...)
+		
 	end)
 
 	COMMON.EVENTS.RESOURCE_SPEND:subscribe(true, function(event, ...)
-		self.views.gold_panel:event_spend_resource(...)
+	
 	end)
 
 end
@@ -60,8 +59,6 @@ function Script:update(dt)
 			table.insert(self.fly_objects_pool, fly_object)
 		end
 	end
-
-	self.views.gold_panel:update(dt)
 end
 
 function Script:create_fly_object()

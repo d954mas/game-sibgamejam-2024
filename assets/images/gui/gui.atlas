@@ -7,10 +7,6 @@ images {
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/assets/images/gui/icons/icon_settings.png"
-  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
-}
-images {
   image: "/assets/images/gui/base/bg_main_panel.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
@@ -103,14 +99,6 @@ images {
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/assets/images/gui/base/top_panel_bg4.png"
-  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
-}
-images {
-  image: "/assets/images/icons/icon_gold_border.png"
-  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
-}
-images {
   image: "/assets/images/gui/icons/icon_check.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
@@ -167,14 +155,6 @@ images {
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/assets/images/icons/icon_quest.png"
-  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
-}
-images {
-  image: "/assets/images/icons/icon_timer.png"
-  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
-}
-images {
   image: "/assets/images/gui/base/btn_money.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
@@ -204,6 +184,10 @@ images {
 }
 images {
   image: "/assets/images/gui/flags/flag_ko.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
+  image: "/assets/images/gui/icons/icon_settings.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 margin: 0

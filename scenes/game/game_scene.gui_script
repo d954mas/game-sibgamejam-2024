@@ -37,153 +37,6 @@ local POINTER_POSITIONS = {
 	vmath.vector3(-120, 0, 0),
 }
 
-local BattleView = COMMON.class("BattleView")
-
--- Function to animate a label with a subtle pulsing effect using scale
-local function animate_tap(node, i)
-	local end_scale = 1.25    -- scale at the pulse peak
-	local duration = 3.66     -- duration of one pulse cycle
-
-	-- Animate scale from start_scale to end_scale and back to start_scale
-	gui.animate(node, "scale", vmath.vector3(end_scale, end_scale, 1), gui.EASING_INOUTSINE, duration / 2, i * 0.35, nil, gui.PLAYBACK_LOOP_PINGPONG)
-end
-
-function BattleView:initialize()
-	self.vh = {
-		root = gui.get_node("battle/root"),
-		speed = {
-			root = gui.get_node("battle/speed/root"),
-			stencil = gui.get_node("battle/speed/stencil"),
-			taps = {
-				gui.get_node("battle/speed/tap_1"),
-				gui.get_node("battle/speed/tap_2"),
-				gui.get_node("battle/speed/tap_3"),
-			}
-		}
-	}
-	local vh_progress = {
-		root = gui.get_node("battle/progress/root"),
-		bg = gui.get_node("battle/progress/bg"),
-		progress = gui.get_node("battle/progress/progress")
-	}
-	self.views = {
-		progress = ProgressBar(vh_progress),
-	}
-	self.views.progress.smooth_dump.smoothTime = 0.1
-
-	self.views.progress:set_value_max(1)
-	self.views.progress:set_value(0.5, true)
-
-	animate_tap(self.vh.speed.taps[1], 1)
-	animate_tap(self.vh.speed.taps[3], 2)
-	animate_tap(self.vh.speed.taps[2], 3)
-end
-
-function BattleView:update(dt)
-	self.views.progress:update(dt)
-
-	local speedup_value = WORLD.game.state.battle_player_power
-	local radius = 180 * speedup_value
-	gui.set_fill_angle(self.vh.speed.stencil, 180 - radius)
-end
-function BattleView:show()
-	gui.set_enabled(self.vh.root, true)
-end
-
-function BattleView:hide()
-	gui.set_enabled(self.vh.root, false)
-end
-
-function BattleView:set_progress(value, forced)
-	self.views.progress:set_value(value, forced)
-end
-
----@class FireView
-local PowerupView = COMMON.class("PowerupView")
-
-function PowerupView:initialize(id)
-	self.vh = {
-		root = gui.get_node("powerup_view"),
-		activate = gui.get_node("powerup_view/activate"),
-		timer = gui.get_node("powerup_view/timer"),
-
-		timer_lbl = gui.get_node("powerup_view/timer/lbl"),
-		btn_bg = gui.get_node("powerup_view/activate/btn/bg"),
-		ads_icon = gui.get_node("powerup_view/activate/btn/icon_ads"),
-		lbl_free_cooldown = gui.get_node("powerup_view/activate/btn/lbl_free_cooldown"),
-		lbl_free = gui.get_node("powerup_view/activate/btn/lbl_free")
-	}
-	self.views = {
-		btn_activate = GUI.ButtonScale("powerup_view/activate/btn"),
-		lbl_free_in_title = AutosizeLbl("powerup_view/activate/btn/lbl_free_in"),
-		lbl_free_title = AutosizeLbl("powerup_view/activate/btn/lbl_free")
-	}
-	self.def = assert(DEFS.POWERUPS[id])
-	self.can_show = true
-	self.show_timer = nil
-	self.free = nil
-
-	self:on_storage_changed()
-
-	self.views.btn_activate:set_input_listener(function()
-		WORLD.sounds:play_sound(WORLD.sounds.sounds.btn_1)
-		local cooldown_countdown = WORLD.storage.powerups:get_cooldown_countdown(self.def.id)
-		local free = cooldown_countdown <= 0
-		if free then
-			WORLD.storage.powerups:start(self.def.id,true)
-		else
-			WORLD.sdk:ads_rewarded(function(success)
-				if success then
-					WORLD.storage.powerups:start(self.def.id,false)
-				end
-			end, "powerup_x2")
-		end
-
-	end)
-end
-
-function PowerupView:on_storage_changed()
-	self.can_show = true
-	gui.set_enabled(self.vh.root, self.can_show)
-end
-
-function PowerupView:update(dt)
-	if self.can_show then
-		local show_timer = WORLD.storage.powerups:get_state(self.def.id) == ENUMS.POWERUP_STATE.ACTIVE
-		if self.show_timer ~= show_timer then
-			self.show_timer = show_timer
-			gui.set_enabled(self.vh.activate, not self.show_timer)
-			gui.set_enabled(self.vh.timer, self.show_timer)
-		end
-		if self.show_timer then
-			gui.set_text(self.vh.timer_lbl, COMMON.LUME.get_human_time(WORLD.storage.powerups:get_active_countdown(self.def.id)))
-		else
-			local cooldown_countdown = WORLD.storage.powerups:get_cooldown_countdown(self.def.id)
-			local free = cooldown_countdown <= 0
-			if self.free ~= free then
-				self.free = free
-				gui.play_flipbook(self.vh.btn_bg, free and "btn_collect" or "btn_ads")
-				gui.set_enabled(self.views.lbl_free_in_title.node, not free)
-				gui.set_enabled(self.views.lbl_free_title.node, free)
-				gui.set_enabled(self.vh.ads_icon, not free)
-				gui.set_enabled(self.vh.lbl_free_cooldown, not free)
-
-			end
-			if not self.free then
-				gui.set_text(self.vh.lbl_free_cooldown, COMMON.LUME.get_human_time(cooldown_countdown))
-			end
-		end
-	end
-end
-
-function PowerupView:on_input(action_id, action)
-	return self.views.btn_activate:on_input(action_id, action)
-end
-
-function PowerupView:on_language_changed()
-	self.views.lbl_free_in_title:set_text(COMMON.LOCALIZATION:translate("free_in"))
-	self.views.lbl_free_title:set_text(COMMON.LOCALIZATION:translate("free"))
-end
 
 ---@class GameSceneGuiScript:GuiScriptBase
 local Script = COMMON.class("GameSceneGuiScript", BaseGuiScript)
@@ -203,13 +56,11 @@ function Script:bind_vh()
 		left = gui.get_node("left"),
 		left_buttons = gui.get_node("left_buttons"),
 		left_top = gui.get_node("left_top"),
-		powerup_view = gui.get_node("powerup_view"),
 		bottom = gui.get_node("bottom"),
 		arrows = gui.get_node("arrows"),
 		pc_input = gui.get_node("pc_input"),
 		mobile_input = gui.get_node("mobile_input"),
 		pointer = gui.get_node("mobile_input/finger"),
-		offer = gui.get_node("offer/root"),
 		tutorial_pointer = gui.get_node("tutorial_pointer/root"),
 		tutorials = {
 			root = gui.get_node("tutorial"),
@@ -219,21 +70,16 @@ function Script:bind_vh()
 	self.views = {
 		virtual_pad = VirtualPad("virtual_pad"),
 		btn_settings = GUI.ButtonScale("btn_settings"),
-		btn_quest = GUI.ButtonScale("btn_quest"),
 		btn_settings_lbl = AutosizeLbl("btn_settings/lbl"),
-		btn_quest_lbl = AutosizeLbl("btn_quest/lbl"),
-
+		
 		mobile_input_title = AutosizeLbl("mobile_input/title"),
 		pc_input_title = AutosizeLbl("pc_input/title"),
-
-		powerup_view = PowerupView(DEFS.POWERUPS.X2.id),
 	}
 end
 
 function Script:init_gui()
 	BaseGuiScript.init_gui(self)
 	gui.set_render_order(COMMON.CONSTANTS.GUI_ORDER.GAME)
-	gui.set_enabled(self.vh.offer, false)
 	gui.set_enabled(self.vh.tutorial_pointer, false)
 	self.pointer_mover = LineMover(Curve({ points = POINTER_POSITIONS, tension = 0.5, segments = 10 }))
 	self.pointer_mover:set_loop(true)
@@ -262,14 +108,6 @@ function Script:init_gui()
 		end
 	end)
 
-	self.views.btn_quest.input_on_pressed = true
-	self.views.btn_quest:set_input_listener(function()
-		if not WORLD.sm:is_working() then
-			WORLD.sounds:play_sound(WORLD.sounds.sounds.btn_1)
-			WORLD.sm:show(WORLD.sm.MODALS.QUEST)
-		end
-	end)
-
 	self.views.virtual_pad:set_enabled(true)
 end
 
@@ -289,27 +127,11 @@ function Script:update(dt)
 	if WORLD.game.state.in_battle then
 		self.views.virtual_pad:reset()
 	end
-
-	if (self.offer and self.offer.vh == nil) then
-		self.offer = nil
-	end
-
-	self.views.powerup_view:update(dt)
 end
 
 function Script:on_input(action_id, action)
-	if action_id == COMMON.HASHES.INPUT.SPACE and action.pressed then
-		WORLD.game:player_action()
-	end
-	if self.views.powerup_view:on_input(action_id, action) then
-		self.views.virtual_pad:reset()
-		return true
-	end
 	if (self.views.virtual_pad:on_input(action_id, action)) then return true end
 	if (self.views.btn_settings:on_input(action_id, action)) then return true end
-	if (self.views.btn_quest:on_input(action_id, action)) then return true end
-	if self.offer and self.offer:on_input(action_id, action) then return true end
-
 end
 
 function Script:on_resize()
@@ -330,8 +152,6 @@ function Script:on_resize()
 	gui.set_adjust_mode(self.vh.bottom_right, COMMON.RENDER.gui_scale.mode)
 	gui.set_scale(self.vh.bottom_right, COMMON.RENDER.gui_scale.scale2)
 
-	gui.set_adjust_mode(self.vh.powerup_view, COMMON.RENDER.gui_scale.mode)
-	gui.set_scale(self.vh.powerup_view, COMMON.RENDER.gui_scale.scale2)
 
 	gui.set_adjust_mode(self.vh.left_buttons, COMMON.RENDER.gui_scale.mode)
 	gui.set_scale(self.vh.left_buttons, COMMON.RENDER.gui_scale.scale2)
@@ -367,26 +187,15 @@ function Script:hide_input_tooltip()
 end
 
 function Script:on_storage_changed()
-	self.views.powerup_view:on_storage_changed()
+	
 end
 
----@return OfferView
-function Script:create_offer()
-	assert(not self.offer)
-	local nodes = gui.clone_tree(self.vh.offer)
-	--pprint(nodes)
-	self.offer = OfferView(nodes)
-	return self.offer
-end
 
 
 function Script:on_language_changed()
 	self.views.btn_settings_lbl:set_text(COMMON.LOCALIZATION:translate("btn_settings"))
-	self.views.btn_quest_lbl:set_text(COMMON.LOCALIZATION:translate("btn_quest"))
 	self.views.pc_input_title:set_text(COMMON.LOCALIZATION:translate("tutorial_move_arrows"))
 	self.views.mobile_input_title:set_text(COMMON.LOCALIZATION:translate("tutorial_move_drag"))
-
-	self.views.powerup_view:on_language_changed()
 end
 
 COMMON.N28S.register_scripts({ Script() })

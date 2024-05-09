@@ -9,11 +9,7 @@ local PERLIN = require "libs.perlin"
 
 local SCENES = {
 	require "scenes.game.game_scene",
-	require "scenes.settings.settings_scene",
-	require "scenes.privacy_policy.privacy_policy_scene",
-	require "scenes.quest.quest_scene",
-	require "scenes.offline_income.offline_income_scene"
-}
+	require "scenes.settings.settings_scene",}
 
 local LIVEUPDATE_PROXY_URL = msg.url("main:/liveupdate#proxy")
 

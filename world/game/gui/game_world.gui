@@ -230,7 +230,7 @@ nodes {
   }
   type: TYPE_BOX
   blend_mode: BLEND_MODE_ALPHA
-  texture: "gui/icon_gold_border"
+  texture: "gui/empty"
   id: "add_resource/icon"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE

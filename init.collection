@@ -74,9 +74,6 @@ embedded_instances {
 embedded_instances {
   id: "scenes"
   children: "game_scene"
-  children: "offline_income_scene"
-  children: "privacy_policy_scene"
-  children: "quest_scene"
   children: "settings_scene"
   data: ""
   position {
@@ -288,120 +285,6 @@ embedded_instances {
   "  type: \"collectionproxy\"\n"
   "  data: \"collection: \\\"/world/proxy/liveupdate_proxy.collection\\\"\\n"
   "exclude: true\\n"
-  "\"\n"
-  "  position {\n"
-  "    x: 0.0\n"
-  "    y: 0.0\n"
-  "    z: 0.0\n"
-  "  }\n"
-  "  rotation {\n"
-  "    x: 0.0\n"
-  "    y: 0.0\n"
-  "    z: 0.0\n"
-  "    w: 1.0\n"
-  "  }\n"
-  "}\n"
-  ""
-  position {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-  scale3 {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-  }
-}
-embedded_instances {
-  id: "privacy_policy_scene"
-  data: "embedded_components {\n"
-  "  id: \"collectionproxy\"\n"
-  "  type: \"collectionproxy\"\n"
-  "  data: \"collection: \\\"/scenes/privacy_policy/privacy_policy_scene.collection\\\"\\n"
-  "exclude: false\\n"
-  "\"\n"
-  "  position {\n"
-  "    x: 0.0\n"
-  "    y: 0.0\n"
-  "    z: 0.0\n"
-  "  }\n"
-  "  rotation {\n"
-  "    x: 0.0\n"
-  "    y: 0.0\n"
-  "    z: 0.0\n"
-  "    w: 1.0\n"
-  "  }\n"
-  "}\n"
-  ""
-  position {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-  scale3 {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-  }
-}
-embedded_instances {
-  id: "quest_scene"
-  data: "embedded_components {\n"
-  "  id: \"collectionproxy\"\n"
-  "  type: \"collectionproxy\"\n"
-  "  data: \"collection: \\\"/scenes/quest/quest_scene.collection\\\"\\n"
-  "exclude: false\\n"
-  "\"\n"
-  "  position {\n"
-  "    x: 0.0\n"
-  "    y: 0.0\n"
-  "    z: 0.0\n"
-  "  }\n"
-  "  rotation {\n"
-  "    x: 0.0\n"
-  "    y: 0.0\n"
-  "    z: 0.0\n"
-  "    w: 1.0\n"
-  "  }\n"
-  "}\n"
-  ""
-  position {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-  scale3 {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-  }
-}
-embedded_instances {
-  id: "offline_income_scene"
-  data: "embedded_components {\n"
-  "  id: \"collectionproxy\"\n"
-  "  type: \"collectionproxy\"\n"
-  "  data: \"collection: \\\"/scenes/offline_income/offline_income_scene.collection\\\"\\n"
-  "exclude: false\\n"
   "\"\n"
   "  position {\n"
   "    x: 0.0\n"
