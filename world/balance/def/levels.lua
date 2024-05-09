@@ -11,6 +11,19 @@ M.BY_ID = {
 			"P0",
 		},
 	},
+	TUTORIAL_2 = {
+		cells = {
+			"0E",
+			"Uu",
+			"uU",
+			"uU",
+			"Uu",
+			"Uu",
+			"Uu",
+			"uU",
+			"P0",
+		},
+	},
 	CHOOSE_LEVEL = {
 		cells = {
 			"12345",
@@ -28,7 +41,7 @@ end
 
 M.LEVELS_LIST = {
 	M.BY_ID.TUTORIAL_1.id,
-	M.BY_ID.TUTORIAL_1.id,
+	M.BY_ID.TUTORIAL_2.id,
 	M.BY_ID.TUTORIAL_1.id,
 	M.BY_ID.TUTORIAL_1.id,
 	M.BY_ID.TUTORIAL_1.id,
