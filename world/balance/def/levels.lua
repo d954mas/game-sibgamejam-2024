@@ -3,6 +3,15 @@ local M = {}
 M.BY_ID = {
 	TUTORIAL_1 = {
 		cells = {
+			"E",
+			"B",
+			"B",
+			"B",
+			"P",
+		},
+	},
+	TUTORIAL_2 = {
+		cells = {
 			"0E",
 			"0B",
 			"0B",
@@ -11,7 +20,7 @@ M.BY_ID = {
 			"P0",
 		},
 	},
-	TUTORIAL_2 = {
+	TUTORIAL_3 = {
 		cells = {
 			"0E",
 			"Uu",
@@ -33,6 +42,7 @@ end
 M.LEVELS_LIST = {
 	M.BY_ID.TUTORIAL_1.id,
 	M.BY_ID.TUTORIAL_2.id,
+	M.BY_ID.TUTORIAL_3.id,
 }
 
 return M
