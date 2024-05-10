@@ -21,13 +21,13 @@ function System:update(dt)
 		local e = entities[i]
 		local cell, cell_x, cell_y = nil
 		local last_jump_time = time - e.jump_last_time
-		if e.position.y < 0.03 and e.physics_linear_velocity.y <= 0.01 and last_jump_time > 1 / 60 then
+		if e.position.y < 0.05 and e.physics_linear_velocity.y <= 0.05 and last_jump_time > 1 / 60 then
 			cell, cell_x, cell_y = self.world.game_world.game.level_creator:get_cell(e.position.x, e.position.z)
 		end
 		if cell then
 			local dx = e.position.x - (cell_x * level.cell_size.w - level.cell_size.w / 2)
 			local dy = e.position.z - (cell_y * level.cell_size.h - level.cell_size.h / 2)
-			if math.abs(dx) > 0.95 * level.cell_size.w or math.abs(dy) > 0.95 * level.cell_size.h then
+			if math.abs(dx) > 0.90 * level.cell_size.w or math.abs(dy) > 0.90 * level.cell_size.h then
 				cell, cell_x, cell_y = nil, nil, nil
 			end
 		end

@@ -157,10 +157,10 @@ function Script:update(dt)
 end
 
 function Script:on_input(action_id, action)
-	if (self.views.virtual_pad:on_input(action_id, action)) then return true end
 	if (self.views.btn_settings:on_input(action_id, action)) then return true end
 	if (self.views.levels.btn_next:on_input(action_id, action)) then return true end
 	if (self.views.levels.btn_prev:on_input(action_id, action)) then return true end
+	if (self.views.virtual_pad:on_input(action_id, action)) then return true end
 end
 
 function Script:on_resize()
@@ -182,9 +182,11 @@ function Script:on_resize()
 	gui.set_scale(self.vh.bottom_right, COMMON.RENDER.gui_scale.scale2)
 
 	gui.set_adjust_mode(self.vh.left_buttons, COMMON.RENDER.gui_scale.mode)
-	gui.set_scale(self.vh.left_buttons, COMMON.RENDER.gui_scale.scale2)
+	gui.set_scale(self.vh.left_buttons, COMMON.RENDER.gui_scale.scale3)
 	gui.set_adjust_mode(self.vh.right_buttons, COMMON.RENDER.gui_scale.mode)
-	gui.set_scale(self.vh.right_buttons, COMMON.RENDER.gui_scale.scale2)
+	gui.set_scale(self.vh.right_buttons, COMMON.RENDER.gui_scale.scale3)
+	gui.set_adjust_mode(self.views.levels.root, COMMON.RENDER.gui_scale.mode)
+	gui.set_scale(self.views.levels.root, COMMON.RENDER.gui_scale.scale3)
 
 	gui.set_adjust_mode(self.vh.tutorials.root, COMMON.RENDER.gui_scale.mode)
 	gui.set_scale(self.vh.tutorials.root, COMMON.RENDER.gui_scale.scale3)

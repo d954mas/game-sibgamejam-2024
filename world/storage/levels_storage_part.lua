@@ -31,6 +31,7 @@ function Storage:levels_get_last_opened()
 			return level
 		end
 	end
+	return DEFS.LEVELS.LEVELS_LIST[#DEFS.LEVELS.LEVELS_LIST]
 end
 
 return Storage

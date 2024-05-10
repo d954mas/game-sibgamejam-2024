@@ -3151,12 +3151,12 @@ nodes {
   rotation {
     x: 0.0
     y: 0.0
-    z: 90.0
+    z: 0.0
     w: 1.0
   }
   scale {
-    x: 1.0
-    y: 1.0
+    x: 0.5
+    y: 0.5
     z: 1.0
     w: 1.0
   }
@@ -3174,7 +3174,7 @@ nodes {
   }
   type: TYPE_BOX
   blend_mode: BLEND_MODE_ALPHA
-  texture: "gui/kb_arrow_down"
+  texture: "gui/arrow_new"
   id: "btn_next/bg"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
@@ -3269,12 +3269,12 @@ nodes {
   rotation {
     x: 0.0
     y: 0.0
-    z: -90.0
+    z: 180.0
     w: 1.0
   }
   scale {
-    x: 1.0
-    y: 1.0
+    x: 0.5
+    y: 0.5
     z: 1.0
     w: 1.0
   }
@@ -3292,7 +3292,7 @@ nodes {
   }
   type: TYPE_BOX
   blend_mode: BLEND_MODE_ALPHA
-  texture: "gui/kb_arrow_down"
+  texture: "gui/arrow_new"
   id: "btn_prev/bg"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
