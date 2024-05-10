@@ -2,7 +2,7 @@ local COMMON = require "libs.common"
 local GOOEY = require "gooey.gooey"
 
 local CHEKCKBOX_CHECKED = COMMON.LUME.color_parse_hexRGBA("#48CC09")
-local CHEKCKBOX_UNCHECKED = COMMON.LUME.color_parse_hexRGBA("#022345")
+local CHEKCKBOX_UNCHECKED = COMMON.LUME.color_parse_hexRGBA("#6A6D68")
 local TUMBLER_POS_CHECKED = vmath.vector3(16, 0, 0)
 local TUMBLER_POS_UNCHECKED = vmath.vector3(-16, 0, 0)
 

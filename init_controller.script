@@ -100,7 +100,7 @@ function Script:init()
 
 	COMMON.i("init time:" .. COMMON.get_time() - COMMON.GLOBAL.time_init_start)
 
-	COMMON.LOCALIZATION:set_locale(assert(WORLD.storage.options:language_get()))
+	COMMON.LOCALIZATION:set_locale("en")
 
 	msg.post(".", COMMON.HASHES.INPUT.ACQUIRE_FOCUS)
 end

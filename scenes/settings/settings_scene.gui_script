@@ -26,30 +26,11 @@ function Script:bind_vh()
 		checkbox_draw_shadows = GUI.Tumbler("checkbox_draw_shadows"),
 		checkbox_sound = GUI.Tumbler("checkbox_sound"),
 		checkbox_music = GUI.Tumbler("checkbox_music"),
-		flags = {
-			en = GUI.ButtonScale("flag_en"),
-			fr = GUI.ButtonScale("flag_fr"),
-			it = GUI.ButtonScale("flag_it"),
-			de = GUI.ButtonScale("flag_de"),
-			es = GUI.ButtonScale("flag_es"),
-			ru = GUI.ButtonScale("flag_ru"),
-			zh = GUI.ButtonScale("flag_zh"),
-			ja = GUI.ButtonScale("flag_ja"),
-			ko = GUI.ButtonScale("flag_ko"),
-		},
 		title_lbl = AutosizeLabel("title"),
 		shadows_lbl = AutosizeLabel("checkbox_draw_shadows/label"),
 		music_lbl = AutosizeLabel("checkbox_music/label"),
 		sound_lbl = AutosizeLabel("checkbox_sound/label"),
 	}
-	for k, flag in pairs(self.views.flags) do
-		flag.language = k
-		flag.vh.selected = gui.get_node(flag.template_name .. "/selected")
-		flag:set_input_listener(function()
-			WORLD.sounds:play_sound(WORLD.sounds.sounds.btn_1)
-			WORLD.storage.options:language_set(flag.language)
-		end)
-	end
 end
 
 function Script:init_gui()
@@ -143,12 +124,6 @@ function Script:on_storage_changed()
 end
 
 function Script:on_language_changed()
-	local locale = COMMON.LOCALIZATION:locale_get()
-	gui.set_enabled(self.views.flags.en.vh.selected, true) --fallback to en
-	for k, flag in pairs(self.views.flags) do
-		gui.set_enabled(flag.vh.selected, locale == flag.language)
-	end
-
 	self.views.title_lbl:set_text(COMMON.LOCALIZATION:translate("settings_title"))
 	self.views.music_lbl:set_text(COMMON.LOCALIZATION:translate("settings_music"))
 	self.views.sound_lbl:set_text(COMMON.LOCALIZATION:translate("settings_sound"))
