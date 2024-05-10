@@ -3,7 +3,7 @@ local WORLD = require "world.world"
 
 --go.property("atlas_empty", resource.atlas("/assets/images/icons/skins/skins_empty.atlas"))
 --go.property("atlas", resource.atlas("/assets/images/icons/skins/skins.atlas"))
-go.property("font_all", resource.font("/assets/fonts/game_font_world_all.font"))
+go.property("font_all", resource.font("/assets/fonts/game_font_world.font"))
 go.property("font_base", resource.font("/assets/fonts/game_font_world.font"))
 
 function init(self)
