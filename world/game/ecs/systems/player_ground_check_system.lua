@@ -2,7 +2,7 @@ local ECS = require 'libs.ecs'
 
 local TEMP_V = vmath.vector3()
 local RAYCAST_FROM = vmath.vector3()
-local RAYCAST_V = vmath.vector3(0, -0.2, 0)
+local RAYCAST_V = vmath.vector3(0, -0.075, 0)
 local RAYCAST_START_DY = 0.5
 
 local DIR_UP = vmath.vector3(0, 1, 0)
