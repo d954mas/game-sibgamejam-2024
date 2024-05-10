@@ -1,4 +1,24 @@
 name: "game_scene"
+instances {
+  id: "env_sky"
+  prototype: "/world/game/go/sky/sky.go"
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 100.0
+    y: 100.0
+    z: 100.0
+  }
+}
 scale_along_z: 1
 embedded_instances {
   id: "controller"

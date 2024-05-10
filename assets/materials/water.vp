@@ -22,8 +22,10 @@ varying highp vec3 var_view_position;
 
 void main() {
     highp vec3 localPosition = position.xyz;
-    float fTime = time.x * 1.0;
-    localPosition.y +=  cos(localPosition.z * 5.0 + fTime) * 0.3 * sin(localPosition.x * 5.0 + fTime);
+    float fTime = time.x * 0.4;
+    localPosition.y +=  cos(localPosition.z * 5.0 + fTime) * 0.05 * sin(localPosition.x * 4.0 + fTime);
+    localPosition.z +=  cos(localPosition.x * 3.0 + fTime) * 0.125 * sin(localPosition.z * 6.0 + fTime);
+    localPosition.x +=  cos(localPosition.x * 8.0 + fTime) * 0.125 * sin(localPosition.z * 11.0 + fTime);
 
     highp vec4 world_position = mtx_world * vec4(localPosition, 1.0);
     var_world_position = world_position.xyz;
