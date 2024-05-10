@@ -82,7 +82,7 @@ end
 function GameWorld:game_loaded()
 	self:liveupdate_ready()
 	local def = DEFS.LOCATIONS.BY_ID[DEFS.LOCATIONS.BY_ID.ZONE_1.id]
-	local level_def = DEFS.LEVELS.BY_ID.CHOOSE_LEVEL
+	local level_def = DEFS.LEVELS.BY_ID[self.world.storage.levels:levels_get_last_opened()]
 	if def.liveupdate and not LIVEUPDATE.is_ready() then
 		self.actions:add_action(function()
 			while (not LIVEUPDATE.is_ready()) do coroutine.yield() end

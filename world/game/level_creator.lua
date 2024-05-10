@@ -129,6 +129,8 @@ function Creator:create_location(location_id, level_id)
 
 	end
 
+	COMMON.EVENTS.LEVEL_CHANGED:trigger()
+
 
 end
 

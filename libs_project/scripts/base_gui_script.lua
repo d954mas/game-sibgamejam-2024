@@ -27,10 +27,13 @@ function Script:init(config)
 	self.config = config or {}
 	if (self.config.input == nil) then self.config.input = true end
 	if (self.config.context_name) then COMMON.CONTEXT:register(self.config.context_name, self) end
+
+	self.subscriptions = {}
+
 	self:bind_vh()
 	self:init_gui()
 
-	self.subscriptions = {}
+
 	if self.on_storage_changed then
 		table.insert(self.subscriptions, COMMON.EVENTS.STORAGE_CHANGED:subscribe(true, function()
 			self:on_storage_changed()

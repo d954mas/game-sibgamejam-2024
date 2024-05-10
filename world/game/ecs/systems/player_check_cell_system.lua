@@ -50,8 +50,10 @@ function System:update(dt)
 					self.world.game_world.game:load_location(DEFS.LOCATIONS.BY_ID.ZONE_1.id, DEFS.LEVELS.LEVELS_LIST[cell_e.cell.level])
 				elseif self.cell.type == ENUMS.CELL_TYPE.EXIT and not self.world.game_world.game.state.completed then
 					self.world.game_world.game.state.completed = true
+					local level_idx = self.world.game_world.game.level_creator.location.level.id
 					self.world.game_world.game.actions:add_action(function()
 						COMMON.INPUT.IGNORE = true
+						self.world.game_world.storage.levels:level_completed(level_idx, 0, 0)
 						COMMON.coroutine_wait(0.5)
 						while (self.world.game_world.sm:is_working() or
 								self.world.game_world.sm:get_top()._name ~= self.world.game_world.sm.SCENES.GAME) do

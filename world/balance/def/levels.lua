@@ -24,15 +24,6 @@ M.BY_ID = {
 			"P0",
 		},
 	},
-	CHOOSE_LEVEL = {
-		cells = {
-			"12345",
-			"BBBBB",
-			"0BBB0",
-			"0BPB0",
-			"0BBB0",
-		},
-	}
 }
 
 for k, v in pairs(M.BY_ID) do
@@ -42,15 +33,6 @@ end
 M.LEVELS_LIST = {
 	M.BY_ID.TUTORIAL_1.id,
 	M.BY_ID.TUTORIAL_2.id,
-	M.BY_ID.TUTORIAL_1.id,
-	M.BY_ID.TUTORIAL_1.id,
-	M.BY_ID.TUTORIAL_1.id,
-	M.BY_ID.TUTORIAL_1.id,
-	M.BY_ID.TUTORIAL_1.id,
-	M.BY_ID.TUTORIAL_1.id,
-	M.BY_ID.TUTORIAL_1.id,
-	M.BY_ID.TUTORIAL_1.id,
-	M.BY_ID.TUTORIAL_1.id,
 }
 
 return M

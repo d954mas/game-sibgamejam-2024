@@ -64,17 +64,21 @@ function Script:bind_vh()
 		tutorials = {
 			root = gui.get_node("tutorial"),
 		},
-		inputs = {}
+		inputs = {},
 	}
 	self.views = {
 		virtual_pad = VirtualPad("virtual_pad"),
 		btn_settings = GUI.ButtonScale("btn_settings"),
 		btn_settings_lbl = AutosizeLbl("btn_settings/lbl"),
-		btn_back = GUI.ButtonScale("btn_back"),
-		btn_back_lbl = AutosizeLbl("btn_back/lbl"),
 
 		mobile_input_title = AutosizeLbl("mobile_input/title"),
 		pc_input_title = AutosizeLbl("pc_input/title"),
+		levels = {
+			root = gui.get_node("levels"),
+			lbl = gui.get_node("level/lbl"),
+			btn_next = GUI.ButtonScale("btn_next"),
+			btn_prev = GUI.ButtonScale("btn_prev"),
+		}
 	}
 end
 
@@ -109,14 +113,29 @@ function Script:init_gui()
 		end
 	end)
 
-	self.views.btn_back.input_on_pressed = true
-	self.views.btn_back:set_input_listener(function()
-		if not WORLD.sm:is_working() then
-			WORLD.game:load_location(DEFS.LOCATIONS.BY_ID.ZONE_1.id, DEFS.LEVELS.BY_ID.CHOOSE_LEVEL.id)
+	self.views.levels.btn_next:set_input_listener(function()
+		local level_idx = COMMON.LUME.findi(DEFS.LEVELS.LEVELS_LIST, WORLD.game.level_creator.location.level.id)
+		level_idx = level_idx + 1
+		if DEFS.LEVELS.LEVELS_LIST[level_idx] then
+			WORLD.game:load_location(DEFS.LOCATIONS.BY_ID.ZONE_1.id, DEFS.LEVELS.LEVELS_LIST[level_idx])
+		end
+	end)
+
+	self.views.levels.btn_prev:set_input_listener(function()
+		local level_idx = COMMON.LUME.findi(DEFS.LEVELS.LEVELS_LIST, WORLD.game.level_creator.location.level.id)
+		level_idx = level_idx - 1
+		if DEFS.LEVELS.LEVELS_LIST[level_idx] then
+			WORLD.game:load_location(DEFS.LOCATIONS.BY_ID.ZONE_1.id, DEFS.LEVELS.LEVELS_LIST[level_idx])
 		end
 	end)
 
 	self.views.virtual_pad:set_enabled(true)
+
+	table.insert(self.subscriptions,COMMON.EVENTS.LEVEL_CHANGED:subscribe(true,function()
+		self:on_level_changed()
+	end))
+
+	self:on_level_changed()
 end
 
 function Script:update(dt)
@@ -140,7 +159,8 @@ end
 function Script:on_input(action_id, action)
 	if (self.views.virtual_pad:on_input(action_id, action)) then return true end
 	if (self.views.btn_settings:on_input(action_id, action)) then return true end
-	if (self.views.btn_back:on_input(action_id, action)) then return true end
+	if (self.views.levels.btn_next:on_input(action_id, action)) then return true end
+	if (self.views.levels.btn_prev:on_input(action_id, action)) then return true end
 end
 
 function Script:on_resize()
@@ -194,13 +214,20 @@ function Script:hide_input_tooltip()
 	end
 end
 
-function Script:on_storage_changed()
+function Script:on_level_changed()
+	gui.set_text(self.views.levels.lbl,COMMON.LUME.findi(DEFS.LEVELS.LEVELS_LIST,WORLD.game.level_creator.location.level.id))
+	self:on_storage_changed()
+end
 
+function Script:on_storage_changed()
+	local level_idx = COMMON.LUME.findi(DEFS.LEVELS.LEVELS_LIST, WORLD.game.level_creator.location.level.id)
+	self.views.levels.btn_prev:set_enabled(level_idx > 1)
+	self.views.levels.btn_next:set_enabled(level_idx + 1 <= #DEFS.LEVELS.LEVELS_LIST and
+			WORLD.storage.levels:level_data_get(DEFS.LEVELS.LEVELS_LIST[level_idx]).completed)
 end
 
 function Script:on_language_changed()
 	self.views.btn_settings_lbl:set_text(COMMON.LOCALIZATION:translate("btn_settings"))
-	self.views.btn_back_lbl:set_text(COMMON.LOCALIZATION:translate("btn_choose_level"))
 	self.views.pc_input_title:set_text(COMMON.LOCALIZATION:translate("tutorial_move_arrows"))
 	self.views.mobile_input_title:set_text(COMMON.LOCALIZATION:translate("tutorial_move_drag"))
 end

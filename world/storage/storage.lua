@@ -13,6 +13,7 @@ local TutorialStoragePart = require "world.storage.tutorial_storage_part"
 local DailyTasksStoragePart = require "world.storage.daily_tasks_storage_part"
 local TimersStoragePart = require "world.storage.timers_storage_part"
 local PowerupsStoragePart = require "world.storage.powerups_storage_part"
+local LevelsStoragePart = require "world.storage.levels_storage_part"
 
 local TAG = "Storage"
 
@@ -20,7 +21,7 @@ local TAG = "Storage"
 local Storage = COMMON.class("Storage")
 
 Storage.FILE_PATH = "d954mas_sibgamejam_2024"
-Storage.VERSION = 2
+Storage.VERSION = 3
 Storage.AUTOSAVE = 30 --seconds
 Storage.CLEAR = CONSTANTS.VERSION_IS_DEV and false --BE CAREFUL. Do not use in prod
 Storage.LOCAL = CONSTANTS.VERSION_IS_DEV and CONSTANTS.PLATFORM_IS_PC
@@ -54,6 +55,7 @@ function Storage:update_data()
 	self.daily_tasks = DailyTasksStoragePart(self)
 	self.timers = TimersStoragePart(self)
 	self.powerups = PowerupsStoragePart(self)
+	self.levels = LevelsStoragePart(self)
 end
 
 function Storage:changed()
@@ -207,7 +209,10 @@ function Storage:_init_storage()
 		resources = {
 
 		},
-		version = 1
+		levels = {
+
+		},
+		version = 3
 	}
 
 	self.data = data
@@ -256,7 +261,7 @@ function Storage:_migration()
 	if (self.data.version < Storage.VERSION) then
 		COMMON.i(string.format("migrate from:%s to %s", self.data.version, Storage.VERSION), TAG)
 
-		if (self.data.version < 2) then
+		if (self.data.version < 3) then
 			self:_init_storage()
 		end
 
