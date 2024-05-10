@@ -43,9 +43,36 @@ function System:get_animation(e)
 	if (e.moving) then
 		return ENUMS.ANIMATIONS.RUN
 	end
+	if (not e.on_ground) then
+		return ENUMS.ANIMATIONS.RUN
+	end
 	return ENUMS.ANIMATIONS.IDLE
 end
 
+function System:play_idle_animation(e)
+	local skin_def = DEFS.SKINS.SKINS_BY_ID[e.skin]
+	local animations = skin_def.animations
+	if not e.player_go.config.idle_count then
+		e.player_go.config.idle_count = 0
+	end
+	e.player_go.config.idle_count = e.player_go.config.idle_count + 1
+	local long_idle = (math.random() > 0.96 or e.player_go.config.idle_count % 3 == 0)
+	if long_idle then
+		e.player_go.config.idle_count = 0
+	end
+
+	local anim =  long_idle and animations.IDLE_LONG[1].id or animations.IDLE[1].id
+
+
+	e.player_go.model.mesh_animator:play(anim, { blend_duration = 0.1, loops = 1 }, function()
+		if e.player_go.config.animation == ENUMS.ANIMATIONS.IDLE  then
+			self:play_idle_animation(e)
+		else
+			e.player_go.config.idle_count = 0
+		end
+
+	end)
+end
 
 function System:update(dt)
 	local entities = self.entities
@@ -81,7 +108,6 @@ function System:update(dt)
 
 		if (e.player_go.model.root == nil) then
 			local skin_def = assert(DEFS.SKINS.SKINS_BY_ID[e.player_go.config.skin])
-			pprint(skin_def.factory)
 			local urls = collectionfactory.create(skin_def.factory, nil, nil, nil,
 					skin_def.scale)
 			local go_url = msg.url(urls[PARTS.ROOT])
@@ -108,10 +134,12 @@ function System:update(dt)
 
 			e.player_go.config.animation = anim
 			if (anim == ENUMS.ANIMATIONS.IDLE) then
-				e.player_go.model.mesh_animator:play(animations.IDLE[1].id, prev == ENUMS.ANIMATIONS.DIE and LONG_BLEND_LOOP or BASE_BLEND_LOOP)
+				self:play_idle_animation(e)
 			elseif (anim == ENUMS.ANIMATIONS.RUN) then
+				e.player_go.config.idle_count = 0
 				e.player_go.model.mesh_animator:play(animations.RUN[1].id, prev == ENUMS.ANIMATIONS.DIE and LONG_BLEND_LOOP or BASE_BLEND_LOOP)
 			elseif (anim == ENUMS.ANIMATIONS.DIE) then
+				e.player_go.config.idle_count = 0
 				--e.player_go.model.mesh_animator:play(animations.DIE[1].id, BASE_BLEND_DIE)
 			end
 		end
@@ -131,6 +159,5 @@ function System:update(dt)
 		e.player_go.model.mesh_animator:update(dt)
 	end
 end
-
 
 return System

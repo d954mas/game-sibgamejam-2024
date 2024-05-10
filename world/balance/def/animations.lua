@@ -2,6 +2,7 @@ local M = {}
 
 M.BY_ID = {
 	RUN_BASE = { file = "walk.bin" },
+	IDLE = { file = "idle.bin" },
 	LOOK_AROUND = { file = "look_around.bin" },
 }
 
