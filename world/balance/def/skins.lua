@@ -37,6 +37,21 @@ M.SKINS_BY_ID.BOXER = {
 	}
 }
 
+M.SKINS_BY_ID.CHILD = {
+	mesh = "char_base",
+	factory = msg.url("game_scene:/factory#char_boxer"),
+	scale = vmath.vector3(0.5),
+	hp_bar_pos = vmath.vector3(0, 2.1, 0),
+	icon = hash("char_boxer"),
+	animations = {
+		IDLE = { ANIM.BY_ID.IDLE },
+		IDLE_LONG = { ANIM.BY_ID.LOOK_AROUND },
+		RUN = { ANIM.BY_ID.RUN_BASE },
+		PUNCH = { ANIM.BY_ID.PUNCH },
+		DIE = { ANIM.BY_ID.DIE },
+		LOOK_AROUND = { ANIM.BY_ID.LOOK_AROUND },
+	}
+}
 
 M.LIVEUPDATE = {
 

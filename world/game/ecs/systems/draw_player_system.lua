@@ -150,6 +150,11 @@ function System:update(dt)
 			end
 		end
 
+		if e.player_go.config.completed_animation then
+			e.player_go.config.completed_animation = nil
+			go.animate(e.player_go.model.root, "scale", go.PLAYBACK_ONCE_FORWARD, vmath.vector3(0.001), go.EASING_OUTQUAD, 0.33, 0.1)
+		end
+
 
 		--for ghost fly mode
 		--GO_SET_POSITION(e.position, e.player_go.root)

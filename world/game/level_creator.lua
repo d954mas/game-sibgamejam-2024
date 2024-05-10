@@ -70,6 +70,7 @@ function Creator:create_level(id)
 		size = { w = 0, h = 0 },
 		cell_size = { w = 4, h = 4 },
 		spawn_cell = { x = 1, y = 1 },
+		exit_cell = { x = 1, y = 1 },
 		map = {
 
 		}
@@ -104,6 +105,8 @@ function Creator:create_level(id)
 				level.map[y][x] = { type = ENUMS.CELL_TYPE.BLOCK_STATIC }
 			elseif cell == "E" then
 				level.map[y][x] = { type = ENUMS.CELL_TYPE.EXIT }
+				level.exit_cell.x = x
+				level.exit_cell.y = y
 			elseif COMMON.LUME.findi(LEVELS_LIST, cell) then
 				level.map[y][x] = { type = ENUMS.CELL_TYPE.BLOCK_LEVEL, level = COMMON.LUME.findi(LEVELS_LIST, cell) }
 			else
@@ -140,6 +143,14 @@ end
 function Creator:load_level()
 	self.level_cells = self.entities:create_level_cells(assert(self.location.level))
 	self.ecs:add_entity(self.level_cells)
+
+	local level = self.location.level
+
+	local x = level.exit_cell.x * level.cell_size.w - level.cell_size.w / 2
+	local z = level.exit_cell.y * level.cell_size.h - level.cell_size.h / 2
+	local child = self.entities:create_child(vmath.vector3(x, 0.1, z))
+	print(child.position)
+	self.ecs:add_entity(child)
 end
 
 function Creator:get_cell(world_x, world_z)

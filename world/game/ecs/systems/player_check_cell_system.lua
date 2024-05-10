@@ -57,7 +57,16 @@ function System:update(dt)
 						msg.post(assert(player.player_go.collision), COMMON.HASHES.MSG.DISABLE)
 
 						self.world.game_world.storage.levels:level_completed(level_idx, 0, 0)
-						COMMON.coroutine_wait(0.5)
+						for _,child in ipairs(self.world.game_world.game.ecs_game.entities.childs)do
+							child.child_go.config.completed_animation = true
+							local impulse = vmath.vector3(0,1*child.mass*1000,0)
+							physics.wakeup(child.child_go.collision)
+							msg.post(child.child_go.collision, COMMON.HASHES.MSG.PHYSICS.APPLY_FORCE, { force = impulse, position = child.position })
+						end
+						COMMON.coroutine_wait(0.33)
+						player.player_go.config.completed_animation = true
+						physics.wakeup(e.player_go.collision)
+						COMMON.coroutine_wait(0.6)
 						while (self.world.game_world.sm:is_working() or
 								self.world.game_world.sm:get_top()._name ~= self.world.game_world.sm.SCENES.GAME) do
 							coroutine.yield()

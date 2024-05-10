@@ -51,6 +51,7 @@ M.PlayerCheckCellSystem = require "world.game.ecs.systems.player_check_cell_syst
 
 
 M.DrawPlayerSystem = require "world.game.ecs.systems.draw_player_system"
+M.DrawChildSystem = require "world.game.ecs.systems.draw_child_system"
 
 
 

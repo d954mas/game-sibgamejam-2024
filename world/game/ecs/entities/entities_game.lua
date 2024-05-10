@@ -7,6 +7,7 @@ local TABLE_REMOVE = table.remove
 local TABLE_INSERT = table.insert
 
 local FACTORY_URL_PLAYER = msg.url("game_scene:/factory#player")
+local FACTORY_URL_CHILD = msg.url("game_scene:/factory#child")
 local FACTORY_URL_ENEMY = msg.url("game_scene:/factory#enemy")
 
 local DIR_UP = vmath.vector3(0, 1, 0)
@@ -41,6 +42,8 @@ function Entities:initialize(world)
 	self.world = world
 	---@type EntityGame[]
 	self.pool_input = {}
+
+	self.childs = {}
 end
 
 
@@ -51,6 +54,10 @@ function Entities:on_entity_removed(e)
 	e._in_world = false
 	if (e.input_info) then
 		TABLE_INSERT(self.pool_input, e)
+	end
+
+	if (e.child) then
+		COMMON.LUME.removei(self.childs, e)
 	end
 
 	if (e.frustum_native) then
@@ -71,6 +78,11 @@ function Entities:on_entity_removed(e)
 		go.delete(e.player_go.root, true)
 		if e.player_go.model.mesh then e.player_go.model.mesh:dispose() end
 		e.player_go = nil
+	end
+	if e.child_go then
+		go.delete(e.child_go.root, true)
+		if e.child_go.model.mesh then e.child_go.model.mesh:dispose() end
+		e.child_go = nil
 	end
 	if e.level_cells then
 		local map = e.level_cells.map
@@ -100,6 +112,9 @@ end
 ---@param e EntityGame
 function Entities:on_entity_added(e)
 	e._in_world = true
+	if e.child then
+		table.insert(self.childs, e)
+	end
 end
 --endregion
 
@@ -216,6 +231,46 @@ function Entities:create_player(position)
 	return e
 end
 
+---@return EntityGame
+function Entities:create_child(position)
+	---@type EntityGame
+	local e = { }
+	e.child = true
+	e.position = vmath.vector3(position)
+	e.angle = 0
+	e.skin = DEFS.SKINS.SKINS_BY_ID.CHILD.id
+	e.look_dir = vmath.vector3(0, 0, 1)
+
+	local urls = collectionfactory.create(FACTORY_URL_CHILD, e.position)
+	e.child_go = {
+		root = msg.url(assert(urls[PARTS.ROOT])),
+		collision = nil,
+		model = {
+			root = nil,
+			model = nil,
+			mesh_root = nil,
+			mesh_origin = nil
+		},
+		gloves = {
+			left = { root = nil, model = nil },
+			right = { root = nil, model = nil }
+		},
+		config = {
+			gloves = nil,
+			skin = nil,
+			animation = nil,
+			look_dir = vmath.vector3(0, 0, 1),
+			look_dir_smooth_dump = SmoothDumpV3(0.05),
+			spawn_animation = true
+		},
+	}
+	e.child_go.collision = COMMON.LUME.url_component_from_url(e.child_go.root, "collision")
+	e.physics_linear_velocity = vmath.vector3()
+	e.physics_object = game.physics_object_create(e.child_go.root, e.child_go.collision, e.position, e.physics_linear_velocity)
+	e.mass = go.get(e.child_go.collision, COMMON.HASHES.MASS)
+	return e
+end
+
 function Entities:create_level_cells(level)
 	---@type EntityGame
 	local e = {}
@@ -226,14 +281,12 @@ function Entities:create_level_cells(level)
 	}
 
 	local map = e.level_cells.map
-	print("level.size.w", level.size.w)
-	print("level.size.h", level.size.h)
 	for y = 1, level.size.h do
 		map[y] = {}
-		local spawn_dy = level.spawn_cell.y-y
+		local spawn_dy = level.spawn_cell.y - y
 		for x = 1, level.size.w do
 			map[y][x] = { cell = e.level_cells.level.map[y][x], x = x, y = y }
-			local spawn_dx = level.spawn_cell.x-x
+			local spawn_dx = level.spawn_cell.x - x
 			if (map[y][x].cell.type ~= ENUMS.CELL_TYPE.EMPTY) then
 				local urls = collectionfactory.create(CELL_FACTORIES[map[y][x].cell.type], vmath.vector3(x * level.cell_size.w - level.cell_size.w / 2, 0, y * level.cell_size.h - level.cell_size.h / 2))
 				local cell_go = {
@@ -242,9 +295,9 @@ function Entities:create_level_cells(level)
 				}
 				if cell_go.block then
 					local scale = go.get_scale(cell_go.block)
-					go.set_scale(vmath.vector3(0.001),cell_go.block)
-					local distance = math.sqrt(spawn_dy*spawn_dy+spawn_dx*spawn_dx)
-					go.animate(cell_go.block,"scale",go.PLAYBACK_ONCE_FORWARD,scale,go.EASING_OUTQUAD,0.2,(distance)*0.1)
+					go.set_scale(vmath.vector3(0.001), cell_go.block)
+					local distance = math.sqrt(spawn_dy * spawn_dy + spawn_dx * spawn_dx)
+					go.animate(cell_go.block, "scale", go.PLAYBACK_ONCE_FORWARD, scale, go.EASING_OUTQUAD, 0.2, (distance) * 0.1)
 				end
 				map[y][x].cell_go = cell_go
 
