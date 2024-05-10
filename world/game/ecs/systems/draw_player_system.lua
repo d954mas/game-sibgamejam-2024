@@ -61,11 +61,10 @@ function System:play_idle_animation(e)
 		e.player_go.config.idle_count = 0
 	end
 
-	local anim =  long_idle and animations.IDLE_LONG[1].id or animations.IDLE[1].id
-
+	local anim = long_idle and animations.IDLE_LONG[1].id or animations.IDLE[1].id
 
 	e.player_go.model.mesh_animator:play(anim, { blend_duration = 0.1, loops = 1 }, function()
-		if e.player_go.config.animation == ENUMS.ANIMATIONS.IDLE  then
+		if e.player_go.config.animation == ENUMS.ANIMATIONS.IDLE then
 			self:play_idle_animation(e)
 		else
 			e.player_go.config.idle_count = 0
@@ -123,6 +122,13 @@ function System:update(dt)
 			e.player_go.model.mesh_animator = MeshAnimator(e.player_go.model.mesh)
 			e.player_go.model.mesh.tracks[2].bone_weights = DEFS.ANIMATIONS.BONES_WEIGHS.ARM_ATTACK
 			e.player_go.model.mesh.tracks[2].enabled = true
+		end
+
+		if e.player_go.config.spawn_animation then
+			e.player_go.config.spawn_animation = nil
+			go.set_scale(vmath.vector3(0.01),e.player_go.model.root)
+			local skin_def = assert(DEFS.SKINS.SKINS_BY_ID[e.player_go.config.skin])
+			go.animate(e.player_go.model.root, "scale", go.PLAYBACK_ONCE_FORWARD, skin_def.scale, go.EASING_INQUAD, 0.25, 0)
 		end
 
 		local anim = self:get_animation(e)

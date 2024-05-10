@@ -206,6 +206,7 @@ function Entities:create_player(position)
 			animation = nil,
 			look_dir = vmath.vector3(0, 0, -1),
 			look_dir_smooth_dump = SmoothDumpV3(0.05),
+			spawn_animation = true
 		},
 	}
 	e.player_go.collision = COMMON.LUME.url_component_from_url(e.player_go.root, "collision")
@@ -229,14 +230,24 @@ function Entities:create_level_cells(level)
 	print("level.size.h", level.size.h)
 	for y = 1, level.size.h do
 		map[y] = {}
+		local spawn_dy = level.spawn_cell.y-y
 		for x = 1, level.size.w do
 			map[y][x] = { cell = e.level_cells.level.map[y][x], x = x, y = y }
+			local spawn_dx = level.spawn_cell.x-x
 			if (map[y][x].cell.type ~= ENUMS.CELL_TYPE.EMPTY) then
 				local urls = collectionfactory.create(CELL_FACTORIES[map[y][x].cell.type], vmath.vector3(x * level.cell_size.w - level.cell_size.w / 2, 0, y * level.cell_size.h - level.cell_size.h / 2))
-				map[y][x].cell_go = {
+				local cell_go = {
 					root = msg.url(assert(urls[PARTS.ROOT])),
 					block = msg.url(urls[PARTS.BLOCK]),
 				}
+				if cell_go.block then
+					local scale = go.get_scale(cell_go.block)
+					go.set_scale(vmath.vector3(0.001),cell_go.block)
+					local distance = math.sqrt(spawn_dy*spawn_dy+spawn_dx*spawn_dx)
+					go.animate(cell_go.block,"scale",go.PLAYBACK_ONCE_FORWARD,scale,go.EASING_OUTQUAD,0.2,(distance)*0.1)
+				end
+				map[y][x].cell_go = cell_go
+
 				--map[y][x].collision = COMMON.LUME.url_component_from_url(map[y][x].root, "collision")
 			end
 		end

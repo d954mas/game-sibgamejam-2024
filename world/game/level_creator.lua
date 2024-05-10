@@ -69,6 +69,7 @@ function Creator:create_level(id)
 		id = id,
 		size = { w = 0, h = 0 },
 		cell_size = { w = 4, h = 4 },
+		spawn_cell = { x = 1, y = 1 },
 		map = {
 
 		}
@@ -93,6 +94,8 @@ function Creator:create_level(id)
 			elseif cell == "P" then
 				self.player_spawn_position = vmath.vector3(x * level.cell_size.w - level.cell_size.w / 2, 0.1, y * level.cell_size.h - level.cell_size.h / 2)
 				level.map[y][x] = { type = ENUMS.CELL_TYPE.BLOCK_SPAWN }
+				level.spawn_cell.x = x
+				level.spawn_cell.y = y
 			elseif cell == "U" then
 				level.map[y][x] = { type = ENUMS.CELL_TYPE.BLOCK }
 			elseif cell == "u" then

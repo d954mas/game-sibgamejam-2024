@@ -225,10 +225,12 @@ function GameWorld:die(e)
 			while (self.world.sm:is_working() or self.world.sm:get_top()._name ~= self.world.sm.SCENES.GAME) do
 				coroutine.yield()
 			end
+			go.set_scale(vmath.vector3(0.01),e.player_go.model.root)
 			self:teleport(e, self.level_creator.player_spawn_position, function()
 				e.die = false
 				e.moving = false
 				COMMON.INPUT.IGNORE = false
+				e.player_go.config.spawn_animation = true
 			end)
 		end)
 	end
