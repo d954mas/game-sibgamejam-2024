@@ -3114,7 +3114,7 @@ nodes {
   }
   type: TYPE_BOX
   blend_mode: BLEND_MODE_ADD
-  texture: "gui/shine"
+  texture: "gui/empty"
   id: "tutorial_pointer/glow"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
