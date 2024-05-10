@@ -90,7 +90,7 @@ embedded_instances {
   "  }\\n"
   "  textures {\\n"
   "    sampler: \\\"DIFFUSE_TEXTURE\\\"\\n"
-  "    texture: \\\"/assets/images/white.png\\\"\\n"
+  "    texture: \\\"/assets/textures/rgba_mip/cube_white.png\\\"\\n"
   "  }\\n"
   "  textures {\\n"
   "    sampler: \\\"SHADOW_TEXTURE\\\"\\n"

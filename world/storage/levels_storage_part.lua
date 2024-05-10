@@ -26,12 +26,22 @@ function Storage:level_completed(idx, stars, play_time)
 end
 
 function Storage:levels_get_last_opened()
-	for _,level in ipairs(DEFS.LEVELS.LEVELS_LIST)do
+	for _, level in ipairs(DEFS.LEVELS.LEVELS_LIST) do
 		if not self:level_data_get(level).completed then
 			return level
 		end
 	end
 	return DEFS.LEVELS.LEVELS_LIST[#DEFS.LEVELS.LEVELS_LIST]
+end
+
+function Storage:get_kangaroos()
+	local result = 0
+	for _, level in ipairs(DEFS.LEVELS.LEVELS_LIST) do
+		if self:level_data_get(level).completed then
+			result = result + 1
+		end
+	end
+	return result
 end
 
 return Storage

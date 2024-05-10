@@ -61,6 +61,7 @@ function Script:bind_vh()
 		mobile_input = gui.get_node("mobile_input"),
 		pointer = gui.get_node("mobile_input/finger"),
 		tutorial_pointer = gui.get_node("tutorial_pointer/root"),
+		lbl_kangaroo = gui.get_node("lbl_kangaroo"),
 		tutorials = {
 			root = gui.get_node("tutorial"),
 		},
@@ -131,7 +132,7 @@ function Script:init_gui()
 
 	self.views.virtual_pad:set_enabled(true)
 
-	table.insert(self.subscriptions,COMMON.EVENTS.LEVEL_CHANGED:subscribe(true,function()
+	table.insert(self.subscriptions, COMMON.EVENTS.LEVEL_CHANGED:subscribe(true, function()
 		self:on_level_changed()
 	end))
 
@@ -217,7 +218,7 @@ function Script:hide_input_tooltip()
 end
 
 function Script:on_level_changed()
-	gui.set_text(self.views.levels.lbl,COMMON.LUME.findi(DEFS.LEVELS.LEVELS_LIST,WORLD.game.level_creator.location.level.id))
+	gui.set_text(self.views.levels.lbl, COMMON.LUME.findi(DEFS.LEVELS.LEVELS_LIST, WORLD.game.level_creator.location.level.id))
 	self:on_storage_changed()
 end
 
@@ -226,6 +227,15 @@ function Script:on_storage_changed()
 	self.views.levels.btn_prev:set_enabled(level_idx > 1)
 	self.views.levels.btn_next:set_enabled(level_idx + 1 <= #DEFS.LEVELS.LEVELS_LIST and
 			WORLD.storage.levels:level_data_get(DEFS.LEVELS.LEVELS_LIST[level_idx]).completed)
+	local kangaroo = WORLD.storage.levels:get_kangaroos()
+	if kangaroo < 10 then
+		kangaroo = "0" .. kangaroo
+	end
+	local max = #DEFS.LEVELS.LEVELS_LIST
+	if max < 10 then
+		max = "0" .. max
+	end
+	gui.set_text(self.vh.lbl_kangaroo, kangaroo .. "/" .. max)
 end
 
 function Script:on_language_changed()
