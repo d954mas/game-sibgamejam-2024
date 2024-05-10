@@ -48,6 +48,7 @@ M.PlayerGroundCheckSystem = require "world.game.ecs.systems.player_ground_check_
 M.FallSystem = require "world.game.ecs.systems.fall_system"
 M.PlayerAutoJumpSystem = require "world.game.ecs.systems.player_auto_jump_system"
 M.PlayerCheckCellSystem = require "world.game.ecs.systems.player_check_cell_system"
+M.PlayerStepSoundSystem = require "world.game.ecs.systems.player_step_sound_system"
 
 
 M.DrawPlayerSystem = require "world.game.ecs.systems.draw_player_system"

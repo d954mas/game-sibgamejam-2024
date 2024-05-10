@@ -55,7 +55,7 @@ function System:update(dt)
 						COMMON.INPUT.IGNORE = true
 						local player = self.world.game_world.game.level_creator.player
 						msg.post(assert(player.player_go.collision), COMMON.HASHES.MSG.DISABLE)
-
+						self.world.game_world.sounds:play_sound(self.world.game_world.sounds.sounds.win)
 						self.world.game_world.storage.levels:level_completed(level_idx, 0, 0)
 						for _,child in ipairs(self.world.game_world.game.ecs_game.entities.childs)do
 							child.child_go.config.completed_animation = true

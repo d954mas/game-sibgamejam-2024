@@ -19,8 +19,8 @@ background_color {
 }
 nodes {
   position {
-    x: 640.0
-    y: 360.0
+    x: 638.0
+    y: 355.0
     z: 0.0
     w: 1.0
   }
@@ -284,7 +284,7 @@ nodes {
   }
   type: TYPE_TEXT
   blend_mode: BLEND_MODE_ALPHA
-  text: "LEVEL COMPLETED"
+  text: "COMPLETED!!!"
   font: "game_font"
   id: "title"
   xanchor: XANCHOR_NONE
@@ -320,7 +320,7 @@ nodes {
 }
 nodes {
   position {
-    x: 0.0
+    x: -2.0
     y: -10.0
     z: 0.0
     w: 1.0
@@ -344,9 +344,9 @@ nodes {
     w: 1.0
   }
   color {
-    x: 0.039
-    y: 0.38
-    z: 0.827
+    x: 0.71
+    y: 0.396
+    z: 0.082
     w: 1.0
   }
   type: TYPE_BOX
@@ -403,9 +403,9 @@ nodes {
     w: 1.0
   }
   color {
-    x: 0.024
-    y: 0.259
-    z: 0.604
+    x: 0.396
+    y: 0.224
+    z: 0.047
     w: 1.0
   }
   type: TYPE_BOX
@@ -438,7 +438,7 @@ nodes {
 }
 nodes {
   position {
-    x: 0.0
+    x: -2.0
     y: -10.0
     z: 0.0
     w: 1.0
@@ -497,8 +497,8 @@ nodes {
 }
 nodes {
   position {
-    x: -93.0
-    y: -50.0
+    x: 1.0
+    y: -143.0
     z: 0.0
     w: 1.0
   }
@@ -509,8 +509,8 @@ nodes {
     w: 1.0
   }
   scale {
-    x: 1.5
-    y: 1.5
+    x: 1.0
+    y: 1.0
     z: 1.0
     w: 1.0
   }
@@ -568,8 +568,8 @@ nodes {
     w: 1.0
   }
   scale {
-    x: 0.5
-    y: 0.5
+    x: 1.0
+    y: 1.0
     z: 1.0
     w: 1.0
   }
@@ -627,8 +627,8 @@ nodes {
     w: 1.0
   }
   scale {
-    x: 0.4
-    y: 0.4
+    x: 1.0
+    y: 1.0
     z: 1.0
     w: 1.0
   }
@@ -682,8 +682,8 @@ nodes {
 }
 nodes {
   position {
-    x: 93.0
-    y: -50.0
+    x: 9.0
+    y: 67.0
     z: 0.0
     w: 1.0
   }
@@ -694,14 +694,82 @@ nodes {
     w: 1.0
   }
   scale {
-    x: 1.5
-    y: 1.5
+    x: 0.8
+    y: 0.8
     z: 1.0
     w: 1.0
   }
   size {
-    x: 110.0
-    y: 50.0
+    x: 320.0
+    y: 100.0
+    z: 0.0
+    w: 1.0
+  }
+  color {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+    w: 1.0
+  }
+  type: TYPE_TEXT
+  blend_mode: BLEND_MODE_ALPHA
+  text: "YOU SAVED ALL\n"
+  "KANGAROOS"
+  font: "game_font"
+  id: "title1"
+  xanchor: XANCHOR_NONE
+  yanchor: YANCHOR_NONE
+  pivot: PIVOT_CENTER
+  outline {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  shadow {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+    w: 1.0
+  }
+  adjust_mode: ADJUST_MODE_FIT
+  line_break: false
+  parent: "modal"
+  layer: "text"
+  inherit_alpha: true
+  alpha: 1.0
+  outline_alpha: 1.0
+  shadow_alpha: 1.0
+  template_node_child: false
+  text_leading: 1.0
+  text_tracking: 0.1
+  custom_type: 0
+  enabled: true
+  visible: true
+  material: ""
+}
+nodes {
+  position {
+    x: -43.0
+    y: -18.0
+    z: 0.0
+    w: 1.0
+  }
+  rotation {
+    x: 0.811
+    y: -0.297
+    z: -11.861
+    w: 1.0
+  }
+  scale {
+    x: 0.5
+    y: 0.5
+    z: 1.0
+    w: 1.0
+  }
+  size {
+    x: 200.0
+    y: 100.0
     z: 0.0
     w: 1.0
   }
@@ -713,8 +781,8 @@ nodes {
   }
   type: TYPE_BOX
   blend_mode: BLEND_MODE_ALPHA
-  texture: "gui/empty"
-  id: "btn_next/root"
+  texture: "gui/icon_kangaroo"
+  id: "modal/border5"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
   pivot: PIVOT_CENTER
@@ -733,23 +801,23 @@ nodes {
   clipping_inverted: false
   alpha: 1.0
   template_node_child: false
-  size_mode: SIZE_MODE_MANUAL
+  size_mode: SIZE_MODE_AUTO
   custom_type: 0
   enabled: true
-  visible: false
+  visible: true
   material: ""
 }
 nodes {
   position {
-    x: 0.0
-    y: 0.0
+    x: -135.0
+    y: -97.0
     z: 0.0
     w: 1.0
   }
   rotation {
     x: 0.0
     y: 0.0
-    z: 0.0
+    z: -20.228
     w: 1.0
   }
   scale {
@@ -760,7 +828,7 @@ nodes {
   }
   size {
     x: 200.0
-    y: 90.0
+    y: 100.0
     z: 0.0
     w: 1.0
   }
@@ -772,27 +840,27 @@ nodes {
   }
   type: TYPE_BOX
   blend_mode: BLEND_MODE_ALPHA
-  texture: "gui/btn_collect"
-  id: "btn_next/bg"
+  texture: "gui/icon_kangaroo"
+  id: "modal/border1"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
   pivot: PIVOT_CENTER
   adjust_mode: ADJUST_MODE_FIT
-  parent: "btn_next/root"
+  parent: "modal"
   layer: "below"
   inherit_alpha: true
   slice9 {
-    x: 15.0
-    y: 12.0
-    z: 15.0
-    w: 20.0
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 0.0
   }
   clipping_mode: CLIPPING_MODE_NONE
   clipping_visible: true
   clipping_inverted: false
   alpha: 1.0
   template_node_child: false
-  size_mode: SIZE_MODE_MANUAL
+  size_mode: SIZE_MODE_AUTO
   custom_type: 0
   enabled: true
   visible: true
@@ -800,26 +868,26 @@ nodes {
 }
 nodes {
   position {
-    x: 0.0
-    y: 3.0
+    x: -140.0
+    y: 8.0
     z: 0.0
     w: 1.0
   }
   rotation {
     x: 0.0
-    y: 0.0
-    z: 0.0
+    y: -3.209
+    z: 16.657
     w: 1.0
   }
   scale {
-    x: 0.4
-    y: 0.4
+    x: 0.5
+    y: 0.5
     z: 1.0
     w: 1.0
   }
   size {
     x: 200.0
-    y: 80.0
+    y: 100.0
     z: 0.0
     w: 1.0
   }
@@ -829,38 +897,206 @@ nodes {
     z: 1.0
     w: 1.0
   }
-  type: TYPE_TEXT
+  type: TYPE_BOX
   blend_mode: BLEND_MODE_ALPHA
-  text: "NEXT\n"
-  ""
-  font: "game_font"
-  id: "btn_next/lbl"
+  texture: "gui/icon_kangaroo"
+  id: "modal/border2"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
   pivot: PIVOT_CENTER
-  outline {
+  adjust_mode: ADJUST_MODE_FIT
+  parent: "modal"
+  layer: "below"
+  inherit_alpha: true
+  slice9 {
     x: 0.0
     y: 0.0
     z: 0.0
+    w: 0.0
+  }
+  clipping_mode: CLIPPING_MODE_NONE
+  clipping_visible: true
+  clipping_inverted: false
+  alpha: 1.0
+  template_node_child: false
+  size_mode: SIZE_MODE_AUTO
+  custom_type: 0
+  enabled: true
+  visible: true
+  material: ""
+}
+nodes {
+  position {
+    x: 19.0
+    y: -38.0
+    z: 0.0
     w: 1.0
   }
-  shadow {
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 18.44
+    w: 1.0
+  }
+  scale {
+    x: 0.5
+    y: 0.5
+    z: 1.0
+    w: 1.0
+  }
+  size {
+    x: 200.0
+    y: 100.0
+    z: 0.0
+    w: 1.0
+  }
+  color {
     x: 1.0
     y: 1.0
     z: 1.0
     w: 1.0
   }
+  type: TYPE_BOX
+  blend_mode: BLEND_MODE_ALPHA
+  texture: "gui/icon_kangaroo"
+  id: "modal/border3"
+  xanchor: XANCHOR_NONE
+  yanchor: YANCHOR_NONE
+  pivot: PIVOT_CENTER
   adjust_mode: ADJUST_MODE_FIT
-  line_break: true
-  parent: "btn_next/root"
-  layer: "text"
+  parent: "modal"
+  layer: "below"
   inherit_alpha: true
+  slice9 {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 0.0
+  }
+  clipping_mode: CLIPPING_MODE_NONE
+  clipping_visible: true
+  clipping_inverted: false
   alpha: 1.0
-  outline_alpha: 1.0
-  shadow_alpha: 1.0
   template_node_child: false
-  text_leading: 1.0
-  text_tracking: 0.1
+  size_mode: SIZE_MODE_AUTO
+  custom_type: 0
+  enabled: true
+  visible: true
+  material: ""
+}
+nodes {
+  position {
+    x: 105.0
+    y: -26.0
+    z: 0.0
+    w: 1.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: -11.732
+    w: 1.0
+  }
+  scale {
+    x: 0.5
+    y: 0.5
+    z: 1.0
+    w: 1.0
+  }
+  size {
+    x: 200.0
+    y: 100.0
+    z: 0.0
+    w: 1.0
+  }
+  color {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+    w: 1.0
+  }
+  type: TYPE_BOX
+  blend_mode: BLEND_MODE_ALPHA
+  texture: "gui/icon_kangaroo"
+  id: "modal/border6"
+  xanchor: XANCHOR_NONE
+  yanchor: YANCHOR_NONE
+  pivot: PIVOT_CENTER
+  adjust_mode: ADJUST_MODE_FIT
+  parent: "modal"
+  layer: "below"
+  inherit_alpha: true
+  slice9 {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 0.0
+  }
+  clipping_mode: CLIPPING_MODE_NONE
+  clipping_visible: true
+  clipping_inverted: false
+  alpha: 1.0
+  template_node_child: false
+  size_mode: SIZE_MODE_AUTO
+  custom_type: 0
+  enabled: true
+  visible: true
+  material: ""
+}
+nodes {
+  position {
+    x: 138.0
+    y: -76.0
+    z: 0.0
+    w: 1.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: -11.732
+    w: 1.0
+  }
+  scale {
+    x: 0.5
+    y: 0.5
+    z: 1.0
+    w: 1.0
+  }
+  size {
+    x: 200.0
+    y: 100.0
+    z: 0.0
+    w: 1.0
+  }
+  color {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+    w: 1.0
+  }
+  type: TYPE_BOX
+  blend_mode: BLEND_MODE_ALPHA
+  texture: "gui/icon_kangaroo"
+  id: "modal/border4"
+  xanchor: XANCHOR_NONE
+  yanchor: YANCHOR_NONE
+  pivot: PIVOT_CENTER
+  adjust_mode: ADJUST_MODE_FIT
+  parent: "modal"
+  layer: "below"
+  inherit_alpha: true
+  slice9 {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 0.0
+  }
+  clipping_mode: CLIPPING_MODE_NONE
+  clipping_visible: true
+  clipping_inverted: false
+  alpha: 1.0
+  template_node_child: false
+  size_mode: SIZE_MODE_AUTO
   custom_type: 0
   enabled: true
   visible: true

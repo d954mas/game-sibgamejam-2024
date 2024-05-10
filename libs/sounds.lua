@@ -21,6 +21,12 @@ function Sounds:initialize(world)
 	self.sounds = {
 		slider = { name = "slider", url = msg.url("main:/sounds#slider"), skip_play = true },
 		btn_1 = { name = "btn_1", url = msg.url("main:/sounds#btn_1"), skip_play = true },
+		lose = { name = "lose", url = msg.url("game_scene:/sounds#lose") },
+		win = { name = "win", url = msg.url("game_scene:/sounds#win") },
+		steps = {
+			{ name = "step_1", url = msg.url("game_scene:/sounds#step_1") },
+			{ name = "step_2", url = msg.url("game_scene:/sounds#step_2") },
+		},
 	}
 
 	self.music = {
@@ -182,6 +188,10 @@ function Sounds:toggle()
 		self.world.storage.options:music_set(true)
 		self.world.storage.options:sound_set(true)
 	end
+end
+
+function Sounds:play_step_sound()
+	self:play_sound(self.sounds.steps[math.random(1, self.liveupdate_loaded and 2 or 2)])
 end
 
 return Sounds

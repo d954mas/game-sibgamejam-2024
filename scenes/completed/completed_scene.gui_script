@@ -24,8 +24,6 @@ function Script:bind_vh()
 		title_lbl = AutosizeLabel("title"),
 		btn_restart = ButtonScale("btn_restart"),
 		btn_restart_lbl = AutosizeLabel("btn_restart/lbl"),
-		btn_next = ButtonScale("btn_next"),
-		btn_next_lbl = AutosizeLabel("btn_next/lbl"),
 	}
 end
 
@@ -39,14 +37,7 @@ function Script:init_gui()
 	gui.set_color(self.vh.fader, vmath.vector4(self.fader_color.x, self.fader_color.y, self.fader_color.z, 0))
 
 	self.views.btn_restart:set_input_listener(function()
-		WORLD.game:load_location(DEFS.LOCATIONS.BY_ID.ZONE_1.id, WORLD.game.level_creator.location.level.id)
-		self:close()
-	end)
-	local level_idx = COMMON.LUME.findi(DEFS.LEVELS.LEVELS_LIST, WORLD.game.level_creator.location.level.id)
-	level_idx = level_idx + 1
-	self.views.btn_next:set_enabled(level_idx <= #DEFS.LEVELS.LEVELS_LIST)
-	self.views.btn_next:set_input_listener(function()
-		WORLD.game:load_location(DEFS.LOCATIONS.BY_ID.ZONE_1.id, DEFS.LEVELS.LEVELS_LIST[level_idx])
+		WORLD.game:load_location(DEFS.LOCATIONS.BY_ID.ZONE_1.id, DEFS.LEVELS.LEVELS_LIST[1])
 		self:close()
 	end)
 end
@@ -72,7 +63,6 @@ function Script:update(dt)
 end
 
 function Script:on_input(action_id, action)
-	if self.views.btn_next:on_input(action_id, action) then return true end
 	if self.views.btn_restart:on_input(action_id, action) then return true end
 
 end
@@ -87,7 +77,7 @@ function Script:on_storage_changed()
 end
 
 function Script:on_language_changed()
-	self.views.title_lbl:set_text(COMMON.LOCALIZATION:translate("completed_title"))
+	--self.views.title_lbl:set_text(COMMON.LOCALIZATION:translate("completed_title"))
 end
 
 COMMON.N28S.register_scripts({ Script() })

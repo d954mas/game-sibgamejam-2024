@@ -226,6 +226,7 @@ function GameWorld:die(e)
 				coroutine.yield()
 			end
 			go.set_scale(vmath.vector3(0.01),e.player_go.model.root)
+			self.world.sounds:play_sound(self.world.sounds.sounds.lose)
 			self:teleport(e, self.level_creator.player_spawn_position, function()
 				e.die = false
 				e.moving = false
