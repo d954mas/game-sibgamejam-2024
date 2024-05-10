@@ -4,16 +4,16 @@ local M = {}
 
 local CAMERA_HUB = {
 	config = {
-		position = vmath.rotate(vmath.quat_rotation_x(math.rad(-60)), vmath.vector3(0, 0, 1)) * 20,
+		position = vmath.rotate(vmath.quat_rotation_x(math.rad(-60)), vmath.vector3(0, 0, 1)) * 17,
 		pitch = { value = math.rad(-60) },
 		fov = math.rad(60),
 		yaw = { value = math.rad(0)
 		}
 	},
 	config_portrait = {
-		position = vmath.rotate(vmath.quat_rotation_x(math.rad(-60)), vmath.vector3(0, 0, 1)) * 25,
-		pitch = { value = math.rad(-50) },
-		fov = math.rad(60),
+		position = vmath.rotate(vmath.quat_rotation_x(math.rad(-60)), vmath.vector3(0, 0, 1)) * 21,
+		pitch = { value = math.rad(-60) },
+		fov = math.rad(40),
 		yaw = { value = math.rad(0) }
 	},
 }

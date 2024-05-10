@@ -101,9 +101,9 @@ function System:update(dt)
 	player.camera.position.y = math.max(player.camera.position.y, config.position.y)
 
 	local fov = config.fov
-	--if (COMMON.RENDER.screen_size.aspect < 1) then
-	--	fov = 2 * math.atan(math.tan(config.fov / 2) * 1 / COMMON.RENDER.screen_size.aspect)
-	--end
+	if (COMMON.RENDER.screen_size.aspect < 1) then
+		fov = 2 * math.atan(math.tan(config.fov / 2) * 1 / COMMON.RENDER.screen_size.aspect)
+	end
 
 	game.camera_set_fov(fov)
 	game.camera_set_view_position(player.camera.position)
