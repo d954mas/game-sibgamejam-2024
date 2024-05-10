@@ -21,7 +21,7 @@ function System:update(dt)
 		local e = entities[i]
 		local cell, cell_x, cell_y = nil
 		local last_jump_time = time - e.jump_last_time
-		if e.position.y < 0.05 and e.physics_linear_velocity.y <= 0.05 and last_jump_time > 1 / 60 then
+		if ((e.position.y < 0.05 and e.physics_linear_velocity.y <= 0.05) or e.on_ground) and last_jump_time > 1 / 60 then
 			cell, cell_x, cell_y = self.world.game_world.game.level_creator:get_cell(e.position.x, e.position.z)
 		end
 		if cell then
@@ -53,6 +53,9 @@ function System:update(dt)
 					local level_idx = self.world.game_world.game.level_creator.location.level.id
 					self.world.game_world.game.actions:add_action(function()
 						COMMON.INPUT.IGNORE = true
+						local player = self.world.game_world.game.level_creator.player
+						msg.post(assert(player.player_go.collision), COMMON.HASHES.MSG.DISABLE)
+
 						self.world.game_world.storage.levels:level_completed(level_idx, 0, 0)
 						COMMON.coroutine_wait(0.5)
 						while (self.world.game_world.sm:is_working() or
