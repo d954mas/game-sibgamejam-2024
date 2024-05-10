@@ -63,7 +63,13 @@ function System:update(dt)
 							coroutine.yield()
 						end
 						COMMON.INPUT.IGNORE = false
-						self.world.game_world.sm:show(self.world.game_world.sm.MODALS.COMPLETED)
+						local index = COMMON.LUME.findi(DEFS.LEVELS.LEVELS_LIST,level_idx)+1
+						if DEFS.LEVELS.LEVELS_LIST[index]then
+							self.world.game_world.game:load_location(DEFS.LOCATIONS.BY_ID.ZONE_1.id,DEFS.LEVELS.LEVELS_LIST[index])
+						else
+							self.world.game_world.sm:show(self.world.game_world.sm.MODALS.COMPLETED)
+						end
+
 					end)
 				end
 
