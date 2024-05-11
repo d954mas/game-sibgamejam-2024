@@ -179,7 +179,19 @@ M.BY_ID = {
 
 	},
 
-
+	SQUAD_GAME_BIG = {
+		cells = {
+			"uuUUUuuuE",
+			"u0U0UUU0u",
+			"uU0000UUU",
+			"uU000uuuu",
+			"uu0UP0u0u",
+			"uUUU0UuUu",
+			"uu0u0u00u",
+			"uU0U0U0Uu",
+			"u0u0u0u0u",
+		},
+	},
 
 	SQUAD_GAME = {
 		cells = {
@@ -210,9 +222,10 @@ M.LEVELS_LIST = {
 	M.BY_ID.EASY_4.id,
 	M.BY_ID.MOVE_BLOCK.id,
 	M.BY_ID.MOVE_BLOCK_2_LINES.id,
+	M.BY_ID.SQUAD_GAME.id,
 	M.BY_ID.MOVE_BLOCK_GPT1.id,
 	M.BY_ID.CENTRAL.id,
-	M.BY_ID.SQUAD_GAME.id,
+	M.BY_ID.SQUAD_GAME_BIG.id,
 }
 
 return M
