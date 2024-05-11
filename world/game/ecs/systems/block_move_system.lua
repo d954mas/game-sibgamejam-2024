@@ -56,6 +56,17 @@ function System:update(dt)
 
 		xmath.mul(e.physics_linear_velocity, TARGET_DIR, max_speed)
 		physics.wakeup(e.cell_go.collision)
+
+		local player = self.world.game_world.game.level_creator.player
+		if player.on_ground and not player.moving then
+			local dpos = player.position - e.position
+			dpos.y = 0
+			if vmath.length(dpos) < 1.75 then
+				player.physics_linear_velocity.x = player.physics_linear_velocity.x + e.physics_linear_velocity.x
+				--player.physics_linear_velocity.y =  player.physics_linear_velocity.y + e.physics_linear_velocity.y
+				player.physics_linear_velocity.z = player.physics_linear_velocity.z + e.physics_linear_velocity.z
+			end
+		end
 	end
 end
 

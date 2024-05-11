@@ -85,6 +85,12 @@ function Entities:on_entity_removed(e)
 		if e.child_go.model.mesh then e.child_go.model.mesh:dispose() end
 		e.child_go = nil
 	end
+
+	if e.cell_go then
+		go.delete(e.cell_go.root, true)
+		e.cell_go = nil
+	end
+
 	if e.level_cells then
 		local map = e.level_cells.map
 		local w = #map[1]
@@ -285,6 +291,7 @@ function Entities:create_move_block(level, cfg)
 		table.insert(e.path_movement.targets, self:cell_to_pos(level, cell.x, cell.y))
 	end
 	e.position = vmath.vector3(e.path_movement.targets[1])
+	e.position.y = 0.25--fixed some fall on start
 
 	local urls = collectionfactory.create(FACTORY_URL_BLOCK_MOVE, e.position)
 	local cell_go = {
