@@ -48,7 +48,7 @@ nodes {
   id: "btn_top_panel_show"
   layer: "below"
   inherit_alpha: true
-  alpha: 0.5
+  alpha: 0.0
   template: "/assets/templates/base/debug_button_round_text.gui"
   template_node_child: false
   custom_type: 0

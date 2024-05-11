@@ -184,7 +184,7 @@ function Storage:_init_storage()
 		options = {
 			sound = true,
 			music = true,
-			draw_shadows = not html5 or not COMMON.is_mobile(),
+			draw_shadows = true, --not html5 or not COMMON.is_mobile(),
 			language = sys.get_sys_info().language
 		},
 		daily_tasks = {
