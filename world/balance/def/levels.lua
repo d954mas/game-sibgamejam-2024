@@ -192,6 +192,37 @@ M.BY_ID = {
 			"u0u0u0u0u",
 		},
 	},
+	ADVANCED_MAZE_3 = {
+		cells = {
+			"000000000",
+			"000000000",
+			"0U0000B00",
+			"0uBu0u0U0",
+			"00B000E00",
+			"00U000000",
+			"0U0U000U0",
+			"Bu0U0u0u0",
+			"B00000P00",
+		},
+		objects = {
+			{
+				type = "move_block",
+				speed = 4,
+				path = {
+					{ x = 2, y = 9, pause = 0.5 },
+					{ x = 6, y = 9, pause = 0.5 },
+				},
+			},
+			{
+				type = "move_block",
+				speed = 4,
+				path = {
+					{ x = 2, y = 2, pause = 0.5 },
+					{ x = 9, y = 2, pause = 0.5 },
+				},
+			}
+		}
+	},
 
 	SQUAD_GAME = {
 		cells = {
@@ -226,6 +257,7 @@ M.LEVELS_LIST = {
 	M.BY_ID.MOVE_BLOCK_GPT1.id,
 	M.BY_ID.CENTRAL.id,
 	M.BY_ID.SQUAD_GAME_BIG.id,
+	M.BY_ID.ADVANCED_MAZE_3.id,
 }
 
 return M
