@@ -91,6 +91,9 @@ function GameWorld:game_loaded()
 	else
 		self:load_location(def.id, level_def.id)
 	end
+	if html_utils then
+		html_utils.focus()
+	end
 	--call gc while loading bg is still on screen
 	collectgarbage("collect")
 end
