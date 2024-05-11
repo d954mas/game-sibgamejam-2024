@@ -4,13 +4,14 @@ local OLD_MOUNTS = {
 	"liveupdate",
 	"liveupdate_resources1.zip",
 	"liveupdate_resources2.zip",
+	"liveupdate_resources3.zip",
 }
 
 local VERSION = 1
 local M = {}
 
 local external_data = {
-	name = "liveupdate_resources3.zip", ---Name for zip archive
+	name = "liveupdate_resources4.zip", ---Name for zip archive
 	path = "./"  ---Here we indicate the path to the file. I set root folder
 }
 
