@@ -285,6 +285,7 @@ function Entities:create_move_block(level, cfg)
 	e.path_movement = {
 		cell_idx = 1,
 		pause_time = 0,
+		direction = 1,
 		targets = {}
 	}
 	for _, cell in ipairs(cfg.path) do

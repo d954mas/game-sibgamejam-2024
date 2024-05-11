@@ -35,11 +35,29 @@ function System:update(dt)
 		local need_movement = next_target - current_position
 
 		-- Determine if the block has reached the vicinity of the target
-		if vmath.length(need_movement) < 0.1 then
-			-- Move to the next target in the path
-			e.path_movement.cell_idx = e.path_movement.cell_idx + 1
-			if e.path_movement.cell_idx > #e.path_movement.targets then
-				e.path_movement.cell_idx = 1 -- Loop back to the first target
+		if vmath.length(need_movement) < 0.05 then
+			if not e.path_movement.pause then
+				print("PAUSE")
+				e.path_movement.pause = true
+				e.path_movement.pause_time = e.move_block.path[e.path_movement.cell_idx].pause or 0
+			end
+		end
+
+		if e.path_movement.pause then
+			e.path_movement.pause_time = e.path_movement.pause_time - dt
+			if e.path_movement.pause_time <= 0 then
+				e.path_movement.cell_idx = e.path_movement.cell_idx + e.path_movement.direction
+				-- Move to the next target in the path
+				if e.path_movement.cell_idx > #e.path_movement.targets then
+					e.path_movement.direction = -1
+					e.path_movement.cell_idx = #e.path_movement.targets - 1
+				end
+				if e.path_movement.cell_idx <= 0 then
+					e.path_movement.direction = 1
+					e.path_movement.cell_idx = 2
+				end
+				e.path_movement.pause = false
+				e.path_movement.pause_time = 0
 			end
 		end
 
@@ -49,12 +67,14 @@ function System:update(dt)
 			xmath.normalize(TARGET_DIR, TARGET_DIR)
 		end
 
-		local vel = TARGET_DIR, max_speed
-		if vmath.length(vel) > vmath.length(need_movement) then
-			vel = vel * vmath.length(need_movement) / vmath.length(vel)
+		local vel = TARGET_DIR * max_speed
+		if vmath.length(vel*dt) > vmath.length(need_movement) then
+			vel = vel * vmath.length(need_movement) / vmath.length(vel*dt)
 		end
 
-		xmath.mul(e.physics_linear_velocity, TARGET_DIR, max_speed)
+		e.physics_linear_velocity.x = vel.x
+		e.physics_linear_velocity.y = vel.y
+		e.physics_linear_velocity.z = vel.z
 		physics.wakeup(e.cell_go.collision)
 
 		local player = self.world.game_world.game.level_creator.player
