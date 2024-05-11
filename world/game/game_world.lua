@@ -221,12 +221,12 @@ function GameWorld:die(e)
 		e.die = true
 		COMMON.INPUT.IGNORE = true
 		self.actions:add_action(function()
+			self.world.sounds:play_sound(self.world.sounds.sounds.lose)
 			COMMON.coroutine_wait(e.position.y < -6 and 0.5 or 2.5)
 			while (self.world.sm:is_working() or self.world.sm:get_top()._name ~= self.world.sm.SCENES.GAME) do
 				coroutine.yield()
 			end
 			go.set_scale(vmath.vector3(0.01),e.player_go.model.root)
-			self.world.sounds:play_sound(self.world.sounds.sounds.lose)
 			self:teleport(e, self.level_creator.player_spawn_position, function()
 				e.die = false
 				e.moving = false

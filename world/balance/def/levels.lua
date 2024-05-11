@@ -22,6 +22,15 @@ M.BY_ID = {
 	},
 	TUTORIAL_3 = {
 		cells = {
+			"E0",
+			"00",
+			"B0",
+			"00",
+			"P0",
+		},
+	},
+	SQUAD_GAME = {
+		cells = {
 			"0E",
 			"Uu",
 			"uU",
@@ -43,6 +52,7 @@ M.LEVELS_LIST = {
 	M.BY_ID.TUTORIAL_1.id,
 	M.BY_ID.TUTORIAL_2.id,
 	M.BY_ID.TUTORIAL_3.id,
+	M.BY_ID.SQUAD_GAME.id,
 }
 
 return M
