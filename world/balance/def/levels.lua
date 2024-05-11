@@ -29,6 +29,46 @@ M.BY_ID = {
 			"P0",
 		},
 	},
+	EASY_1 = {
+		cells = {
+			"E",
+			"0",
+			"B",
+			"B",
+			"0",
+			"P"
+		}
+	},
+	EASY_2 = {
+		cells = {
+			"00E",
+			"00B",
+			"0B0",
+			"B0B",
+			"PB0",
+		}
+	},
+	EASY_3 = {
+		cells = {
+			"00E",
+			"0B0",
+			"B00",
+			"0B0",
+			"P00"
+		}
+	},
+	EASY_4 = {
+		cells = {
+			"00E00",
+			"000B0",
+			"B000B",
+			"0BBB0",
+			"PB0B0"
+		}
+	},
+
+
+
 	SQUAD_GAME = {
 		cells = {
 			"0E",
@@ -52,6 +92,10 @@ M.LEVELS_LIST = {
 	M.BY_ID.TUTORIAL_1.id,
 	M.BY_ID.TUTORIAL_2.id,
 	M.BY_ID.TUTORIAL_3.id,
+	M.BY_ID.EASY_1.id,
+	M.BY_ID.EASY_2.id,
+	M.BY_ID.EASY_3.id,
+	M.BY_ID.EASY_4.id,
 	M.BY_ID.SQUAD_GAME.id,
 }
 

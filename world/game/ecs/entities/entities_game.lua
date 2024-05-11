@@ -198,7 +198,7 @@ function Entities:create_player(position)
 	e.jump_last_time = -1
 	e.physics_reset_y_velocity = 0
 	e.jump = {
-		power = 350
+		power = 335
 	}
 
 	local urls = collectionfactory.create(FACTORY_URL_PLAYER, e.position)
