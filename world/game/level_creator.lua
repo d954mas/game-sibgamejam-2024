@@ -73,7 +73,8 @@ function Creator:create_level(id)
 		exit_cell = { x = 1, y = 1 },
 		map = {
 
-		}
+		},
+		objects = level_def.objects or {}
 	}
 
 	level.size.h = #level_cells
@@ -133,6 +134,16 @@ function Creator:create_location(location_id, level_id)
 
 	for _, object in ipairs(self.location.def.objects) do
 
+	end
+
+	pprint(self.location.level)
+	for _, object in ipairs(self.location.level.objects) do
+		if object.type == "move_block" then
+			local e = self.entities:create_move_block(self.location.level, object)
+			self.ecs:add_entity(e)
+		else
+			error("Unknown object type:" .. object.type)
+		end
 	end
 
 	COMMON.EVENTS.LEVEL_CHANGED:trigger()

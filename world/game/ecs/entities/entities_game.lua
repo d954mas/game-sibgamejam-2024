@@ -9,6 +9,7 @@ local TABLE_INSERT = table.insert
 local FACTORY_URL_PLAYER = msg.url("game_scene:/factory#player")
 local FACTORY_URL_CHILD = msg.url("game_scene:/factory#child")
 local FACTORY_URL_ENEMY = msg.url("game_scene:/factory#enemy")
+local FACTORY_URL_BLOCK_MOVE = msg.url("game_scene:/factory#cell_block_move")
 
 local DIR_UP = vmath.vector3(0, 1, 0)
 
@@ -269,6 +270,46 @@ function Entities:create_child(position)
 	e.physics_object = game.physics_object_create(e.child_go.root, e.child_go.collision, e.position, e.physics_linear_velocity)
 	e.mass = go.get(e.child_go.collision, COMMON.HASHES.MASS)
 	return e
+end
+
+function Entities:create_move_block(level, cfg)
+	---@type EntityGame
+	local e = {}
+	e.move_block = cfg
+	e.path_movement = {
+		cell_idx = 1,
+		pause_time = 0,
+		targets = {}
+	}
+	for _, cell in ipairs(cfg.path) do
+		table.insert(e.path_movement.targets, self:cell_to_pos(level, cell.x, cell.y))
+	end
+	e.position = vmath.vector3(e.path_movement.targets[1])
+
+	local urls = collectionfactory.create(FACTORY_URL_BLOCK_MOVE, e.position)
+	local cell_go = {
+		root = msg.url(assert(urls[PARTS.ROOT])),
+		block = msg.url(urls[PARTS.BLOCK]),
+	}
+	if cell_go.block then
+		local spawn_dy = level.spawn_cell.y - cfg.path[1].y
+		local spawn_dx = level.spawn_cell.x - cfg.path[1].x
+		local scale = go.get_scale(cell_go.block)
+		go.set_scale(vmath.vector3(0.001), cell_go.block)
+		local distance = math.sqrt(spawn_dy * spawn_dy + spawn_dx * spawn_dx)
+		go.animate(cell_go.block, "scale", go.PLAYBACK_ONCE_FORWARD, scale, go.EASING_OUTQUAD, 0.2, (distance) * 0.1)
+	end
+	e.cell_go = cell_go
+	e.cell_go.collision = COMMON.LUME.url_component_from_url(e.cell_go.root, "collision")
+	e.physics_linear_velocity = vmath.vector3()
+	e.physics_object = game.physics_object_create(e.cell_go.root, e.cell_go.collision, e.position, e.physics_linear_velocity)
+	e.mass = go.get(e.cell_go.collision, COMMON.HASHES.MASS)
+
+	return e
+end
+
+function Entities:cell_to_pos(level, x, y)
+	return vmath.vector3(x * level.cell_size.w - level.cell_size.w / 2, 0, y * level.cell_size.h - level.cell_size.h / 2)
 end
 
 function Entities:create_level_cells(level)

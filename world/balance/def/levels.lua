@@ -67,6 +67,25 @@ M.BY_ID = {
 		}
 	},
 
+	MOVE_BLOCK = {
+		cells = {
+			"E",
+			"0",
+			"0",
+			"0",
+			"P",
+		},
+		objects = {
+			{
+				type = "move_block",
+				speed = 100,
+				path = {
+					{ x = 1, y = 2, pause = 1 },
+					{ x = 1, y = 4, pause = 1 },
+				},
+			}
+		}
+	},
 
 
 	SQUAD_GAME = {
@@ -96,6 +115,7 @@ M.LEVELS_LIST = {
 	M.BY_ID.EASY_2.id,
 	M.BY_ID.EASY_3.id,
 	M.BY_ID.EASY_4.id,
+	M.BY_ID.MOVE_BLOCK.id,
 	M.BY_ID.SQUAD_GAME.id,
 }
 
