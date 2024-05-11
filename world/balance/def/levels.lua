@@ -223,6 +223,63 @@ M.BY_ID = {
 			}
 		}
 	},
+	FINAL_CHALLENGE_15 = {
+		cells = {
+			"BB0000000",
+			"BB0000000",
+			"BB0000000",
+			"B00000000",
+			"B000P0B00",
+			"Bu0000000",
+			"B00000B00",
+			"B0E0000U0",
+			"BBB000000",
+		},
+		objects = {
+			{
+				type = "move_block",
+				speed = 4,
+				loop = true,
+				path = {
+					{ x = 4, y = 4, pause = 0.25 },
+					{ x = 6, y = 4, pause = 0.25 },
+					{ x = 6, y = 6, pause = 0.25 },
+					{ x = 4, y = 6, pause = 0.25 },
+				},
+			},
+
+			{
+				type = "move_block",
+				speed = 4,
+				loop = true,
+				path = {
+					{ x = 5, y = 1, pause = 0.25 },
+					{ x = 3, y = 1, pause = 0.25 },
+					{ x = 3, y = 3, pause = 0.25 },
+					{ x = 5, y = 3, pause = 0.25 },
+
+
+
+				},
+			},
+
+			{
+				type = "move_block",
+				speed = 4,
+				loop = true,
+				path = {
+					{ x = 6, y = 1, pause = 0.25 },
+					{ x = 6, y = 3, pause = 0.25 },
+					{ x = 8, y = 3, pause = 0.25 },
+					{ x = 8, y = 1, pause = 0.25 },
+
+
+				},
+			},
+
+		}
+	},
+
 
 	SQUAD_GAME = {
 		cells = {
@@ -258,6 +315,7 @@ M.LEVELS_LIST = {
 	M.BY_ID.CENTRAL.id,
 	M.BY_ID.SQUAD_GAME_BIG.id,
 	M.BY_ID.ADVANCED_MAZE_3.id,
+	M.BY_ID.FINAL_CHALLENGE_15.id,
 }
 
 return M

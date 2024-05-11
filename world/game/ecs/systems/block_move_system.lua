@@ -49,8 +49,12 @@ function System:update(dt)
 				e.path_movement.cell_idx = e.path_movement.cell_idx + e.path_movement.direction
 				-- Move to the next target in the path
 				if e.path_movement.cell_idx > #e.path_movement.targets then
-					e.path_movement.direction = -1
-					e.path_movement.cell_idx = #e.path_movement.targets - 1
+					if e.move_block.loop then
+						e.path_movement.cell_idx = 1
+					else
+						e.path_movement.direction = -1
+						e.path_movement.cell_idx = #e.path_movement.targets - 1
+					end
 				end
 				if e.path_movement.cell_idx <= 0 then
 					e.path_movement.direction = 1
