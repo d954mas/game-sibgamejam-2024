@@ -78,7 +78,7 @@ M.BY_ID = {
 		objects = {
 			{
 				type = "move_block",
-				speed = 100,
+				speed = 4,
 				path = {
 					{ x = 1, y = 2, pause = 1 },
 					{ x = 1, y = 4, pause = 1 },
