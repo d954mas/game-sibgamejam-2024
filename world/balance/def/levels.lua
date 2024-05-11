@@ -80,12 +80,105 @@ M.BY_ID = {
 				type = "move_block",
 				speed = 4,
 				path = {
-					{ x = 1, y = 2, pause = 1 },
-					{ x = 1, y = 4, pause = 1 },
+					{ x = 1, y = 2, pause = 0.66 },
+					{ x = 1, y = 4, pause = 0.66 },
 				},
 			}
 		}
 	},
+
+	MOVE_BLOCK_2_LINES = {
+		cells = {
+			"00E00",
+			"00000",
+			"00000",
+			"00000",
+			"00P00",
+		},
+		objects = {
+			{
+				type = "move_block",
+				speed = 4,
+				path = {
+					{ x = 1, y = 2, pause = 0 },
+					{ x = 5, y = 2, pause = 0 },
+				},
+			},
+			{
+				type = "move_block",
+				speed = 4,
+				path = {
+					{ x = 5, y = 4, pause = 0 },
+					{ x = 1, y = 4, pause = 0 },
+				},
+			}
+		}
+	},
+	MOVE_BLOCK_GPT1 = {
+		cells = {
+			"00000",
+			"00000",
+			"00000",
+			"00000",
+			"P000E",
+		},
+		objects = {
+			{
+				type = "move_block",
+				speed = 4,
+				path = {
+					{ x = 2, y = 2, pause = 0.66 },
+					{ x = 4, y = 2, pause = 0.66  },
+				},
+			},
+			{
+				type = "move_block",
+				speed = 4,
+				path = {
+					{ x = 5, y = 4, pause = 0.66 },
+					{ x = 5, y = 2, pause = 0.66 },
+				},
+			},
+			{
+				type = "move_block",
+				speed = 4,
+				path = {
+					{ x = 1, y = 2, pause = 0.66 },
+					{ x = 1, y = 4, pause = 0.66 },
+				},
+			}
+		}
+	},
+	CENTRAL = {
+		cells = {
+			"000000u",
+			"B00000u",
+			"B00PuuE",
+			"B00000U",
+			"000000u",
+			"000000B"
+		},
+		objects = {
+			{
+				type = "move_block",
+				speed = 4,
+				path = {
+					{ x = 1, y = 1, pause = 0.66 },
+					{ x = 6, y = 1, pause = 0.66 },
+				},
+			},
+			{
+				type = "move_block",
+				speed = 4,
+				path = {
+					{ x = 6, y = 5, pause = 0.66 },
+					{ x = 1, y = 5, pause = 0.66 },
+				},
+			}
+		}
+
+	},
+
 
 
 	SQUAD_GAME = {
@@ -116,6 +209,9 @@ M.LEVELS_LIST = {
 	M.BY_ID.EASY_3.id,
 	M.BY_ID.EASY_4.id,
 	M.BY_ID.MOVE_BLOCK.id,
+	M.BY_ID.MOVE_BLOCK_2_LINES.id,
+	M.BY_ID.MOVE_BLOCK_GPT1.id,
+	M.BY_ID.CENTRAL.id,
 	M.BY_ID.SQUAD_GAME.id,
 }
 

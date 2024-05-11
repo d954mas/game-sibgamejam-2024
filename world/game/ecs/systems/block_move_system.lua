@@ -73,7 +73,7 @@ function System:update(dt)
 		end
 
 		e.physics_linear_velocity.x = vel.x
-		e.physics_linear_velocity.y = vel.y
+		e.physics_linear_velocity.y = vel.y + 10*dt
 		e.physics_linear_velocity.z = vel.z
 		physics.wakeup(e.cell_go.collision)
 
