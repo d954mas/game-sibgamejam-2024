@@ -1,7 +1,5 @@
 [project]
 dependencies#0 = https://github.com/defold/extension-poki-sdk/archive/refs/tags/1.6.0.zip
-dependencies#1 = https://github.com/GameAnalytics/GA-SDK-DEFOLD/archive/ac9be0952962942fc319a10fcdeca1eb7c587373.zip
-dependencies#2 = https://github.com/GameAnalytics/defold-openssl/archive/refs/tags/1.0.0.zip
 [game]
 target = poki
 

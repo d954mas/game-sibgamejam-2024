@@ -1,6 +1,6 @@
 [liveupdate]
 mode = Zip
-publickey = C:\Users\user\defold\sibgamejam\bob\liveupdate\public.der
-privatekey = C:\Users\user\defold\sibgamejam\bob\liveupdate\private.der
+publickey = C:\projects\game-sibgamejam-2024\bob\liveupdate\public.der
+privatekey = C:\projects\game-sibgamejam-2024\bob\liveupdate\private.der
 zip-filepath = C:\projects\game-sibgamejam-2024\bob\liveupdate\content
 
