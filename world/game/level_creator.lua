@@ -68,7 +68,7 @@ function Creator:create_level(id)
 	local level = {
 		id = id,
 		size = { w = 0, h = 0 },
-		cell_size = { w = 4, h = 4 },
+		cell_size = { w = 2, h = 2 },
 		spawn_cell = { x = 1, y = 1 },
 		exit_cell = { x = 1, y = 1 },
 		map = {
