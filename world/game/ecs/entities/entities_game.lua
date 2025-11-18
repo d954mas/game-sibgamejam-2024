@@ -67,7 +67,7 @@ function Entities:on_entity_removed(e)
 	end
 
 	if (e.physics_object) then
-		game.physics_object_destroy(e.physics_object)
+		e.physics_object:destroy()
 		e.physics_object = nil
 	end
 	if (e.distance_to_player_object) then
@@ -233,7 +233,7 @@ function Entities:create_player(position)
 	}
 	e.player_go.collision = COMMON.LUME.url_component_from_url(e.player_go.root, "collision")
 	e.physics_linear_velocity = vmath.vector3()
-	e.physics_object = game.physics_object_create(e.player_go.root, e.player_go.collision, e.position, e.physics_linear_velocity)
+	e.physics_object = game.new_physics_object(e.player_go.root, e.player_go.collision, e.position, e.physics_linear_velocity)
 	e.mass = go.get(e.player_go.collision, COMMON.HASHES.MASS)
 	return e
 end
@@ -273,7 +273,7 @@ function Entities:create_child(position)
 	}
 	e.child_go.collision = COMMON.LUME.url_component_from_url(e.child_go.root, "collision")
 	e.physics_linear_velocity = vmath.vector3()
-	e.physics_object = game.physics_object_create(e.child_go.root, e.child_go.collision, e.position, e.physics_linear_velocity)
+	e.physics_object = game.new_physics_object(e.child_go.root, e.child_go.collision, e.position, e.physics_linear_velocity)
 	e.mass = go.get(e.child_go.collision, COMMON.HASHES.MASS)
 	return e
 end
@@ -310,7 +310,7 @@ function Entities:create_move_block(level, cfg)
 	e.cell_go = cell_go
 	e.cell_go.collision = COMMON.LUME.url_component_from_url(e.cell_go.root, "collision")
 	e.physics_linear_velocity = vmath.vector3()
-	e.physics_object = game.physics_object_create(e.cell_go.root, e.cell_go.collision, e.position, e.physics_linear_velocity)
+	e.physics_object = game.new_physics_object(e.cell_go.root, e.cell_go.collision, e.position, e.physics_linear_velocity)
 	e.mass = go.get(e.cell_go.collision, COMMON.HASHES.MASS)
 
 	return e

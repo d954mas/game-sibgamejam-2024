@@ -6,8 +6,7 @@ bundle_exclude_resources =
 bundle_resources = assets/bundle
 publisher = 7Spot Games
 developer = 7Spot Games
-dependencies#0 = https://github.com/GameAnalytics/GA-SDK-DEFOLD/archive/ac9be0952962942fc319a10fcdeca1eb7c587373.zip
-dependencies#1 = https://github.com/GameAnalytics/defold-openssl/archive/refs/tags/1.0.0.zip
+dependencies = 
 
 [bootstrap]
 main_collection = /init.collectionc

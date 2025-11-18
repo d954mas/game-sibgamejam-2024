@@ -1,93 +1,103 @@
 platforms:
     armv7-ios:
         context:
-            excludeLibs: [record, vpx, profilerext, physics, Box2D, script_box2d]
-            excludeSymbols: [ProfilerExt, ScriptBox2DExt]
+            excludeLibs: [profilerext, Box2D, script_box2d, physics, box2d_defold, script_box2d_defold, profile, profiler_remotery, record, vpx]
+            excludeSymbols: [ProfilerExt, ScriptBox2DExt, ProfilerBasic, ProfilerRemotery]
             symbols: []
-            libs: [record_null, profilerext_null, physics_3d]
+            libs: [profilerext_null, physics_3d, profile_null, record_null]
             frameworks: []
             linkFlags: []
     arm64-ios:
         context:
-            excludeLibs: [record, vpx, profilerext, physics, Box2D, script_box2d]
-            excludeSymbols: [ProfilerExt, ScriptBox2DExt]
+            excludeLibs: [profilerext, Box2D, script_box2d, physics, box2d_defold, script_box2d_defold, profile, profiler_remotery, record, vpx]
+            excludeSymbols: [ProfilerExt, ScriptBox2DExt, ProfilerBasic, ProfilerRemotery]
             symbols: []
-            libs: [record_null, profilerext_null, physics_3d]
+            libs: [profilerext_null, physics_3d, profile_null, record_null]
             frameworks: []
             linkFlags: []
     x86_64-ios:
         context:
-            excludeLibs: [record, vpx, profilerext, physics, Box2D, script_box2d]
-            excludeSymbols: [ProfilerExt, ScriptBox2DExt]
+            excludeLibs: [profilerext, Box2D, script_box2d, physics, box2d_defold, script_box2d_defold, profile, profiler_remotery, record, vpx]
+            excludeSymbols: [ProfilerExt, ScriptBox2DExt, ProfilerBasic, ProfilerRemotery]
             symbols: []
-            libs: [record_null, profilerext_null, physics_3d]
+            libs: [profilerext_null, physics_3d, profile_null, record_null]
             frameworks: []
             linkFlags: []
     armv7-android:
         context:
-            excludeLibs: [record, vpx, profilerext, physics, Box2D, script_box2d]
+            excludeLibs: [profilerext, Box2D, script_box2d, physics, box2d_defold, script_box2d_defold, profile, profiler_remotery, record, vpx]
             excludeJars: []
-            excludeSymbols: [ProfilerExt, ScriptBox2DExt]
+            excludeSymbols: [ProfilerExt, ScriptBox2DExt, ProfilerBasic, ProfilerRemotery]
             symbols: []
-            libs: [record_null, profilerext_null, physics_3d]
+            libs: [profilerext_null, physics_3d, profile_null, record_null]
             linkFlags: []
             jetifier: true
     arm64-android:
         context:
-            excludeLibs: [record, vpx, profilerext, physics, Box2D, script_box2d]
+            excludeLibs: [profilerext, Box2D, script_box2d, physics, box2d_defold, script_box2d_defold, profile, profiler_remotery, record, vpx]
             excludeJars: []
-            excludeSymbols: [ProfilerExt, ScriptBox2DExt]
+            excludeSymbols: [ProfilerExt, ScriptBox2DExt, ProfilerBasic, ProfilerRemotery]
             symbols: []
-            libs: [record_null, profilerext_null, physics_3d]
+            libs: [profilerext_null, physics_3d, profile_null, record_null]
             linkFlags: []
             jetifier: true
     arm64-osx:
         context:
-            excludeLibs: [record, vpx, profilerext, physics, Box2D, script_box2d]
-            excludeSymbols: [ProfilerExt, ScriptBox2DExt]
-            libs: [record_null, profilerext_null, physics_3d]
+            excludeLibs: [profilerext, Box2D, script_box2d, physics, box2d_defold, script_box2d_defold, profile, profiler_remotery, record, vpx]
+            excludeSymbols: [ProfilerExt, ScriptBox2DExt, ProfilerBasic, ProfilerRemotery]
+            libs: [profilerext_null, physics_3d, profile_null, record_null]
     x86_64-osx:
         context:
-            excludeLibs: [record, vpx, profilerext, physics, Box2D, script_box2d]
-            excludeSymbols: [ProfilerExt, ScriptBox2DExt]
+            excludeLibs: [profilerext, Box2D, script_box2d, physics, box2d_defold, script_box2d_defold, profile, profiler_remotery, record, vpx]
+            excludeSymbols: [ProfilerExt, ScriptBox2DExt, ProfilerBasic, ProfilerRemotery]
             symbols: []
-            libs: [record_null, profilerext_null, physics_3d]
+            libs: [profilerext_null, physics_3d, profile_null, record_null]
             frameworks: []
             linkFlags: []
     x86_64-linux:
         context:
-            excludeLibs: [record, vpx, profilerext, physics, Box2D, script_box2d]
-            excludeSymbols: [ProfilerExt, ScriptBox2DExt]
+            excludeLibs: [profilerext, Box2D, script_box2d, physics, box2d_defold, script_box2d_defold, profile, profiler_remotery, record, vpx]
+            excludeSymbols: [ProfilerExt, ScriptBox2DExt, ProfilerBasic, ProfilerRemotery]
             symbols: []
-            libs: [record_null, profilerext_null, physics_3d]
+            libs: [profilerext_null, physics_3d, profile_null, record_null]
             linkFlags: []
+    arm64-linux:
+        context:
+            excludeLibs: [physics, box2d_defold, script_box2d_defold, profile, profilerext, profiler_remotery, record, vpx]
+            excludeSymbols: [ScriptBox2DExt, ProfilerBasic, ProfilerRemotery]
+            libs: [physics_3d, profile_null, profilerext_null, record_null]
     x86-win32:
         context:
-            excludeLibs: [librecord, vpx, libprofilerext, libphysics, libBox2D, libscript_box2d]
-            excludeSymbols: [ProfilerExt, ScriptBox2DExt]
+            excludeLibs: [libprofilerext, libBox2D, libscript_box2d, libphysics, libbox2d_defold, libscript_box2d_defold, libprofile, libprofiler_remotery, librecord, vpx]
+            excludeSymbols: [ProfilerExt, ScriptBox2DExt, ProfilerBasic, ProfilerRemotery]
             symbols: []
-            libs: [librecord_null.lib, libprofilerext_null.lib, libphysics_3d.lib]
+            libs: [libprofilerext_null.lib, libphysics_3d.lib, libprofile_null.lib, librecord_null.lib]
             linkFlags: []
     x86_64-win32:
         context:
-            excludeLibs: [librecord, vpx, libprofilerext, libphysics, libBox2D, libscript_box2d]
-            excludeSymbols: [ProfilerExt, ScriptBox2DExt]
+            excludeLibs: [libprofilerext, libBox2D, libscript_box2d, libphysics, libbox2d_defold, libscript_box2d_defold, libprofile, libprofiler_remotery, librecord, vpx]
+            excludeSymbols: [ProfilerExt, ScriptBox2DExt, ProfilerBasic, ProfilerRemotery]
             symbols: []
-            libs: [librecord_null.lib, libprofilerext_null.lib, libphysics_3d.lib]
+            libs: [libprofilerext_null.lib, libphysics_3d.lib, libprofile_null.lib, librecord_null.lib]
             linkFlags: []
     js-web:
         context:
-            excludeLibs: [record, vpx, profilerext, physics, Box2D, script_box2d]
+            excludeLibs: [profilerext, Box2D, script_box2d, physics, box2d_defold, script_box2d_defold, profile, profiler_js, record, vpx]
             excludeJsLibs: []
-            excludeSymbols: [ProfilerExt, ScriptBox2DExt]
+            excludeSymbols: [ProfilerExt, ScriptBox2DExt, ProfilerBasic, ProfilerJS, ProfilerRemotery]
             symbols: []
-            libs: [record_null, profilerext_null, physics_3d]
+            libs: [profilerext_null, physics_3d, profile_null, record_null]
             linkFlags: []
     wasm-web:
         context:
-            excludeLibs: [record, vpx, profilerext, physics, Box2D, script_box2d]
+            excludeLibs: [profilerext, Box2D, script_box2d, physics, box2d_defold, script_box2d_defold, profile, profiler_js, record, vpx]
             excludeJsLibs: []
-            excludeSymbols: [ProfilerExt, ScriptBox2DExt]
+            excludeSymbols: [ProfilerExt, ScriptBox2DExt, ProfilerBasic, ProfilerJS, ProfilerRemotery]
             symbols: []
-            libs: [record_null, profilerext_null, physics_3d]
+            libs: [profilerext_null, physics_3d, profile_null, record_null]
             linkFlags: []
+    wasm_pthread-web:
+        context:
+            excludeLibs: [physics, box2d_defold, script_box2d_defold, profile, profilerext, profiler_js, record, vpx]
+            excludeSymbols: [ScriptBox2DExt, ProfilerBasic, ProfilerJS, ProfilerRemotery]
+            libs: [physics_3d, profile_null, profilerext_null, record_null]

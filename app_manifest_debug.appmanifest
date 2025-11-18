@@ -1,7 +1,7 @@
 platforms:
     armv7-ios:
         context:
-            excludeLibs: [record, vpx, physics, Box2D, script_box2d]
+            excludeLibs: [record, vpx, Box2D, script_box2d, physics, box2d_defold, script_box2d_defold]
             excludeSymbols: [ScriptBox2DExt]
             symbols: []
             libs: [record_null, physics_3d]
@@ -9,7 +9,7 @@ platforms:
             linkFlags: []
     arm64-ios:
         context:
-            excludeLibs: [record, vpx, physics, Box2D, script_box2d]
+            excludeLibs: [record, vpx, Box2D, script_box2d, physics, box2d_defold, script_box2d_defold]
             excludeSymbols: [ScriptBox2DExt]
             symbols: []
             libs: [record_null, physics_3d]
@@ -17,7 +17,7 @@ platforms:
             linkFlags: []
     x86_64-ios:
         context:
-            excludeLibs: [record, vpx, physics, Box2D, script_box2d]
+            excludeLibs: [record, vpx, Box2D, script_box2d, physics, box2d_defold, script_box2d_defold]
             excludeSymbols: [ScriptBox2DExt]
             symbols: []
             libs: [record_null, physics_3d]
@@ -25,7 +25,7 @@ platforms:
             linkFlags: []
     armv7-android:
         context:
-            excludeLibs: [record, vpx, physics, Box2D, script_box2d]
+            excludeLibs: [record, vpx, Box2D, script_box2d, physics, box2d_defold, script_box2d_defold]
             excludeJars: []
             excludeSymbols: [ScriptBox2DExt]
             symbols: []
@@ -34,7 +34,7 @@ platforms:
             jetifier: true
     arm64-android:
         context:
-            excludeLibs: [record, vpx, physics, Box2D, script_box2d]
+            excludeLibs: [record, vpx, Box2D, script_box2d, physics, box2d_defold, script_box2d_defold]
             excludeJars: []
             excludeSymbols: [ScriptBox2DExt]
             symbols: []
@@ -43,12 +43,12 @@ platforms:
             jetifier: true
     arm64-osx:
         context:
-            excludeLibs: [record, vpx, physics, Box2D, script_box2d]
+            excludeLibs: [record, vpx, Box2D, script_box2d, physics, box2d_defold, script_box2d_defold]
             excludeSymbols: [ScriptBox2DExt]
             libs: [record_null, physics_3d]
     x86_64-osx:
         context:
-            excludeLibs: [record, vpx, physics, Box2D, script_box2d]
+            excludeLibs: [record, vpx, Box2D, script_box2d, physics, box2d_defold, script_box2d_defold]
             excludeSymbols: [ScriptBox2DExt]
             symbols: []
             libs: [record_null, physics_3d]
@@ -56,28 +56,33 @@ platforms:
             linkFlags: []
     x86_64-linux:
         context:
-            excludeLibs: [record, vpx, physics, Box2D, script_box2d]
+            excludeLibs: [record, vpx, Box2D, script_box2d, physics, box2d_defold, script_box2d_defold]
             excludeSymbols: [ScriptBox2DExt]
             symbols: []
             libs: [record_null, physics_3d]
             linkFlags: []
+    arm64-linux:
+        context:
+            excludeLibs: [physics, box2d_defold, script_box2d_defold, record, vpx]
+            excludeSymbols: [ScriptBox2DExt]
+            libs: [physics_3d, record_null]
     x86-win32:
         context:
-            excludeLibs: [librecord, vpx, libphysics, libBox2D, libscript_box2d]
+            excludeLibs: [librecord, vpx, libBox2D, libscript_box2d, libphysics, libbox2d_defold, libscript_box2d_defold]
             excludeSymbols: [ScriptBox2DExt]
             symbols: []
             libs: [librecord_null.lib, libphysics_3d.lib]
             linkFlags: []
     x86_64-win32:
         context:
-            excludeLibs: [librecord, vpx, libphysics, libBox2D, libscript_box2d]
+            excludeLibs: [librecord, vpx, libBox2D, libscript_box2d, libphysics, libbox2d_defold, libscript_box2d_defold]
             excludeSymbols: [ScriptBox2DExt]
             symbols: []
             libs: [librecord_null.lib, libphysics_3d.lib]
             linkFlags: []
     js-web:
         context:
-            excludeLibs: [record, vpx, physics, Box2D, script_box2d]
+            excludeLibs: [record, vpx, Box2D, script_box2d, physics, box2d_defold, script_box2d_defold]
             excludeJsLibs: []
             excludeSymbols: [ScriptBox2DExt]
             symbols: []
@@ -85,9 +90,14 @@ platforms:
             linkFlags: []
     wasm-web:
         context:
-            excludeLibs: [record, vpx, physics, Box2D, script_box2d]
+            excludeLibs: [record, vpx, Box2D, script_box2d, physics, box2d_defold, script_box2d_defold]
             excludeJsLibs: []
             excludeSymbols: [ScriptBox2DExt]
             symbols: []
             libs: [record_null, physics_3d]
             linkFlags: []
+    wasm_pthread-web:
+        context:
+            excludeLibs: [physics, box2d_defold, script_box2d_defold, record, vpx]
+            excludeSymbols: [ScriptBox2DExt]
+            libs: [physics_3d, record_null]

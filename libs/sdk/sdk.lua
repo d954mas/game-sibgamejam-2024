@@ -27,7 +27,7 @@ function Sdk:initialize(world)
 	end
 
 	if self.is_poki then
-		html5.run("navigator.sendBeacon('https://leveldata.poki.io/loaded', '63309b2f-ae49-4653-be9b-bb8c68ef0610')")
+	--	html5.run("navigator.sendBeacon('https://leveldata.poki.io/loaded', '63309b2f-ae49-4653-be9b-bb8c68ef0610')")
 	end
 
 end

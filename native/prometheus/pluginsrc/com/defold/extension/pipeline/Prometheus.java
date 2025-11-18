@@ -13,8 +13,11 @@ import com.defold.extension.pipeline.ILuaObfuscator;
 
 import com.dynamo.bob.Bob;
 import com.dynamo.bob.Platform;
+import com.dynamo.bob.logging.Logger;
 
 public class Prometheus implements ILuaObfuscator {
+
+	private static Logger logger = Logger.getLogger(Prometheus.class.getName());
 
 	private static final String[] PROMETHEUS_SOURCES = new String[] {
 		"/logger.lua",
@@ -56,11 +59,31 @@ public class Prometheus implements ILuaObfuscator {
 		"/prometheus/ast.lua",
 	};
 
+	private File unpackedRoot = null;
+	private File projectRoot = null;
+	private String luaJITExePath = null;
 
-	private static String minifierPath = null;
+	public Prometheus() throws java.lang.InstantiationException {
+		try {
+			unpackedRoot = Files.createTempDirectory(null).toFile();
+			logger.info("Unpacking Prometheus to %s", unpackedRoot);
+			for (String filename : PROMETHEUS_SOURCES) {
+				File destFile = new File(unpackedRoot, filename);
+				destFile.getParentFile().mkdirs();
+				destFile.deleteOnExit();
+				InputStream in = getClass().getResourceAsStream(filename);
+				Files.copy(in, destFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+				logger.info("Unpacking %s", destFile.toPath());
+			}
 
-	private static boolean unpackedSource = false;
-	private static File unpackedRoot = null;
+			Bob.initLua();
+			final Platform host = Platform.getHostPlatform();
+			luaJITExePath = Bob.getExe(host, host.is64bit() ? "luajit-64" : "luajit-32");
+		}
+		catch (Exception e) {
+			throw new java.lang.InstantiationException(e.getMessage());
+		}
+	}
 
 	private File createTempFile() throws IOException {
 		return File.createTempFile("prometheus", "");
@@ -87,42 +110,52 @@ public class Prometheus implements ILuaObfuscator {
 		return cli.toString();
 	}
 
-	private void unpackPrometheusSource() throws IOException {
-		if (unpackedSource) {
-			return;
+	/**
+	 * Find the project root by traversing the path "up" until a
+	 * game.project file is found
+	 * @param path The path to search
+	 * @return The project root
+	 */
+	private File getProjectRoot(String path) {
+		if (projectRoot != null) {
+			return projectRoot;
 		}
-
-		unpackedRoot = Files.createTempDirectory(null).toFile();
-
-		for (String filename : PROMETHEUS_SOURCES) {
-			File destFile = new File(unpackedRoot, filename);
-			destFile.getParentFile().mkdirs();
-			destFile.deleteOnExit();
-			InputStream in = getClass().getResourceAsStream(filename);
-			Files.copy(in, destFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+		File current = new File(path).getParentFile();
+		while (current != null) {
+			File gameProject = new File(current, "game.project");
+			if (gameProject.exists()) {
+				projectRoot = current;
+				break;
+			}
+			current = current.getParentFile();
 		}
-		unpackedSource = true;
+		return projectRoot;
 	}
 
 	@Override
 	public String obfuscate(String input, String path, String buildVariant) throws Exception {
 		if(buildVariant.equals(Bob.VARIANT_RELEASE)) {
 			try {
-				Bob.initLua();
-				unpackPrometheusSource();
+				File projectRoot = getProjectRoot(path);
+				if (projectRoot == null) {
+					throw new Exception("Unable to find project root for " + path);
+				}
 
 				File inputFile = writeToTempFile(input);
 				File outputFile = createTempFile();
+				File configFile = new File(projectRoot, "prometheus.lua");
 
 				// command line arguments to launch prometheus
 				List<String> options = new ArrayList<String>();
-				options.add(Bob.getExe(Platform.getHostPlatform(), "luajit-64"));
+				options.add(luaJITExePath);
 				options.add(getCliPath().toString());
 				options.add("--config");
-				options.add("prometheus.lua");
+				options.add(configFile.getAbsolutePath());
 				options.add("--out");
 				options.add(outputFile.getAbsolutePath());
 				options.add(inputFile.getAbsolutePath());
+
+				logger.info("Obfuscating %s to %s", path, outputFile);
 
 				// launch the process
 				ProcessBuilder pb = new ProcessBuilder(options).redirectErrorStream(true);
@@ -141,8 +174,11 @@ public class Prometheus implements ILuaObfuscator {
 					System.err.println(new String(output_bytes));
 					throw new Exception("Unable to run prometheus, return code: " + ret);
 				}
-				return readFile(outputFile);
-			} catch (Exception e) {
+				String o = readFile(outputFile);
+				// logger.info(o);
+				return o;
+			}
+			catch(Exception e) {
 				e.printStackTrace();
 				throw new Exception("Unable to run prometheus, ", e);
 			}

@@ -11,9 +11,10 @@
 #include "world.h"
 #include "objects/frustum_object.h"
 #include "objects/distance_object.h"
-#include "objects/physics_object.h"
 
-#include "physics_defold.h"
+#include "physics_object_userdata.h"
+#include "physics_utils.h"
+
 
 static const char PHYSICS_CONTEXT_NAME[] = "__PhysicsContext";
 static const uint32_t PHYSICS_CONTEXT_HASH = dmHashBuffer32(PHYSICS_CONTEXT_NAME,strlen(PHYSICS_CONTEXT_NAME));
@@ -194,126 +195,6 @@ static int FrustumObjectsListUpdateLua(lua_State *L) {
 }
 //endregion
 
-//region physics
-static int PhysicsCountMask(lua_State *L){
-    DM_LUA_STACK_CHECK(L, 1);
-    check_arg_count(L, 1);
-    uint32_t mask = 0;
-    luaL_checktype(L, 1, LUA_TTABLE);
-
-
-    dmScript::GetGlobal(L, PHYSICS_CONTEXT_HASH);
-    dmGameSystem::PhysicsScriptContext* context = (dmGameSystem::PhysicsScriptContext*)lua_touserdata(L, -1);
-    lua_pop(L, 1);
-
-    dmGameObject::HInstance sender_instance = dmScript::CheckGOInstance(L);
-    dmGameObject::HCollection collection = dmGameObject::GetCollection(sender_instance);
-    void* world = dmGameObject::GetWorld(collection, context->m_ComponentIndex);
-    if (world == 0x0)
-    {
-        return DM_LUA_ERROR("Physics world doesn't exist. Make sure you have at least one physics component in collection.");
-    }
-
-    lua_pushnil(L);
-    while (lua_next(L, 1) != 0)
-    {
-        mask |= dmGameSystem::CompCollisionGetGroupBitIndex(world, dmScript::CheckHash(L, -1));
-        lua_pop(L, 1);
-    }
-    lua_pushnumber(L,mask);
-    return 1;
-}
-
-int Physics_RayCastSingleExist(lua_State* L){
-    DM_LUA_STACK_CHECK(L, 1);
-
-    dmMessage::URL sender;
-    if (!dmScript::GetURL(L, &sender)) {
-        return luaL_error(L, "could not find a requesting instance for physics.raycast");
-    }
-
-    dmScript::GetGlobal(L, PHYSICS_CONTEXT_HASH);
-    dmGameSystem::PhysicsScriptContext* context = (dmGameSystem::PhysicsScriptContext*)lua_touserdata(L, -1);
-    lua_pop(L, 1);
-
-    dmGameObject::HInstance sender_instance = dmScript::CheckGOInstance(L);
-    dmGameObject::HCollection collection = dmGameObject::GetCollection(sender_instance);
-    void* world = dmGameObject::GetWorld(collection, context->m_ComponentIndex);
-    if (world == 0x0)
-    {
-        return DM_LUA_ERROR("Physics world doesn't exist. Make sure you have at least one physics component in collection.");
-    }
-
-    dmVMath::Point3 from( *dmScript::CheckVector3(L, 1) );
-    dmVMath::Point3 to( *dmScript::CheckVector3(L, 2) );
-
-    uint32_t mask = luaL_checknumber(L,3);
-
-
-    dmArray<dmPhysics::RayCastResponse> hits;
-    hits.SetCapacity(32);
-
-    dmPhysics::RayCastRequest request;
-    request.m_From = from;
-    request.m_To = to;
-    request.m_Mask = mask;
-    request.m_ReturnAllResults = 0;
-
-    dmGameSystem::RayCast(world, request, hits);
-    lua_pushboolean(L,!hits.Empty());
-    return 1;
-}
-
-int Physics_RayCastSingle(lua_State* L){
-  //  DM_LUA_STACK_CHECK(L, 4);
-
-    dmMessage::URL sender;
-    if (!dmScript::GetURL(L, &sender)) {
-        return luaL_error(L, "could not find a requesting instance for physics.raycast");
-    }
-
-    dmScript::GetGlobal(L, PHYSICS_CONTEXT_HASH);
-    dmGameSystem::PhysicsScriptContext* context = (dmGameSystem::PhysicsScriptContext*)lua_touserdata(L, -1);
-    lua_pop(L, 1);
-
-    dmGameObject::HInstance sender_instance = dmScript::CheckGOInstance(L);
-    dmGameObject::HCollection collection = dmGameObject::GetCollection(sender_instance);
-    void* world = dmGameObject::GetWorld(collection, context->m_ComponentIndex);
-    if (world == 0x0)
-    {
-        return luaL_error(L,"Physics world doesn't exist. Make sure you have at least one physics component in collection.");
-    }
-
-    dmVMath::Point3 from( *dmScript::CheckVector3(L, 1) );
-    dmVMath::Point3 to( *dmScript::CheckVector3(L, 2) );
-
-    uint32_t mask = luaL_checknumber(L,3);
-
-    dmArray<dmPhysics::RayCastResponse> hits;
-    hits.SetCapacity(32);
-
-    dmPhysics::RayCastRequest request;
-    request.m_From = from;
-    request.m_To = to;
-    request.m_Mask = mask;
-    request.m_ReturnAllResults = 0;
-
-    dmGameSystem::RayCast(world, request, hits);
-    lua_pushboolean(L,!hits.Empty());
-    if(hits.Empty()){
-        return 1;
-    }else{
-        dmPhysics::RayCastResponse& resp1 = hits[0];
-        lua_pushnumber(L,resp1.m_Position.getX());
-        lua_pushnumber(L,resp1.m_Position.getY());
-        lua_pushnumber(L,resp1.m_Position.getZ());
-
-        lua_pushnumber(L,resp1.m_Normal.getX());
-        lua_pushnumber(L,resp1.m_Normal.getY());
-        lua_pushnumber(L,resp1.m_Normal.getZ());
-        return 7;
-    }
-}
 //endregion
 
 //region Pathfinding
@@ -707,21 +588,18 @@ static const luaL_reg Module_methods[] = {
     { "frustum_object_create", FrustumObjectCreateLua },
     { "frustum_objects_list_update", FrustumObjectsListUpdateLua },
 
-    { "physics_object_create", d954masGame::PhysicsObjectCreate},
-    { "physics_object_destroy", d954masGame::PhysicsObjectDestroy},
-    { "physics_object_set_update_position", d954masGame::PhysicsObjectSetUpdatePosition},
-    { "physics_objects_update_variables", d954masGame::PhysicsObjectsUpdateVariables},
-    { "physics_objects_update_linear_velocity", d954masGame::PhysicsObjectsUpdateLinearVelocity},
-
     { "distance_object_create", d954masGame::DistanceObjectCreate},
     { "distance_object_destroy", d954masGame::DistanceObjectDestroy},
     { "distance_objects_update", d954masGame::DistanceObjectsUpdate},
 
 
-    { "physics_raycast_single_exist", Physics_RayCastSingleExist },
-    { "physics_raycast_single", Physics_RayCastSingle},
-    { "physics_count_mask", PhysicsCountMask},
 
+    {"new_physics_object", d954masGame::LuaCreatePhysicsObject},
+    {"physics_objects_update_variables", d954masGame::LuaPhysicsObjectsUpdateVariables},
+    {"physics_objects_update_linear_velocity", d954masGame::LuaPhysicsObjectsUpdateLinearVelocity},
+    {"physics_raycast_single_exist", d954masGame::LuaPhysicsUtilsRayCastSingleExist},
+    {"physics_raycast_single", d954masGame::LuaPhysicsUtilsRayCastSingle},
+    {"physics_count_mask", d954masGame::LuaPhysicsUtilsCountMask},
 
     { "pathfinding_is_blocked", PathfindingIsBlockedData},
     { "pathfinding_set_blocked", PathfindingSetBlockedData},
